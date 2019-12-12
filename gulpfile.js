@@ -17,7 +17,7 @@ gulp.task("hello", function() {
 gulp.task("browserSync", function() {
   browserSync.init({
     server: {
-      baseDir: "dist"
+      baseDir: "src"
     },
     ui: {
       port: 8010
@@ -44,7 +44,7 @@ gulp.task("sass", function() {
   return gulp
     .src("src/styles/scss/*.scss")
     .pipe(sass()) // Using gulp-sass
-    .pipe(gulp.dest("dist/"))
+    .pipe(gulp.dest("src/styles/css"))
     .pipe(
       browserSync.reload({
         stream: true
@@ -71,15 +71,16 @@ gulp.task("clean:dist", function() {
   return del.sync("dist/");
 });
 
-gulp.task("watch", gulp.series(["browserSync", "sass"]), function() {
+gulp.task("watch", function() {
   gulp.watch("src/styles/scss/*.scss", gulp.series(["sass"]));
+  gulp.watch("src/styles/scss/*.scss", browserSync.reload);
   gulp.watch("src/*.html", browserSync.reload);
   gulp.watch("js/js/**/*.js", browserSync.reload);
 });
 
 
   const serve = gulp.parallel(
-    'transfer','sass', 'watch'
+    'transfer','sass', 'browserSync','watch'
   );
 
    const build = gulp.series(
