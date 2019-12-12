@@ -7,19 +7,22 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node ./src/server/express.js",
-    "build": "webpack --config webpack.config.js"
+    "start": "webpack --config webpack.config.js"
   },
   "author": "Simon Braun",
   "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1",
-    "lodash": "^4.17.15"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "extract-loader": "^3.1.0",
-    "file-loader": "^5.0.2",
-    "html-loader": "^0.5.5",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
+    "browser-sync": "^2.26.7",
+    "css-loader": "^3.2.1",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-cache": "^1.1.3",
+    "gulp-imagemin": "^6.2.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.2",
+    "gulp-useref": "^4.0.0",
+    "gulp-watch": "^5.0.1",
+    "run-sequence": "^2.2.1"
   }
 }
