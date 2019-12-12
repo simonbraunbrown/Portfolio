@@ -4,7 +4,8 @@ body {
 body .headline {
   width: 400px;
   margin: 0 auto;
-  font-size: 50px; }
+  font-size: 50px;
+  background: grey; }
 
 .imageContainer {
   width: 100%;
