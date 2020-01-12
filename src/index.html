@@ -1,52 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
     <!--build:css css/styles.min.css-->
-    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="./styles/css/style.css" media="screen"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./styles/css/style.css" media="screen" />
     <!--endbuild-->
 </head>
+
 <body>
     <div class="header">
         <h1 class="headline">portfolio</h1>
     </div>
     <div class="imageContainer">
-        <div class="imageDisplay"></div>
-        <div class="image" style="background-image: url(./images/displacement3.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/displacement3.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/displacement3.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/displacement4.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/displacement4.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/displacement4.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/displacement10.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/displacement10.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/displacement10.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/displace.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/displace.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/displace.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/mountain-01.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/mountain-01.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/mountain-01.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/mountain-02-01.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/mountain-02-01.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/mountain-02-01.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/YouTubeHistory_small.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/YouTubeHistory_small.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/YouTubeHistory_small.png" alt=""> -->
         </div>
-        <div class="image" style="background-image: url(./images/YouTubeHistory_all_small.png);">
+        <div class="wrapper">
+            <div class="image" style="background-image: url(./images/YouTubeHistory_all_small.png);"></div>
             <span class="info">Info......</span>
             <!-- <img class="img" src="./images/YouTubeHistory_all_small.png" alt=""> -->
+        </div>
+        <div class="imageDisplay">
+            <div class="buttonWrapper">
+                <button class="closeButton">X</button>
+            </div>
+            <div id="anchor"></div>
         </div>
     </div>
     <div class="footer">
@@ -57,6 +72,7 @@
         </div>
     </div>
 </body>
+
 </html>
 
 <!--build:js js/main.min.js -->
