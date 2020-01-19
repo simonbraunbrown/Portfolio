@@ -1,13 +1,13 @@
-var gulp = require("gulp");
-var sass = require("gulp-sass");
-var imagemin = require("gulp-imagemin");
-var cache = require('gulp-cache');
-var browserSync = require("browser-sync").create();
-var useref = require("gulp-useref");
-var uglify = require("gulp-uglify");
-var gulpIf = require("gulp-if");
-var del = require("del");
-var runSequence = require('run-sequence');
+const gulp = require("gulp");
+const sass = require("gulp-sass");
+const imagemin = require("gulp-imagemin");
+const cache = require('gulp-cache');
+const browserSync = require("browser-sync").create();
+const useref = require("gulp-useref");
+const uglify = require("gulp-uglify");
+const gulpIf = require("gulp-if");
+const del = require("del");
+const runSequence = require('run-sequence');
 const { series, parallel } = require("gulp");
 
 gulp.task("hello", function() {
@@ -30,7 +30,7 @@ gulp.task("useref", function() {
   return gulp
     .src("src/*.html")
     .pipe(useref())
-    .pipe(gulpIf("*.js", uglify()))
+    // .pipe(gulpIf("*.js", uglify()))
     .pipe(gulp.dest("dist"));
 });
 
@@ -84,6 +84,7 @@ gulp.task("images", function() {
           interlaced: true
         })
     )
+    .pipe(imagemin())
     .pipe(gulp.dest("dist/images"));
 });
 
