@@ -1,9 +1,9 @@
 
-let imageContainer = document.querySelector('.imageContainer');
-let imageDisplay = imageContainer.querySelector('.imageDisplay');
-let images = imageContainer.querySelectorAll('.image');
-let imageWrappers = imageContainer.querySelectorAll('.imageWrapper');
-let button = document.querySelector('.closeButton');
+const imageContainer = document.querySelector('.imageContainer');
+const imageDisplay = imageContainer.querySelector('.imageDisplay');
+const images = imageContainer.querySelectorAll('.image');
+const imageWrappers = imageContainer.querySelectorAll('.imageWrapper');
+const button = document.querySelector('.closeButton');
 const canvasHeight = 150;
 
 imageWrappers.forEach((wrapper) =>{
@@ -73,7 +73,6 @@ const s = (sketch) => {
 
     sketch.setup = () => {
         canvas = sketch.createCanvas(sketch.windowWidth, canvasHeight);
-        console.log(sketch.windowWidth, sketch.windowHeight);
         //canvas.parent("sketch-footer");
         canvas.style("display", "block");
         canvas.style("max-width", "100%");
