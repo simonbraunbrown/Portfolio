@@ -97,8 +97,7 @@ async function cleanDist() {
 };
 
 function observe() {
-  watch(["src/styles/scss/*.scss"], handleSass());
-  watch(["src/styles/scss/*.scss"], browserSync.reload);
+  watch(["src/styles/scss/*.scss"], series(handleSass));
   watch(["src/*.html"], series(html));
   watch(["src/js/*.js"], series(js));
 };
