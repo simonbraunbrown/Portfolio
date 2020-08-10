@@ -50,9 +50,9 @@ imageWrappers.forEach((wrapper) =>{
 //     });
 // });
 
-button.addEventListener('click', () => {
-    imageDisplay.style.display = 'none';
-});
+// button.addEventListener('click', () => {
+//     imageDisplay.style.display = 'none';
+// });
 
 function expand(wrapper) {
     wrapper.classList.add('imageWrapper--expand');
