@@ -8,12 +8,22 @@ const canvasHeight = 150;
 
 imageWrappers.forEach((wrapper) =>{
     const self = wrapper;
+    const video = wrapper.querySelector('.image--video');
     wrapper.querySelector('.image').addEventListener('click', (e) =>{
         if (self.className !=('imageWrapper imageWrapper--expand')) {
+            imageWrappers.forEach((w) =>{
+                squeeze(w);
+            });
             expand(self);
+            if(video) {
+                video.play();
+            }
         }
         else {
             squeeze(self);
+            if(video) {
+                video.pause();
+            }
         }
     });
 });
@@ -46,15 +56,15 @@ button.addEventListener('click', () => {
 
 function expand(wrapper) {
     wrapper.classList.add('imageWrapper--expand');
-    const buttonWrapper = document.createElement('div');
-    buttonWrapper.className = 'buttonWrapper';
-    const button = document.createElement('button');
-    button.className = 'closeButton';
-    button.addEventListener('click', (e) => {
-        squeeze(wrapper);
-    });
-    buttonWrapper.appendChild(button)
-    wrapper.appendChild(buttonWrapper);
+    // const buttonWrapper = document.createElement('div');
+    // buttonWrapper.className = 'buttonWrapper';
+    // const button = document.createElement('button');
+    // button.className = 'closeButton';
+    // button.addEventListener('click', (e) => {
+    //     squeeze(wrapper);
+    // });
+    // buttonWrapper.appendChild(button)
+    // wrapper.appendChild(buttonWrapper);
     wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
 };
 
@@ -77,9 +87,10 @@ const s = (sketch) => {
         canvas.style("display", "block");
         canvas.style("max-width", "100%");
         sketch.background(0);
-        sketch.strokeWeight(3);
+        sketch.color(0);
+        sketch.strokeWeight(1);
         sketch.stroke(128);
-        sketch.frameRate(10);
+        sketch.frameRate(24);
     }
 
     sketch.windowResized = () => {
@@ -105,14 +116,26 @@ const s = (sketch) => {
 let myp5Footer = new p5(s, 'sketch-footer');
 
 myp5Footer.draw = () => {
+    if (myp5Footer.frameCount % 2 == 0) {
     myp5Footer.background(0, 50);
-    myp5Footer.frameRate(10);
+    }
+    myp5Footer.noFill();
+    const rand = myp5Footer.random(0,1);
+    const offset = 30;
+    const canvasWidth = myp5Footer.width;
+    const canvasHeight = myp5Footer.height;
 
-        if (myp5Footer.frameCount % 60 == 5) {
-            myp5Footer.frameRate(60);
-            for(let i = 0; i < 10; i++) {
-                myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
+        if (rand < 0.3) {
+            //myp5Footer.frameRate(60);
+                const w = myp5Footer.random(5, canvasWidth/3);
+                const h = myp5Footer.random(5, canvasHeight/2);
                 //myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
-            }
+                //myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
+                if (myp5Footer.mouseY >= 0 && myp5Footer.mouseY <= canvasHeight) {
+                    myp5Footer.rect(myp5Footer.random(myp5Footer.mouseX - offset, myp5Footer.mouseX + offset), myp5Footer.random(myp5Footer.mouseY - offset, myp5Footer.mouseY + offset), w/2, h/2);
+                }
+                else if (myp5Footer.mouseY < 0) {
+                    myp5Footer.rect(myp5Footer.random(0, canvasWidth - w), myp5Footer.random(0, canvasHeight - h), w, h);
+                }
         }
 } 
