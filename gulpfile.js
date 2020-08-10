@@ -1,8 +1,9 @@
-const gulp = require("gulp");
+const gulp = require('gulp');
+const {series, parallel, watch, task } = require("gulp");
 const sass = require("gulp-sass");
 const cleanCSS = require('gulp-clean-css');
-const autoprefixer = require("gulp-autoprefixer");
-const imagemin = require("gulp-imagemin");
+const autoPrefixer = require("gulp-autoprefixer");
+const imageMin = require("gulp-imagemin");
 const cache = require('gulp-cache');
 const browserSync = require("browser-sync").create();
 const useref = require("gulp-useref");
@@ -11,14 +12,24 @@ const rename = require("gulp-rename");
 const gulpIf = require("gulp-if");
 const del = require("del");
 const runSequence = require('run-sequence');
-const { series, parallel, watch, task } = require("gulp");
-const autoPrefixer = require("gulp-autoprefixer");
 
-function hello() {
+gulp.task('hello', function() {
   console.log("Hello Simon");
-};
+});
 
-function sync() {
+const AUTOPREFIXER_BROWSERS = [
+  'ie >= 10',
+  'ie_mob >= 10',
+  'ff >= 30',
+  'chrome >= 34',
+  'safari >= 7',
+  'opera >= 23',
+  'ios >= 7',
+  'android >= 4.4',
+  'bb >= 10'
+];
+
+ gulp.task('sync', function() {
   browserSync.init({
     server: {
       baseDir: "src"
@@ -28,30 +39,31 @@ function sync() {
     },
     port: 8080
   });
-};
+});
 
-function ref() {
+ gulp.task('ref', function() {
   return gulp
     .src("src/*.html")
     .pipe(useref())
     .pipe(gulpIf("*.js", terser()))
     .pipe(gulpIf("*.css",cleanCSS()))
     .pipe(gulp.dest("dist"));
-};
+});
 
-function handleSass() {
+ gulp.task('handleSass', function() {
   return gulp
     .src("src/styles/scss/*.scss")
     .pipe(sass()) // Using gulp-sass
+    .pipe(autoPrefixer())
     .pipe(gulp.dest("src/styles/css"))
     .pipe(
       browserSync.reload({
         stream: true
       })
     );
-};
+});
 
-function html() {
+ gulp.task('html', function() {
   return gulp
     .src("src/*.html")
     .pipe(
@@ -59,9 +71,9 @@ function html() {
         stream: true
       })
     );
-};
+});
 
-function js() {
+ gulp.task('js', function() {
   return gulp
     .src("src/js/*.js")
     .pipe(
@@ -69,59 +81,70 @@ function js() {
         stream: true
       })
     );
-};
+});
 
-function fonts() {
+ gulp.task('fonts', function() {
   return gulp.src("src/fonts/**/*").pipe(gulp.dest("dist/fonts"));
-};
+});
 
-function images() {
+ gulp.task('images', function() {
   return gulp
     .src("src/images/**/*.+(png|jpg|gif|svg)")
-    .pipe(
-        imagemin({
-          interlaced: true
-        })
-    )
+    .pipe(imageMin([
+			//gif minify
+			imageMin.gifsicle({interlaced: true}),
+			//jpg minify
+			imageMin.jpegtran({progressive: true}),
+			//png minify
+			imageMin.optipng({optimizationLevel: 5}),
+			//svg minify
+			imageMin.svgo({
+				plugins: [
+					{removeViewBox: true},
+					{cleanupIDs: false}
+				]
+			})
+			],{verbose: true}))
     .pipe(gulp.dest("dist/images"));
-};
+});
 
-function videos() {
+  gulp.task('videos', function() {
   return gulp
-  .src("src/images/**/*.mp4")
-  .pipe(gulp.dest("dist/images"));
-};
+  .src("src/videos/*.mp4")
+  .pipe(gulp.dest("dist/videos"));
+});
 
-async function cleanDist() {
+  gulp.task('cleanDist', async function() {
   return del.sync("dist/*");
-};
+});
 
-function observe() {
-  watch(["src/styles/scss/*.scss"], series(handleSass));
-  watch(["src/*.html"], series(html));
-  watch(["src/js/*.js"], series(js));
-};
+ gulp.task('observe', function() {
+  gulp.watch(["src/styles/scss/*.scss"], gulp.series('handleSass'));
+  gulp.watch(["src/*.html"], gulp.series('html'));
+  gulp.watch(["src/js/*.js"], gulp.series('js'));
+});
 
-async function autoPrefix () {
-  gulp.src('src/styles/css/style.css')
-      .pipe(autoprefixer({
+gulp.task('autoPrefix', function() {
+  gulp.src("src/styles/css/style.css")
+      .pipe(autoPrefixer({
           cascade: false
       }))
-      .pipe(gulp.dest('dist/'))
-    };
+      .pipe(gulp.dest("dist/"))
+    });
 
-async function makeUgly () {
-  gulp.src('src/js/main.js')
+  gulp.task('makeUgly', function() {
+  gulp.src("src/js/main.js")
       .pipe(terser())
       .pipe(rename({ extname: '.min.js' }))
-      .pipe(gulp.dest('dist/'))
-};
+      .pipe(gulp.dest("dist/"))
+});
 
-  exports.serve = parallel(handleSass, sync, observe
-  );
+// [] --> paralell ()--> sequence
 
-  exports.build = series(
-    cleanDist, handleSass,
-    parallel(ref, images, videos, fonts
-    )
-  );
+const serve = gulp.parallel('hello','handleSass', 'sync', 'observe');
+
+const build = gulp.series('cleanDist', 'handleSass', gulp.parallel('ref', 'fonts'), 'images', 'videos');
+
+exports.serve = serve;
+
+exports.build = build;
