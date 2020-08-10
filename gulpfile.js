@@ -46,7 +46,7 @@ const AUTOPREFIXER_BROWSERS = [
     .src("src/*.html")
     .pipe(useref())
     .pipe(gulpIf("*.js", terser()))
-    .pipe(gulpIf("*.css",cleanCSS()))
+    .pipe(gulpIf("*.css", cleanCSS()))
     .pipe(gulp.dest("dist"));
 });
 
@@ -143,7 +143,7 @@ gulp.task('autoPrefix', function() {
 
 const serve = gulp.parallel('hello','handleSass', 'sync', 'observe');
 
-const build = gulp.series('cleanDist', 'handleSass', gulp.parallel('ref', 'fonts'), 'images', 'videos');
+const build = gulp.series('cleanDist', 'handleSass','ref', 'fonts', 'images', 'videos');
 
 exports.serve = serve;
 
