@@ -2,16 +2,16 @@
 const imageContainer = document.querySelector('.imageContainer');
 const imageDisplay = imageContainer.querySelector('.imageDisplay');
 const images = imageContainer.querySelectorAll('.image');
-const imageWrappers = imageContainer.querySelectorAll('.imageWrapper');
+const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
 const button = document.querySelector('.closeButton');
 const canvasHeight = 150;
 
-imageWrappers.forEach((wrapper) =>{
+panelWrappers.forEach((wrapper) =>{
     const self = wrapper;
     const video = wrapper.querySelector('.image--video');
     wrapper.querySelector('.image').addEventListener('click', (e) =>{
-        if (self.className !=('imageWrapper imageWrapper--expand')) {
-            imageWrappers.forEach((w) =>{
+        if (self.className !=('panelWrapper panelWrapper--expand')) {
+            panelWrappers.forEach((w) =>{
                 squeeze(w);
             });
             expand(self);
@@ -55,7 +55,7 @@ imageWrappers.forEach((wrapper) =>{
 // });
 
 function expand(wrapper) {
-    wrapper.classList.add('imageWrapper--expand');
+    wrapper.classList.add('panelWrapper--expand');
     // const buttonWrapper = document.createElement('div');
     // buttonWrapper.className = 'buttonWrapper';
     // const button = document.createElement('button');
@@ -69,7 +69,7 @@ function expand(wrapper) {
 };
 
 function squeeze(wrapper) {
-    wrapper.classList.remove('imageWrapper--expand');
+    wrapper.classList.remove('panelWrapper--expand');
 }
 
 const s = (sketch) => {
