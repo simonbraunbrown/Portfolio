@@ -279,6 +279,25 @@ body {
       transition: transform 0.25s var(--base-transition-curve);
       transition: transform 0.25s var(--base-transition-curve), -webkit-transform 0.25s var(--base-transition-curve);
       pointer-events: none; }
+    .imageContainer .panelWrapper .arrowSide {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 12em;
+      height: 1.5em;
+      background-color: var(--highlight-color-dark);
+      -webkit-transform: rotate(0deg) translate(-10%, -50%);
+              transform: rotate(0deg) translate(-10%, -50%); }
+      .imageContainer .panelWrapper .arrowSide::after {
+        position: absolute;
+        content: '';
+        border: solid var(--highlight-color-dark);
+        border-width: 0 1.5em 1.5em 0;
+        padding: 3em;
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -50%) rotate(135deg);
+        -webkit-transform: translate(0, -50%) rotate(135deg); }
     .imageContainer .panelWrapper:nth-child(2n + 1) .info {
       left: 0%;
       -webkit-transform: translate(-100%, -50%);

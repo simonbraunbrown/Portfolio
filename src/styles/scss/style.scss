@@ -260,6 +260,27 @@ body {
       pointer-events: none;
     }
 
+    & .arrowSide {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      width: 12em;
+      height: 1.5em;
+      background-color: var(--highlight-color-dark);
+      transform: rotate(0deg) translate(-10%, -50%);
+      &::after {
+      position: absolute;
+      content: '';
+      border: solid var(--highlight-color-dark);
+      border-width: 0 1.5em 1.5em 0;
+      padding: 3em;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%) rotate(135deg);
+      -webkit-transform: translate(0, -50%) rotate(135deg);
+      }
+    }
+
     &:nth-child(2n + 1) {
       & .info {
         left: 0%;
