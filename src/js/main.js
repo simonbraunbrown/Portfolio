@@ -5,6 +5,41 @@ const images = imageContainer.querySelectorAll('.image');
 const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
 const button = document.querySelector('.closeButton');
 const canvasHeight = 150;
+let elementBodyOffsets = [];
+let loaded = false;
+
+document.addEventListener("DOMContentLoaded", function(event) {
+    console.log("DOM fully loaded");
+    loaded = true;
+    panelWrappers.forEach((wrapper) => {
+        const bodyRect = document.body.getBoundingClientRect();
+        const wrapperRect = wrapper.getBoundingClientRect();
+        const elementBodyOffset = wrapperRect.top - bodyRect.top;
+        const wrapperHeight = wrapperRect.bottom - wrapperRect.top;
+        const values = {'element': wrapper, 'elementBodyOffset': elementBodyOffset, 'elementHeight': wrapperHeight};
+        elementBodyOffsets.push(values);
+      });
+      toogleOnScroll(elementBodyOffsets);
+  });
+
+  function toogleOnScroll(_elementBodyOffsets) {
+    const elementBodyOffsets = _elementBodyOffsets;
+    window.addEventListener('scroll', function(e) {
+        const ebos = elementBodyOffsets;
+        let y = Math.floor(window.scrollY);
+        for (let i = 0; i < ebos.length; i++) {
+            const eH = ebos[i].elementHeight;
+            const eBO = Math.floor(ebos[i].elementBodyOffset);
+            if (y >= eBO - eH && y <= eBO) {
+                //console.log(':)', y, ebos[i], i);
+                ebos[i].element.style.border = '2px solid red';
+            }
+            else {
+                ebos[i].element.style.border = 'none';
+            }
+        }
+    });
+  };
 
 panelWrappers.forEach((wrapper) =>{
     const self = wrapper;
@@ -91,6 +126,7 @@ const s = (sketch) => {
         sketch.strokeWeight(1);
         sketch.stroke(128);
         sketch.frameRate(24);
+        sketch.noLoop();
     }
 
     sketch.windowResized = () => {
