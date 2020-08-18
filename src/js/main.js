@@ -1,66 +1,88 @@
-
-const imageContainer = document.querySelector('.imageContainer');
-const imageDisplay = imageContainer.querySelector('.imageDisplay');
-const images = imageContainer.querySelectorAll('.image');
-const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
-const button = document.querySelector('.closeButton');
+const imageContainer = document.querySelector(".imageContainer");
+const imageDisplay = imageContainer.querySelector(".imageDisplay");
+const images = imageContainer.querySelectorAll(".image");
+const panelWrappers = imageContainer.querySelectorAll(".panelWrapper");
+const button = document.querySelector(".closeButton");
 const canvasHeight = 150;
 let elementBodyOffsets = [];
+let windowHeight = window.innerHeight;
 let loaded = false;
+imageContainer.querySelectorAll('.image--video').forEach(video => video.pause());
 
-document.addEventListener("DOMContentLoaded", function(event) {
-    console.log("DOM fully loaded");
-    loaded = true;
-    panelWrappers.forEach((wrapper) => {
-        const bodyRect = document.body.getBoundingClientRect();
-        const wrapperRect = wrapper.getBoundingClientRect();
-        const elementBodyOffset = wrapperRect.top - bodyRect.top;
-        const wrapperHeight = wrapperRect.bottom - wrapperRect.top;
-        const values = {'element': wrapper, 'elementBodyOffset': elementBodyOffset, 'elementHeight': wrapperHeight};
-        elementBodyOffsets.push(values);
-      });
-      toogleOnScroll(elementBodyOffsets);
+document.addEventListener("DOMContentLoaded", function (event) {
+  console.log("DOM fully loaded");
+  loaded = true;
+  getPanelCords();
+});
+
+window.addEventListener("resize", function (event) {
+  if (loaded) {
+    getPanelCords();
+    windowHeight = window.innerHeight;
+  }
+});
+
+window.addEventListener("scroll", function (e) {
+  if (loaded) {
+    toogleOnScroll(elementBodyOffsets);
+  }
+});
+
+function getPanelCords() {
+  panelWrappers.forEach((wrapper) => {
+    const bodyRect = document.body.getBoundingClientRect();
+    const wrapperRect = wrapper.getBoundingClientRect();
+    const elementTopBodyOffset = wrapperRect.top - bodyRect.top;
+    const wrapperHeight = wrapperRect.bottom - wrapperRect.top;
+    const values = {
+      element: wrapper,
+      elementHeight: wrapperHeight,
+      elementTopBodyOffset: elementTopBodyOffset,
+      elementCenterBodyOffset: elementTopBodyOffset + wrapperHeight * 0.5,
+    };
+    elementBodyOffsets.push(values);
   });
+}
 
-  function toogleOnScroll(_elementBodyOffsets) {
-    const elementBodyOffsets = _elementBodyOffsets;
-    window.addEventListener('scroll', function(e) {
-        const ebos = elementBodyOffsets;
-        let y = Math.floor(window.scrollY);
-        for (let i = 0; i < ebos.length; i++) {
-            const eH = ebos[i].elementHeight;
-            const eBO = Math.floor(ebos[i].elementBodyOffset);
-            if (y >= eBO - eH && y <= eBO) {
-                //console.log(':)', y, ebos[i], i);
-                ebos[i].element.style.border = '2px solid red';
-            }
-            else {
-                ebos[i].element.style.border = 'none';
-            }
-        }
-    });
-  };
+function toogleOnScroll(_elementBodyOffsets) {
+  const ebos = _elementBodyOffsets;
+  const wC = windowHeight * 0.5;
+  let y = Math.floor(window.scrollY);
+  for (let i = 0; i < ebos.length; i++) {
+    const eH = ebos[i].elementHeight * 0.5;
+    const eCBO = Math.floor(ebos[i].elementCenterBodyOffset);
+    const cCO = (y + wC) - eCBO; // center to center offset
+    if (cCO <= eH && cCO >= -eH) {
+      ebos[i].element.style.border = "2px solid red";
+      ebos[i].element.classList.add("panelWrapper--showInfo");
+    } else {
+      ebos[i].element.style.border = "none";
+      ebos[i].element.classList.remove("panelWrapper--showInfo");
+    }
+  }
+}
 
-panelWrappers.forEach((wrapper) =>{
-    const self = wrapper;
-    const video = wrapper.querySelector('.image--video');
-    wrapper.querySelector('.image').addEventListener('click', (e) =>{
-        if (self.className !=('panelWrapper panelWrapper--expand')) {
-            panelWrappers.forEach((w) =>{
-                squeeze(w);
-            });
-            expand(self);
-            if(video) {
-                video.play();
-            }
-        }
-        else {
-            squeeze(self);
-            if(video) {
-                video.pause();
-            }
-        }
-    });
+panelWrappers.forEach((wrapper) => {
+  const self = wrapper;
+  const video = wrapper.querySelector(".image--video");
+  wrapper.querySelector(".image").addEventListener("click", (e) => {
+    if (!self.classList.contains("panelWrapper--expand")) {
+      panelWrappers.forEach((w) => {
+        squeeze(w);
+      });
+      expand(self);
+      getPanelCords();
+      if (video) {
+        video.play();
+      }
+    } else {
+      squeeze(self);
+      getPanelCords();
+      if (video) {
+        video.pause();
+      }
+    }
+  });
 });
 
 // images.forEach((image) => {
@@ -90,52 +112,51 @@ panelWrappers.forEach((wrapper) =>{
 // });
 
 function expand(wrapper) {
-    wrapper.classList.add('panelWrapper--expand');
-    // const buttonWrapper = document.createElement('div');
-    // buttonWrapper.className = 'buttonWrapper';
-    // const button = document.createElement('button');
-    // button.className = 'closeButton';
-    // button.addEventListener('click', (e) => {
-    //     squeeze(wrapper);
-    // });
-    // buttonWrapper.appendChild(button)
-    // wrapper.appendChild(buttonWrapper);
-    wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-};
+  wrapper.classList.add("panelWrapper--expand");
+  // const buttonWrapper = document.createElement('div');
+  // buttonWrapper.className = 'buttonWrapper';
+  // const button = document.createElement('button');
+  // button.className = 'closeButton';
+  // button.addEventListener('click', (e) => {
+  //     squeeze(wrapper);
+  // });
+  // buttonWrapper.appendChild(button)
+  // wrapper.appendChild(buttonWrapper);
+  wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+}
 
 function squeeze(wrapper) {
-    wrapper.classList.remove('panelWrapper--expand');
+  wrapper.classList.remove("panelWrapper--expand");
 }
 
 const s = (sketch) => {
-    let canvas
+  let canvas;
 
-    function centerCanvas() {
-        let x = (sketch.windowWidth - sketch.width) / 2;
-        let y = (sketch.windowHeight - sketch.height) / 2;
-        canvas.position(x, y);
-    }
+  function centerCanvas() {
+    let x = (sketch.windowWidth - sketch.width) / 2;
+    let y = (sketch.windowHeight - sketch.height) / 2;
+    canvas.position(x, y);
+  }
 
-    sketch.setup = () => {
-        canvas = sketch.createCanvas(sketch.windowWidth, canvasHeight);
-        //canvas.parent("sketch-footer");
-        canvas.style("display", "block");
-        canvas.style("max-width", "100%");
-        sketch.background(0);
-        sketch.color(0);
-        sketch.strokeWeight(1);
-        sketch.stroke(128);
-        sketch.frameRate(24);
-        sketch.noLoop();
-    }
+  sketch.setup = () => {
+    canvas = sketch.createCanvas(sketch.windowWidth, canvasHeight);
+    //canvas.parent("sketch-footer");
+    canvas.style("display", "block");
+    canvas.style("max-width", "100%");
+    sketch.background(0);
+    sketch.color(0);
+    sketch.strokeWeight(1);
+    sketch.stroke(128);
+    sketch.frameRate(24);
+    sketch.noLoop();
+  };
 
-    sketch.windowResized = () => {
-        sketch.resizeCanvas(sketch.windowWidth, canvasHeight);
-    }
+  sketch.windowResized = () => {
+    sketch.resizeCanvas(sketch.windowWidth, canvasHeight);
+  };
 
-    sketch.draw = () => {
-    }
-}
+  sketch.draw = () => {};
+};
 
 // let myp5Header = new p5(s, 'sketch-header');
 
@@ -147,31 +168,46 @@ const s = (sketch) => {
 //             myp5Header.frameRate(60);
 //             myp5Header.line(myp5Header.random(0, myp5Header.width), 0, myp5Header.mouseX, myp5Header.mouseY);
 //         }
-// } 
+// }
 
-let myp5Footer = new p5(s, 'sketch-footer');
+let myp5Footer = new p5(s, "sketch-footer");
 
 myp5Footer.draw = () => {
-    if (myp5Footer.frameCount % 2 == 0) {
+  if (myp5Footer.frameCount % 2 == 0) {
     myp5Footer.background(0, 50);
-    }
-    myp5Footer.noFill();
-    const rand = myp5Footer.random(0,1);
-    const offset = 30;
-    const canvasWidth = myp5Footer.width;
-    const canvasHeight = myp5Footer.height;
+  }
+  myp5Footer.noFill();
+  const rand = myp5Footer.random(0, 1);
+  const offset = 30;
+  const canvasWidth = myp5Footer.width;
+  const canvasHeight = myp5Footer.height;
 
-        if (rand < 0.3) {
-            //myp5Footer.frameRate(60);
-                const w = myp5Footer.random(5, canvasWidth/3);
-                const h = myp5Footer.random(5, canvasHeight/2);
-                //myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
-                //myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
-                if (myp5Footer.mouseY >= 0 && myp5Footer.mouseY <= canvasHeight) {
-                    myp5Footer.rect(myp5Footer.random(myp5Footer.mouseX - offset, myp5Footer.mouseX + offset), myp5Footer.random(myp5Footer.mouseY - offset, myp5Footer.mouseY + offset), w/2, h/2);
-                }
-                else if (myp5Footer.mouseY < 0) {
-                    myp5Footer.rect(myp5Footer.random(0, canvasWidth - w), myp5Footer.random(0, canvasHeight - h), w, h);
-                }
-        }
-} 
+  if (rand < 0.3) {
+    //myp5Footer.frameRate(60);
+    const w = myp5Footer.random(5, canvasWidth / 3);
+    const h = myp5Footer.random(5, canvasHeight / 2);
+    //myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
+    //myp5Footer.line(myp5Footer.random(0, myp5Footer.width), canvasHeight, myp5Footer.mouseX, myp5Footer.mouseY);
+    if (myp5Footer.mouseY >= 0 && myp5Footer.mouseY <= canvasHeight) {
+      myp5Footer.rect(
+        myp5Footer.random(
+          myp5Footer.mouseX - offset,
+          myp5Footer.mouseX + offset
+        ),
+        myp5Footer.random(
+          myp5Footer.mouseY - offset,
+          myp5Footer.mouseY + offset
+        ),
+        w / 2,
+        h / 2
+      );
+    } else if (myp5Footer.mouseY < 0) {
+      myp5Footer.rect(
+        myp5Footer.random(0, canvasWidth - w),
+        myp5Footer.random(0, canvasHeight - h),
+        w,
+        h
+      );
+    }
+  }
+};
