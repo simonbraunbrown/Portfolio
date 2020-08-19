@@ -1,34 +1,36 @@
-const imageContainer = document.querySelector(".imageContainer");
-const imageDisplay = imageContainer.querySelector(".imageDisplay");
-const images = imageContainer.querySelectorAll(".image");
-const panelWrappers = imageContainer.querySelectorAll(".panelWrapper");
-const button = document.querySelector(".closeButton");
+const imageContainer = document.querySelector('.imageContainer');
+const imageDisplay = imageContainer.querySelector('.imageDisplay');
+const images = imageContainer.querySelectorAll('.image');
+const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
+const Infos = imageContainer.querySelectorAll('.info');
 const canvasHeight = 150;
 let elementBodyOffsets = [];
+let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
-imageContainer.querySelectorAll('.image--video').forEach(video => video.pause());
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  console.log("DOM fully loaded");
+imageContainer.querySelectorAll('.image--video').forEach(video => video.pause());
+Infos.forEach( info => {
+  const infoText = info.innerHTML;
+  info.setAttribute('data-text', infoText);
+})
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  console.log('DOM fully loaded');
   loaded = true;
   getPanelCords();
+  toogleOnScroll();
 });
 
-window.addEventListener("resize", function (event) {
+window.addEventListener('resize', function (event) {
   if (loaded) {
     getPanelCords();
     windowHeight = window.innerHeight;
   }
 });
 
-window.addEventListener("scroll", function (e) {
-  if (loaded) {
-    toogleOnScroll(elementBodyOffsets);
-  }
-});
-
 function getPanelCords() {
+  elementBodyOffsets = [];
   panelWrappers.forEach((wrapper) => {
     const bodyRect = document.body.getBoundingClientRect();
     const wrapperRect = wrapper.getBoundingClientRect();
@@ -44,39 +46,44 @@ function getPanelCords() {
   });
 }
 
-function toogleOnScroll(_elementBodyOffsets) {
-  const ebos = _elementBodyOffsets;
+function toogleOnScroll() {
+  requestAnimationFrame(toogleOnScroll);
+  let redraw = previousScrollY !== window.scrollY;
+  previousScrollY = window.scrollY;
+
+  if(!redraw || !elementBodyOffsets) return;
+  const ebos = elementBodyOffsets;
   const wC = windowHeight * 0.5;
   let y = Math.floor(window.scrollY);
   for (let i = 0; i < ebos.length; i++) {
     const eH = ebos[i].elementHeight * 0.5;
     const eCBO = Math.floor(ebos[i].elementCenterBodyOffset);
     const cCO = (y + wC) - eCBO; // center to center offset
-    if (cCO <= eH && cCO >= -eH) {
-      ebos[i].element.style.border = "2px solid red";
-      ebos[i].element.classList.add("panelWrapper--showInfo");
+    if (cCO <= eH && cCO >= -eH && !ebos[i].element.classList.contains('panelWrapper--expand')) {
+      ebos[i].element.style.border = '2px solid red';
+      ebos[i].element.querySelector('.image').style.transform = 'scale(1.0) translate(0,calc('+ (-eH*1.25+eH) +'px - '+ cCO/4 +'px))'; // 1.25 from image scale in css
+      ebos[i].element.classList.add('panelWrapper--showInfo');
     } else {
-      ebos[i].element.style.border = "none";
-      ebos[i].element.classList.remove("panelWrapper--showInfo");
+      ebos[i].element.style.border = 'none';
+      ebos[i].element.querySelector('.image').style.transform = 'none';
+      ebos[i].element.classList.remove('panelWrapper--showInfo');
     }
   }
 }
 
 panelWrappers.forEach((wrapper) => {
   const self = wrapper;
-  const video = wrapper.querySelector(".image--video");
-  wrapper.querySelector(".image").addEventListener("click", (e) => {
-    if (!self.classList.contains("panelWrapper--expand")) {
-      panelWrappers.forEach((w) => {
-        squeeze(w);
-      });
+  const video = wrapper.querySelector('.image--video');
+  wrapper.addEventListener('click', (e) => {
+    if (!self.classList.contains('panelWrapper--expand')) {
+      squeezeAll(panelWrappers);
       expand(self);
       getPanelCords();
       if (video) {
         video.play();
       }
     } else {
-      squeeze(self);
+      squeezeIt(self);
       getPanelCords();
       if (video) {
         video.pause();
@@ -85,48 +92,22 @@ panelWrappers.forEach((wrapper) => {
   });
 });
 
-// images.forEach((image) => {
-//     image.addEventListener('click', () => {
-//         const backgroundImageURL = image.style.backgroundImage;
-//         const splitURL = backgroundImageURL.split('"');
-//         if (imageDisplay.querySelector('.imageToShow')) {
-//             let img = imageDisplay.querySelector('.imageToShow');
-//             let newImg = document.createElement('img');
-//             newImg.className = 'imageToShow';
-//             newImg.src = splitURL[1];
-//             imageDisplay.replaceChild(newImg, img);
-//             imageDisplay.style.display = 'block';
-//         } else {
-//             let img = document.createElement('img');
-//             img.className = 'imageToShow';
-//             img.src = splitURL[1];
-//             imageDisplay.appendChild(img);
-//             imageDisplay.style.display = 'block';
-//         }
-//         imageDisplay.scrollIntoView({ behavior: 'smooth', block: 'end' });
-//     });
-// });
-
-// button.addEventListener('click', () => {
-//     imageDisplay.style.display = 'none';
-// });
-
 function expand(wrapper) {
-  wrapper.classList.add("panelWrapper--expand");
-  // const buttonWrapper = document.createElement('div');
-  // buttonWrapper.className = 'buttonWrapper';
-  // const button = document.createElement('button');
-  // button.className = 'closeButton';
-  // button.addEventListener('click', (e) => {
-  //     squeeze(wrapper);
-  // });
-  // buttonWrapper.appendChild(button)
-  // wrapper.appendChild(buttonWrapper);
-  wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+  wrapper.classList.add('panelWrapper--expand');
+  wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function squeeze(wrapper) {
-  wrapper.classList.remove("panelWrapper--expand");
+function squeezeAll(wrappers) {
+  wrappers.forEach((w) => {
+  w.classList.remove('panelWrapper--expand');
+  });
+}
+
+function squeezeIt(wrapper) {
+  wrapper.classList.remove('panelWrapper--expand');
+  const wrapperRect = wrapper.getBoundingClientRect();
+  const offset = (wrapperRect.bottom - wrapperRect.top) * 0.5
+  window.scrollTo(0, previousScrollY - ((windowHeight * 0.5) - offset));
 }
 
 const s = (sketch) => {
@@ -140,9 +121,9 @@ const s = (sketch) => {
 
   sketch.setup = () => {
     canvas = sketch.createCanvas(sketch.windowWidth, canvasHeight);
-    //canvas.parent("sketch-footer");
-    canvas.style("display", "block");
-    canvas.style("max-width", "100%");
+    //canvas.parent('sketch-footer');
+    canvas.style('display', 'block');
+    canvas.style('max-width', '100%');
     sketch.background(0);
     sketch.color(0);
     sketch.strokeWeight(1);
@@ -170,7 +151,7 @@ const s = (sketch) => {
 //         }
 // }
 
-let myp5Footer = new p5(s, "sketch-footer");
+let myp5Footer = new p5(s, 'sketch-footer');
 
 myp5Footer.draw = () => {
   if (myp5Footer.frameCount % 2 == 0) {
