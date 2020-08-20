@@ -1,11 +1,11 @@
-const imageContainer = document.querySelector(".imageContainer");
-const imageDisplay = imageContainer.querySelector(".imageDisplay");
-const images = imageContainer.querySelectorAll(".image");
-const panelWrappers = imageContainer.querySelectorAll(".panelWrapper");
-const Infos = imageContainer.querySelectorAll(".info");
-const progressBarWrapper = document.querySelector(".progressBarWrapper");
-const progressBar = document.querySelector(".progressBar");
-const progressCount = document.querySelector(".progress");
+const imageContainer = document.querySelector('.imageContainer');
+const imageDisplay = imageContainer.querySelector('.imageDisplay');
+const images = imageContainer.querySelectorAll('.image');
+const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
+const Infos = imageContainer.querySelectorAll('.info');
+const progressBarWrapper = document.querySelector('.progressBarWrapper');
+const progressBar = document.querySelector('.progressBar');
+const progressCount = document.querySelector('.progress');
 let elementBodyOffsets = [];
 let previousScrollY = 0;
 let windowHeight = window.innerHeight;
@@ -13,21 +13,21 @@ let loaded = false;
 let redraw = hasScrolled();
 
 imageContainer
-  .querySelectorAll(".image--video")
+  .querySelectorAll('.image--video')
   .forEach((video) => video.pause());
 Infos.forEach((info) => {
   const infoText = info.innerHTML;
-  info.setAttribute("data-text", infoText);
+  info.setAttribute('data-text', infoText);
 });
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  console.log("DOM fully loaded");
+document.addEventListener('DOMContentLoaded', function (event) {
+  console.log('DOM fully loaded');
   loaded = true;
   getPanelCords();
   drawAnimation();
 });
 
-window.addEventListener("resize", function (event) {
+window.addEventListener('resize', function (event) {
   if (loaded) {
     getPanelCords();
     windowHeight = window.innerHeight;
@@ -38,7 +38,7 @@ function drawAnimation() {
   requestAnimationFrame(drawAnimation);
   redraw = hasScrolled();
   if (!redraw) return;
-  toogleOnScroll();
+  toggleOnScroll();
   makeProgress();
 }
 
@@ -54,10 +54,10 @@ function makeProgress() {
     ((window.scrollY + window.innerHeight) / (bodyRect.bottom - bodyRect.top)) *
       100
   );
-  progressBar.style.height = progress + "vh";
-  progressCount.innerHTML = progress + "%";
+  progressBar.style.height = progress + 'vh';
+  progressCount.innerHTML = progress + '%';
   progressBarWrapper.classList.toggle(
-    "progressBarWrapper--visible",
+    'progressBarWrapper--visible',
     window.scrollY > windowHeight
   );
 }
@@ -79,7 +79,7 @@ function getPanelCords() {
   });
 }
 
-function toogleOnScroll() {
+function toggleOnScroll() {
   if (!elementBodyOffsets) return;
 
   const ebos = elementBodyOffsets;
@@ -92,31 +92,31 @@ function toogleOnScroll() {
     if (
       cCO <= eH &&
       cCO >= -eH &&
-      !ebos[i].element.classList.contains("panelWrapper--expand")
+      !ebos[i].element.classList.contains('panelWrapper--expand')
     ) {
-      if (ebos[i].element.querySelector(".image")){
-      ebos[i].element.querySelector(".image").style.transform =
-        "scale(1.0) translate(0,calc(" +
-        (-eH * 1.25 + eH) +
-        "px - " +
-        cCO / 4 +
-        "px))"; // 1.25 from image scale in css
+      if (ebos[i].element.querySelector('.image')) {
+        ebos[i].element.querySelector('.image').style.transform =
+          'scale(1.0) translate(0,calc(' +
+          (-eH * 1.25 + eH) +
+          'px - ' +
+          cCO / 4 +
+          'px))'; // 1.25 from image scale in css
       }
-      ebos[i].element.classList.add("panelWrapper--showInfo");
+      ebos[i].element.classList.add('panelWrapper--showInfo');
     } else {
-      if (ebos[i].element.querySelector(".image")){
-      ebos[i].element.querySelector(".image").style.transform = "none";
+      if (ebos[i].element.querySelector('.image')) {
+        ebos[i].element.querySelector('.image').style.transform = 'none';
       }
-      ebos[i].element.classList.remove("panelWrapper--showInfo");
+      ebos[i].element.classList.remove('panelWrapper--showInfo');
     }
   }
 }
 
 panelWrappers.forEach((wrapper) => {
   const self = wrapper;
-  const video = wrapper.querySelector(".image--video");
-  wrapper.addEventListener("click", (e) => {
-    if (!self.classList.contains("panelWrapper--expand")) {
+  const video = wrapper.querySelector('.image--video');
+  wrapper.addEventListener('click', (e) => {
+    if (!self.classList.contains('panelWrapper--expand')) {
       squeezeAll(panelWrappers);
       expand(self);
       getPanelCords();
@@ -135,19 +135,19 @@ panelWrappers.forEach((wrapper) => {
 
 function expand(wrapper) {
   if (wrapper.querySelector('.image')) {
-  wrapper.classList.add("panelWrapper--expand");
-  window.scrollTo(0, alignToScreenCenter(wrapper));
+    wrapper.classList.add('panelWrapper--expand');
+    window.scrollTo(0, alignToScreenCenter(wrapper));
   }
 }
 
 function squeezeAll(wrappers) {
   wrappers.forEach((w) => {
-    w.classList.remove("panelWrapper--expand");
+    w.classList.remove('panelWrapper--expand');
   });
 }
 
 function squeezeIt(wrapper) {
-  wrapper.classList.remove("panelWrapper--expand");
+  wrapper.classList.remove('panelWrapper--expand');
   window.scrollTo(0, alignToScreenCenter(wrapper));
 }
 
@@ -156,6 +156,6 @@ function alignToScreenCenter(element) {
   const elementRect = element.getBoundingClientRect();
   const elementTopBodyOffset = elementRect.top - bodyRect.top;
   const elementHeight = elementRect.bottom - elementRect.top;
-  const scrollPos = elementTopBodyOffset - ((windowHeight - elementHeight) * 0.5)
+  const scrollPos = elementTopBodyOffset - (windowHeight - elementHeight) * 0.5;
   return scrollPos;
 }
