@@ -3,11 +3,15 @@ const imageDisplay = imageContainer.querySelector('.imageDisplay');
 const images = imageContainer.querySelectorAll('.image');
 const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
 const Infos = imageContainer.querySelectorAll('.info');
+const progressBarWrapper = document.querySelector('.progressBarWrapper');
+const progressBar = document.querySelector('.progressBar');
+const progressCount = document.querySelector('.progress');
 const canvasHeight = 150;
 let elementBodyOffsets = [];
 let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
+let redraw = hasScrolled();
 
 imageContainer.querySelectorAll('.image--video').forEach(video => video.pause());
 Infos.forEach( info => {
@@ -19,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   console.log('DOM fully loaded');
   loaded = true;
   getPanelCords();
-  toogleOnScroll();
+  drawAnimation();
 });
 
 window.addEventListener('resize', function (event) {
@@ -28,6 +32,28 @@ window.addEventListener('resize', function (event) {
     windowHeight = window.innerHeight;
   }
 });
+
+function drawAnimation() {
+  requestAnimationFrame(drawAnimation);
+  redraw = hasScrolled();
+  if(!redraw) return;
+  toogleOnScroll();
+  makeProgress();
+}
+
+function hasScrolled() {
+  let redraw = previousScrollY !== window.scrollY;
+  previousScrollY = window.scrollY;
+  return redraw;
+}
+
+function makeProgress() {
+  const bodyRect = document.body.getBoundingClientRect();
+  const progress = Math.ceil((window.scrollY + window.innerHeight) / (bodyRect.bottom - bodyRect.top) * 100);
+  progressBar.style.height = progress+'vh';
+  progressCount.innerHTML = progress+'%';
+  progressBarWrapper.classList.toggle('progressBarWrapper--visible', window.scrollY > windowHeight);
+}
 
 function getPanelCords() {
   elementBodyOffsets = [];
@@ -47,11 +73,8 @@ function getPanelCords() {
 }
 
 function toogleOnScroll() {
-  requestAnimationFrame(toogleOnScroll);
-  let redraw = previousScrollY !== window.scrollY;
-  previousScrollY = window.scrollY;
+  if(!elementBodyOffsets) return;
 
-  if(!redraw || !elementBodyOffsets) return;
   const ebos = elementBodyOffsets;
   const wC = windowHeight * 0.5;
   let y = Math.floor(window.scrollY);
@@ -60,11 +83,9 @@ function toogleOnScroll() {
     const eCBO = Math.floor(ebos[i].elementCenterBodyOffset);
     const cCO = (y + wC) - eCBO; // center to center offset
     if (cCO <= eH && cCO >= -eH && !ebos[i].element.classList.contains('panelWrapper--expand')) {
-      ebos[i].element.style.border = '2px solid red';
       ebos[i].element.querySelector('.image').style.transform = 'scale(1.0) translate(0,calc('+ (-eH*1.25+eH) +'px - '+ cCO/4 +'px))'; // 1.25 from image scale in css
       ebos[i].element.classList.add('panelWrapper--showInfo');
     } else {
-      ebos[i].element.style.border = 'none';
       ebos[i].element.querySelector('.image').style.transform = 'none';
       ebos[i].element.classList.remove('panelWrapper--showInfo');
     }

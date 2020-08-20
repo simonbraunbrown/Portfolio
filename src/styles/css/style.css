@@ -2,7 +2,6 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   font-family: "Roboto", sans-serif;
   font-size: 2vh;
   font-size: calc(calc(var(--base-panel-height)) / 20); }
@@ -28,6 +27,9 @@ body {
     /* IE and Edge */
     scrollbar-width: none;
     /* Firefox */ }
+
+.globalWrapper {
+  overflow: hidden; }
 
 .header {
   position: relative;
@@ -197,6 +199,68 @@ body {
       text-decoration: none;
       color: var(--highlight-color-dark); }
 
+.progressBarWrapper {
+  position: fixed;
+  z-index: 1;
+  width: 4%;
+  height: 0;
+  max-height: 100vh;
+  top: 0;
+  left: 95%;
+  opacity: 0.0;
+  transition: opacity 1s linear; }
+  .progressBarWrapper .progressBar {
+    position: absolute;
+    display: block;
+    width: 0.1em;
+    background-color: white;
+    max-height: 100vh;
+    overflow: hidden; }
+  .progressBarWrapper .navigationWrapper {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-flex-wrap: nowrap;
+        -ms-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-justify-content: flex-start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    width: 100%;
+    height: 100vh; }
+    .progressBarWrapper .navigationWrapper .navigationItem {
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-align-items: center;
+          -ms-flex-align: center;
+              align-items: center;
+      position: relative;
+      width: 100%;
+      margin: 1em auto; }
+      .progressBarWrapper .navigationWrapper .navigationItem span {
+        position: relative;
+        width: auto;
+        text-transform: uppercase;
+        color: white;
+        font-size: 1rem;
+        -webkit-writing-mode: vertical-lr;
+            -ms-writing-mode: tb-lr;
+                writing-mode: vertical-lr;
+        -webkit-text-orientation: upright;
+                text-orientation: upright; }
+  .progressBarWrapper--visible {
+    opacity: 1.0; }
+
 .imageContainer {
   position: relative;
   width: 100%;
@@ -265,15 +329,17 @@ body {
       text-transform: uppercase;
       pointer-events: none;
       -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%); }
+              transform: translate(0, -50%);
+      transition: color 0.3s linear; }
       .imageContainer .panelWrapper .info::before {
         position: absolute;
         width: 0;
         overflow: hidden;
         height: auto;
         color: var(--main-color-light);
+        opacity: 0;
         content: attr(data-text);
-        transition: width 0.3s linear; }
+        transition: width 0.3s linear, opacity 0.3s linear; }
     .imageContainer .panelWrapper .arrowSide {
       position: absolute;
       top: 50%;
@@ -285,7 +351,7 @@ body {
               transform: rotate(0deg) translate(-10%, -50%); }
       .imageContainer .panelWrapper .arrowSide::after {
         position: absolute;
-        content: '';
+        content: "";
         border: solid var(--highlight-color-dark);
         border-width: 0 1.5em 1.5em 0;
         padding: 3em;
@@ -321,9 +387,12 @@ body {
         display: none; }
     .imageContainer .panelWrapper.panelWrapper--showInfo .imageWrapper .image {
       display: block; }
-    .imageContainer .panelWrapper.panelWrapper--showInfo .info::before {
-      width: 100%;
-      overflow: visible; }
+    .imageContainer .panelWrapper.panelWrapper--showInfo .info {
+      color: rgba(0, 0, 0, 0); }
+      .imageContainer .panelWrapper.panelWrapper--showInfo .info::before {
+        width: 100%;
+        overflow: visible;
+        opacity: 1; }
     .imageContainer .panelWrapper.panelWrapper--showInfo.panelWrapper--expand .info {
       display: none; }
     @media (min-width: 768px) {

@@ -2,7 +2,6 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden;
   font-family: "Roboto", sans-serif;
   font-size: 2vh;
 
@@ -32,6 +31,10 @@ body {
     scrollbar-width: none; /* Firefox */
   }
   font-size: calc(calc(var(--base-panel-height)) / 20);
+}
+
+.globalWrapper {
+  overflow: hidden;
 }
 
 .header {
@@ -171,6 +174,57 @@ body {
   }
 }
 
+.progressBarWrapper {
+  position: fixed;
+  z-index: 1;
+  width: 4%;
+  height: 0;
+  max-height: 100vh;
+  top: 0;
+  left: 95%;
+  opacity: 0.0;
+  transition: opacity 1s linear;
+  & .progressBar {
+    position: absolute;
+    display: block;
+    width: 0.1em;
+    background-color: white;
+    max-height: 100vh;
+    overflow: hidden;
+  }
+  & .navigationWrapper {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100vh;
+    & .navigationItem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      margin: 1em auto;
+      & span {
+        position: relative;
+        width: auto;
+        text-transform: uppercase;
+        color: white;
+        font-size: 1rem;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+      }
+    }
+  }
+  & .progress {
+  }
+  &--visible {
+    opacity: 1.0;
+  }
+}
+
 .imageContainer {
   position: relative;
   width: 100%;
@@ -253,14 +307,16 @@ body {
       text-transform: uppercase;
       pointer-events: none;
       transform: translate(0, -50%);
+      transition: color 0.3s linear;
       &::before {
         position: absolute;
         width: 0;
         overflow: hidden;
         height: auto;
         color: var(--main-color-light);
+        opacity: 0;
         content: attr(data-text);
-        transition: width 0.3s linear;
+        transition: width 0.3s linear, opacity 0.3s linear;
       }
     }
 
@@ -273,15 +329,15 @@ body {
       background-color: var(--highlight-color-dark);
       transform: rotate(0deg) translate(-10%, -50%);
       &::after {
-      position: absolute;
-      content: '';
-      border: solid var(--highlight-color-dark);
-      border-width: 0 1.5em 1.5em 0;
-      padding: 3em;
-      top: 50%;
-      left: 0;
-      transform: translate(-50%, -50%) rotate(135deg);
-      -webkit-transform: translate(0, -50%) rotate(135deg);
+        position: absolute;
+        content: "";
+        border: solid var(--highlight-color-dark);
+        border-width: 0 1.5em 1.5em 0;
+        padding: 3em;
+        top: 50%;
+        left: 0;
+        transform: translate(-50%, -50%) rotate(135deg);
+        -webkit-transform: translate(0, -50%) rotate(135deg);
       }
     }
 
@@ -333,30 +389,32 @@ body {
           display: block;
         }
       }
+      & .info {
+        color: rgba(0, 0, 0, 0);
+        &::before {
+          width: 100%;
+          overflow: visible;
+          opacity: 1;
+        }
+      }
+      &:nth-child(2n + 1) {
         & .info {
           &::before {
-            width: 100%;
-            overflow: visible;
           }
         }
-        &:nth-child(2n + 1) {
-          & .info {
-            &::before {
-            }
+      }
+
+      &:nth-child(2n + 0) {
+        & .info {
+          &::before {
           }
         }
-  
-        &:nth-child(2n + 0) {
-          & .info {
-            &::before {
-            }
-          }
+      }
+      &.panelWrapper--expand {
+        & .info {
+          display: none;
         }
-        &.panelWrapper--expand {
-          & .info {
-            display: none;
-          }
-        }
+      }
     }
     @media (min-width: 768px) {
       & .info {
