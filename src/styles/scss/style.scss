@@ -195,8 +195,10 @@ body {
     overflow: hidden;
   }
   & .navigationWrapper {
+    position: absolute;
     width: 100%;
     height: 100vh;
+    top: 0;
     & .navigationItem {
       display: block;
       position: relative;
@@ -292,7 +294,7 @@ body {
       position: absolute;
       display: block;
       z-index: 1;
-      margin: 0 5%;
+      margin: 0 2em;
       width: 70%;
       height: auto;
       top: 50%;
