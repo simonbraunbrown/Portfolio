@@ -91,7 +91,7 @@ body {
     top: 0;
     right: 0;
     width: 0.1em;
-    background-color: white;
+    background-color:var(--main-color-light);
     max-height: 100vh;
     overflow: hidden;
   }
@@ -108,12 +108,13 @@ body {
       & span {
         display: block;
         position: relative;
-        width: auto;
+        width: 1em;
         margin: 0 auto;
-        text-transform: uppercase;
-        color: white;
+        color: var(--main-color-light);
         font-size: 1rem;
-        writing-mode: vertical-lr;
+        text-transform: uppercase;
+        font-weight: bold;
+        writing-mode: vertical-rl;
         text-orientation: upright;
       }
     }

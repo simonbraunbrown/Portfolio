@@ -78,7 +78,7 @@ body {
     top: 0;
     right: 0;
     width: 0.1em;
-    background-color: white;
+    background-color: var(--main-color-light);
     max-height: 100vh;
     overflow: hidden; }
   .progressBarWrapper .navigationWrapper {
@@ -94,14 +94,15 @@ body {
       .progressBarWrapper .navigationWrapper .navigationItem span {
         display: block;
         position: relative;
-        width: auto;
+        width: 1em;
         margin: 0 auto;
-        text-transform: uppercase;
-        color: white;
+        color: var(--main-color-light);
         font-size: 1rem;
-        -webkit-writing-mode: vertical-lr;
-            -ms-writing-mode: tb-lr;
-                writing-mode: vertical-lr;
+        text-transform: uppercase;
+        font-weight: bold;
+        -webkit-writing-mode: vertical-rl;
+            -ms-writing-mode: tb-rl;
+                writing-mode: vertical-rl;
         -webkit-text-orientation: upright;
                 text-orientation: upright; }
   .progressBarWrapper--visible {
