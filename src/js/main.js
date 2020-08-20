@@ -94,15 +94,19 @@ function toogleOnScroll() {
       cCO >= -eH &&
       !ebos[i].element.classList.contains("panelWrapper--expand")
     ) {
+      if (ebos[i].element.querySelector(".image")){
       ebos[i].element.querySelector(".image").style.transform =
         "scale(1.0) translate(0,calc(" +
         (-eH * 1.25 + eH) +
         "px - " +
         cCO / 4 +
         "px))"; // 1.25 from image scale in css
+      }
       ebos[i].element.classList.add("panelWrapper--showInfo");
     } else {
+      if (ebos[i].element.querySelector(".image")){
       ebos[i].element.querySelector(".image").style.transform = "none";
+      }
       ebos[i].element.classList.remove("panelWrapper--showInfo");
     }
   }
