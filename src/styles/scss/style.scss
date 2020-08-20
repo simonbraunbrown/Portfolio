@@ -2,7 +2,8 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Roboto", sans-serif;
+  //font-family: "Roboto", sans-serif;
+  font-family: "Hack", monospace;
   font-size: 2vh;
 
   & {
@@ -111,9 +112,9 @@ body {
         width: 1em;
         margin: 0 auto;
         color: var(--main-color-light);
-        font-size: 1rem;
+        font-size: 1em;
         text-transform: uppercase;
-        font-weight: bold;
+        font-weight: normal;
         writing-mode: vertical-rl;
         text-orientation: upright;
       }
@@ -163,11 +164,11 @@ body {
       position: absolute;
       display: block;
       z-index: 1;
-      margin: 0 2em;
+      margin: 0 4em;
       width: 70%;
       height: auto;
       top: 50%;
-      font-size: 2em;
+      font-size: 1em;
       color: var(--main-color-dark);
       //text-shadow: 0px 0px 10px var(--main-color-dark-dark);
       font-weight: normal;
@@ -265,7 +266,7 @@ body {
     }
     @media (min-width: 768px) {
       & .info {
-        font-size: 4em;
+        font-size: 2em;
       }
     }
   }
