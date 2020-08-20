@@ -134,8 +134,10 @@ panelWrappers.forEach((wrapper) => {
 });
 
 function expand(wrapper) {
+  if (wrapper.querySelector('.image')) {
   wrapper.classList.add("panelWrapper--expand");
-  wrapper.scrollIntoView({ behavior: "smooth", block: "start" });
+  window.scrollTo(0, alignToScreenCenter(wrapper));
+  }
 }
 
 function squeezeAll(wrappers) {
@@ -146,7 +148,14 @@ function squeezeAll(wrappers) {
 
 function squeezeIt(wrapper) {
   wrapper.classList.remove("panelWrapper--expand");
-  const wrapperRect = wrapper.getBoundingClientRect();
-  const offset = (wrapperRect.bottom - wrapperRect.top) * 0.5;
-  window.scrollTo(0, previousScrollY - (windowHeight * 0.5 - offset));
+  window.scrollTo(0, alignToScreenCenter(wrapper));
+}
+
+function alignToScreenCenter(element) {
+  const bodyRect = document.body.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  const elementTopBodyOffset = elementRect.top - bodyRect.top;
+  const elementHeight = elementRect.bottom - elementRect.top;
+  const scrollPos = elementTopBodyOffset - ((windowHeight - elementHeight) * 0.5)
+  return scrollPos;
 }
