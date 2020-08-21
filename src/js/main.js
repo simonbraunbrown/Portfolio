@@ -3,8 +3,7 @@ const imageDisplay = imageContainer.querySelector('.imageDisplay');
 const images = imageContainer.querySelectorAll('.image');
 const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
 const Infos = imageContainer.querySelectorAll('.info');
-const progressBarWrapper = document.querySelector('.progressBarWrapper');
-const progressBar = document.querySelector('.progressBar');
+const progressBarWrappers = document.querySelectorAll('.progressBarWrapper');
 const progressCount = document.querySelector('.progress');
 let elementBodyOffsets = [];
 let previousScrollY = 0;
@@ -50,16 +49,23 @@ function hasScrolled() {
 
 function makeProgress() {
   const bodyRect = document.body.getBoundingClientRect();
-  const progress = Math.ceil(
-    ((window.scrollY + window.innerHeight) / (bodyRect.bottom - bodyRect.top)) *
-      100
-  );
-  progressBar.style.height = progress + 'vh';
-  progressCount.innerHTML = progress + '%';
-  progressBarWrapper.classList.toggle(
-    'progressBarWrapper--visible',
-    window.scrollY > windowHeight
-  );
+  const progress = ((window.scrollY + window.innerHeight) / (bodyRect.bottom - bodyRect.top)) * 100;
+
+  progressBarWrappers.forEach((wrapper) => {
+    const progressBar = wrapper.querySelector('.progressBar');
+    if (wrapper.classList.contains('progressBarWrapper--left') || wrapper.classList.contains('progressBarWrapper--right')) {
+      progressBar.style.height = progress + 'vh';
+    } else {
+      progressBar.style.width = progress + 'vw';
+    }
+  });
+  progressCount.innerHTML = Math.ceil(progress) + '%';
+  progressBarWrappers.forEach((progressBarWrapper) => {
+    progressBarWrapper.classList.toggle(
+      'progressBarWrapper--visible',
+      window.scrollY > windowHeight
+    );
+  });
 }
 
 function getPanelCords() {

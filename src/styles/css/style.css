@@ -67,28 +67,63 @@ body {
 
 .progressBarWrapper {
   position: fixed;
-  z-index: 1;
-  width: 2em;
-  height: 0;
-  max-height: 100vh;
-  top: 0;
-  left: 0;
+  z-index: 2;
   opacity: 0;
-  transition: opacity 1s linear; }
+  transition: opacity 0.5s linear; }
   .progressBarWrapper .progressBar {
     position: absolute;
     display: block;
-    top: 0;
-    right: 0;
-    width: 0.1em;
     background-color: var(--main-color-light);
-    max-height: 100vh;
     overflow: hidden; }
+  .progressBarWrapper--left {
+    width: 4em;
+    height: 100vh;
+    top: 0;
+    left: 0; }
+    .progressBarWrapper--left .progressBar {
+      top: 0;
+      right: 0;
+      width: 0.1em;
+      max-height: 100vh; }
+  .progressBarWrapper--right {
+    width: 4em;
+    height: 100vh;
+    top: 0;
+    right: 0; }
+    .progressBarWrapper--right .progressBar {
+      bottom: 0;
+      left: 0;
+      width: 0.1em;
+      max-height: 100vh; }
+  .progressBarWrapper--top {
+    width: 100vw;
+    height: 4em;
+    bottom: 0;
+    left: 0; }
+    .progressBarWrapper--top .progressBar {
+      top: 0;
+      left: 0;
+      height: 0.1em;
+      width: 50vw;
+      max-width: 100vw; }
+  .progressBarWrapper--bottom {
+    width: 100vw;
+    height: 4em;
+    top: 0;
+    left: 0; }
+    .progressBarWrapper--bottom .progressBar {
+      bottom: 0;
+      right: 0;
+      height: 0.1em;
+      width: 50vw;
+      max-width: 100vw; }
   .progressBarWrapper .navigationWrapper {
     position: absolute;
     width: 100%;
-    height: 100vh;
-    top: 0; }
+    height: auto;
+    top: 50%;
+    -webkit-transform: translate(0, -50%);
+            transform: translate(0, -50%); }
     .progressBarWrapper .navigationWrapper .navigationItem {
       display: block;
       position: relative;
@@ -109,7 +144,7 @@ body {
         -webkit-text-orientation: upright;
                 text-orientation: upright; }
   .progressBarWrapper--visible {
-    opacity: 1; }
+    opacity: 1.0; }
 
 .globalWrapper {
   overflow: hidden; }
@@ -120,10 +155,14 @@ body {
   background: var(--main-color-background); }
   .imageContainer .panelWrapper {
     position: relative;
+    box-sizing: border-box;
     display: block;
     width: 100%;
+    padding: 0 4em;
     height: var(--base-panel-height); }
     .imageContainer .panelWrapper .imageWrapper {
+      position: relative;
+      display: block;
       overflow: hidden;
       width: 100%;
       height: 100%; }
@@ -133,9 +172,6 @@ body {
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
         object-fit: cover; }
-      .imageContainer .panelWrapper .imageWrapper:hover .image {
-        -webkit-transform: scale(1.05);
-                transform: scale(1.05); }
     .imageContainer .panelWrapper .info {
       position: absolute;
       display: block;
@@ -175,15 +211,13 @@ body {
         right: 0;
         text-align: right; }
     .imageContainer .panelWrapper.panelWrapper--expand {
-      height: auto; }
+      height: 100vh;
+      padding: 4em 4em; }
       .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper .image {
         display: block;
         height: 100%;
         max-height: 100vh;
         object-fit: scale-down;
-        -webkit-transform: none;
-                transform: none; }
-      .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper:hover .image {
         -webkit-transform: none;
                 transform: none; }
       .imageContainer .panelWrapper.panelWrapper--expand .info {
