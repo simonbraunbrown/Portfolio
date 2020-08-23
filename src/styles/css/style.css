@@ -5,9 +5,9 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Hack", monospace; }
+  font-family: 'Hack', monospace; }
   body {
-    font-size: 2vh;
+    font-size: 0.5em;
     --base-panel-height: calc((100vh - 8em) / 2);
     --base-transition-curve: cubic-bezier(0.07, 0.6, 0.5, 1);
     --main-color-background: #161616;
@@ -30,8 +30,18 @@ body {
     scrollbar-width: none;
     /* Firefox */ }
 
+@media (min-width: 768px) {
+  body {
+    font-size: 1em; } }
+
+@media (min-width: 1280px) {
+  body {
+    font-size: 1.5em; } }
+
 .header {
   position: relative;
+  width: 100%;
+  height: 100vh;
   max-height: 100vh; }
   .header .headline {
     position: absolute;
@@ -42,8 +52,8 @@ body {
     transform: translate(-50%, -50%);
     -webkit-transform: translate(-50%, -50%);
     text-align: center;
-    font-size: 10em;
-    font-weight: bold;
+    font-size: 10vw;
+    font-weight: normal;
     mix-blend-mode: screen;
     -webkit-text-stroke: 1px var(--main-color);
     background: transparent; }
@@ -61,7 +71,7 @@ body {
   .header .headerVideo {
     display: block;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     object-fit: cover; }
 
 .progressBarWrapper {
@@ -148,7 +158,7 @@ body {
             width: 0.1em;
             top: 0;
             left: 50%;
-            content: " ";
+            content: ' ';
             background-color: var(--main-color-light); }
           .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before {
             -webkit-transform: translate(-100%, 0) rotate(45deg);
@@ -169,12 +179,14 @@ body {
     top: 50%;
     -webkit-transform: translate(0, -50%);
             transform: translate(0, -50%); }
-    .progressBarWrapper .navigationWrapper .navigationItem, .progressBarWrapper .navigationWrapper .progressDisplay {
+    .progressBarWrapper .navigationWrapper .navigationItem,
+    .progressBarWrapper .navigationWrapper .progressDisplay {
       display: block;
       position: relative;
       width: 100%;
       margin: 1em auto; }
-      .progressBarWrapper .navigationWrapper .navigationItem span, .progressBarWrapper .navigationWrapper .progressDisplay span {
+      .progressBarWrapper .navigationWrapper .navigationItem span,
+      .progressBarWrapper .navigationWrapper .progressDisplay span {
         display: block;
         position: relative;
         width: 1em;
@@ -189,12 +201,12 @@ body {
         -webkit-text-orientation: upright;
                 text-orientation: upright; }
   .progressBarWrapper--visible {
-    opacity: 1.0; }
+    opacity: 1; }
 
 .globalWrapper {
   overflow: hidden;
   width: calc(100% - 8em);
-  margin: 0  auto; }
+  margin: 0 auto; }
 
 .imageContainer {
   position: relative;
@@ -205,13 +217,16 @@ body {
     box-sizing: border-box;
     display: block;
     width: 100%;
-    height: var(--base-panel-height); }
+    height: var(--base-panel-height);
+    margin-top: 8em; }
     .imageContainer .panelWrapper .imageWrapper {
       position: relative;
       display: block;
       overflow: hidden;
       width: 100%;
-      height: 100%; }
+      height: 100%;
+      opacity: 0;
+      transition: opacity 0.3s linear; }
       .imageContainer .panelWrapper .imageWrapper .image {
         position: relative;
         display: none;
@@ -259,17 +274,21 @@ body {
     .imageContainer .panelWrapper.panelWrapper--expand {
       height: 100vh;
       padding: 4em 0; }
-      .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper .image {
-        display: block;
-        height: 100%;
-        max-height: 100vh;
-        object-fit: contain;
-        -webkit-transform: none;
-                transform: none; }
+      .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper {
+        opacity: 1; }
+        .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper .image {
+          display: block;
+          height: 100%;
+          max-height: 100vh;
+          object-fit: contain;
+          -webkit-transform: none;
+                  transform: none; }
       .imageContainer .panelWrapper.panelWrapper--expand .info {
         display: none; }
-    .imageContainer .panelWrapper.panelWrapper--showInfo .imageWrapper .image {
-      display: block; }
+    .imageContainer .panelWrapper.panelWrapper--showInfo .imageWrapper {
+      opacity: 1; }
+      .imageContainer .panelWrapper.panelWrapper--showInfo .imageWrapper .image {
+        display: block; }
     .imageContainer .panelWrapper.panelWrapper--showInfo .info {
       color: rgba(0, 0, 0, 0); }
       .imageContainer .panelWrapper.panelWrapper--showInfo .info::before {
@@ -280,7 +299,7 @@ body {
       display: none; }
     @media (min-width: 768px) {
       .imageContainer .panelWrapper .info {
-        font-size: 2em; } }
+        font-size: 1em; } }
 
 .footer {
   position: relative;
