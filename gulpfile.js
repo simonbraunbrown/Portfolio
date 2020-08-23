@@ -7,11 +7,19 @@ const imageMin = require("gulp-imagemin");
 const cache = require('gulp-cache');
 const browserSync = require("browser-sync").create();
 const useref = require("gulp-useref");
+const babel = require("gulp-babel");
 const terser = require("gulp-terser");
 const rename = require("gulp-rename");
 const gulpIf = require("gulp-if");
+const lazypipe = require("lazypipe");
 const del = require("del");
 const runSequence = require('run-sequence');
+
+const handleJS = lazypipe()
+  .pipe(babel, {
+    presets: ['@babel/preset-env']
+  })
+  .pipe(terser);
 
 gulp.task('hello', function() {
   console.log("Hello Simon");
@@ -45,7 +53,7 @@ const AUTOPREFIXER_BROWSERS = [
   return gulp
     .src("src/*.html")
     .pipe(useref())
-    .pipe(gulpIf("*.js", terser()))
+    .pipe(gulpIf("*.js", handleJS()))
     .pipe(gulpIf("*.css", cleanCSS()))
     .pipe(gulp.dest("dist"));
 });
@@ -138,6 +146,14 @@ gulp.task('autoPrefix', function() {
       .pipe(rename({ extname: '.min.js' }))
       .pipe(gulp.dest("dist/"))
 });
+
+gulp.task('handleJS', () =>
+    gulp.src('src/js/main.js')
+        .pipe(babel({
+            presets: ['@babel/env']
+        }))
+        .pipe(gulp.dest('dist/'))
+);
 
 // [] --> paralell ()--> sequence
 
