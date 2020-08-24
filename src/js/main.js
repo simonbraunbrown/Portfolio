@@ -7,12 +7,34 @@ const progressBarWrappers = document.querySelectorAll('.progressBarWrapper');
 const progressCount = document.querySelector('.progress');
 const navigation = document.querySelector('.navigationWrapper');
 const overlayWrapper = document.querySelector('.overlayWrapper');
-const closeButtons = overlayWrapper.querySelectorAll('.closeButton')
+const closeButtons = overlayWrapper.querySelectorAll('.closeButton');
 let elementBodyOffsets = [];
 let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
 let redraw = hasScrolled();
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  console.log('DOM fully loaded');
+  loaded = true;
+  getPanelCords();
+  drawAnimation();
+});
+
+window.addEventListener('resize', function (event) {
+  if (loaded) {
+    getPanelCords();
+    windowHeight = window.innerHeight;
+  }
+});
+
+function drawAnimation() {
+  requestAnimationFrame(drawAnimation);
+  redraw = hasScrolled();
+  if (!redraw) return;
+  toggleOnScroll();
+  makeProgress();
+}
 
 navigation.querySelectorAll('.navigationItem').forEach((item) => {
   item.addEventListener('click', function (event) {
@@ -36,11 +58,11 @@ navigation.querySelectorAll('.navigationItem').forEach((item) => {
   });
 });
 
-closeButtons.forEach(button => {
+closeButtons.forEach((button) => {
   button.addEventListener('click', function (event) {
     const overlay = overlayWrapper.querySelector('.overlay--visible');
     overlay.classList.remove('overlay--visible');
-  })
+  });
 });
 
 imageContainer
@@ -50,28 +72,6 @@ Infos.forEach((info) => {
   const infoText = info.innerHTML;
   info.setAttribute('data-text', infoText);
 });
-
-document.addEventListener('DOMContentLoaded', function (event) {
-  console.log('DOM fully loaded');
-  loaded = true;
-  getPanelCords();
-  drawAnimation();
-});
-
-window.addEventListener('resize', function (event) {
-  if (loaded) {
-    getPanelCords();
-    windowHeight = window.innerHeight;
-  }
-});
-
-function drawAnimation() {
-  requestAnimationFrame(drawAnimation);
-  redraw = hasScrolled();
-  if (!redraw) return;
-  toggleOnScroll();
-  makeProgress();
-}
 
 function hasScrolled() {
   let redraw = previousScrollY !== window.scrollY;
