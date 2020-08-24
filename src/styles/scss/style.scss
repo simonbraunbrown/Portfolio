@@ -1,3 +1,16 @@
+$base-transition-curve: cubic-bezier(0.07, 0.6, 0.5, 1);
+$main-color-background: #161616;
+$main-color: #4f4f51;
+$main-color-dark: #2c2b30;
+$main-color-light: #d6d6d6;
+$main-color-info: #d6d6d600;
+$highlight-color-light: #f2c4ce;
+$highlight-color-dark: #f58f7c;
+$prime-color: #4f4a4a;
+$secondary-color: #1a1919;
+$color-variant: #7cf5c1;
+$color-transparent: rgba(0, 0, 0, 0);
+
 html {
   scroll-behavior: smooth;
 }
@@ -8,24 +21,9 @@ body {
   padding: 0;
   //font-family: "Roboto", sans-serif;
   font-family: 'Hack', monospace;
-
-  & {
-    //variables
-    font-size: 0.5em;
-    --base-panel-height: calc((100vh - 8em) / 2);
-    --base-transition-curve: cubic-bezier(0.07, 0.6, 0.5, 1);
-    --main-color-background: #161616;
-    --main-color: #4f4f51;
-    --main-color-dark: #2c2b30;
-    --main-color-light: #d6d6d6;
-    --main-color-info: #d6d6d600;
-    --highlight-color-light: #f2c4ce;
-    --highlight-color-dark: #f58f7c;
-    --prime-color: #4f4a4a;
-    --secondary-color: #1a1919;
-    --color-variant: #7cf5c1;
-    background-color: var(--main-color-background);
-  }
+  font-size: 0.5em;
+  background-color: $main-color-background;
+  --base-panel-height: calc((100vh - 8em) / 2);
 
   &::-webkit-scrollbar {
     display: none; /* Chrome, Safari and Opera */
@@ -67,15 +65,14 @@ body {
     font-size: 10vw;
     font-weight: normal;
     mix-blend-mode: screen;
-    //text-shadow: 1px 1px 1px grey, 1px -1px 1px grey, -1px 1px 1px grey, -1px -1px 1px grey;
-    -webkit-text-stroke: 1px var(--main-color);
+    -webkit-text-stroke: 1px $main-color;
     background: transparent;
   }
 
   .arrowDown {
     position: absolute;
     display: inline-block;
-    border: solid var(--main-color);
+    border: solid $main-color;
     border-width: 0 1px 1px 0;
     padding: 2%;
     bottom: 5%;
@@ -101,7 +98,7 @@ body {
   & .progressBar {
     position: absolute;
     display: block;
-    background-color: var(--main-color-light);
+    background-color: $main-color-light;
     overflow: hidden;
   }
   &--left {
@@ -165,8 +162,8 @@ body {
       width: 100vw;
       height: 100vh;
       padding: 8em;
-      background-color: var(--main-color-background);
-      color: var(--main-color-light);
+      background-color: $main-color-background;
+      color: $main-color-light;
       & .buttonWrapper {
         position: absolute;
         width: 4em;
@@ -178,7 +175,7 @@ body {
           display: block;
           width: 100%;
           height: 100%;
-          color: var(--main-color-light);
+          color: $main-color-light;
           font-size: 1em;
           &:before,
           &:after {
@@ -188,7 +185,7 @@ body {
             top: 0;
             left: 50%;
             content: ' ';
-            background-color: var(--main-color-light);
+            background-color: $main-color-light;
           }
           &:before {
             transform: translate(-100%, 0) rotate(45deg);
@@ -220,21 +217,24 @@ body {
       position: relative;
       width: 100%;
       margin: 1em auto;
-      & span {
+      & .about,
+      .social,
+      .contact,
+      .progress {
         display: block;
         position: relative;
         width: 1em;
         margin: 0 auto;
-        color: var(--main-color-light);
+        color: $main-color-light;
         font-size: 1em;
         text-transform: uppercase;
         font-weight: normal;
         writing-mode: vertical-rl;
         text-orientation: upright;
       }
+      & .progress {
+      }
     }
-  }
-  & .progress {
   }
   &--visible {
     opacity: 1;
@@ -250,7 +250,7 @@ body {
 .imageContainer {
   position: relative;
   width: 100%;
-  background: var(--main-color-background);
+  background: $main-color-background;
   & .panelWrapper {
     position: relative;
     box-sizing: border-box;
@@ -258,7 +258,6 @@ body {
     width: 100%;
     height: var(--base-panel-height);
     margin-top: 8em;
-    //transition: border 0.25s var(--base-transition-curve);
     & .imageWrapper {
       position: relative;
       display: block;
@@ -273,7 +272,6 @@ body {
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
         object-fit: cover;
-        //transition: transform 1.5s var(--base-transition-curve);
       }
     }
     & .info {
@@ -285,8 +283,7 @@ body {
       height: auto;
       top: 50%;
       font-size: 1em;
-      color: var(--main-color-dark);
-      //text-shadow: 0px 0px 10px var(--main-color-dark-dark);
+      color: $main-color-dark;
       font-weight: normal;
       line-height: 1em;
       text-transform: uppercase;
@@ -298,7 +295,8 @@ body {
         width: 0;
         overflow: hidden;
         height: auto;
-        color: var(--main-color-light);
+        background-color: $main-color-background;
+        color: $main-color-light;
         opacity: 0;
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear;
@@ -326,7 +324,7 @@ body {
         }
       }
     }
-    &.panelWrapper--expand {
+    &--expand {
       height: 100vh;
       padding: 4em 0;
       & .imageWrapper {
@@ -343,7 +341,7 @@ body {
         display: none;
       }
     }
-    &.panelWrapper--showInfo {
+    &--showInfo {
       & .imageWrapper {
         opacity: 1;
         & .image {
@@ -351,7 +349,7 @@ body {
         }
       }
       & .info {
-        color: rgba(0, 0, 0, 0);
+        color: $color-transparent;
         &::before {
           width: 100%;
           overflow: visible;
@@ -403,11 +401,11 @@ body {
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-around;
-    background-color: var(--main-color-background);
+    background-color: $main-color-background;
 
     span {
       width: 25%;
-      color: var(--main-color-dark);
+      color: $main-color-dark;
       font-size: 1em;
       text-align: center;
       font-weight: bold;

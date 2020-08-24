@@ -5,22 +5,10 @@ body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Hack', monospace; }
-  body {
-    font-size: 0.5em;
-    --base-panel-height: calc((100vh - 8em) / 2);
-    --base-transition-curve: cubic-bezier(0.07, 0.6, 0.5, 1);
-    --main-color-background: #161616;
-    --main-color: #4f4f51;
-    --main-color-dark: #2c2b30;
-    --main-color-light: #d6d6d6;
-    --main-color-info: #d6d6d600;
-    --highlight-color-light: #f2c4ce;
-    --highlight-color-dark: #f58f7c;
-    --prime-color: #4f4a4a;
-    --secondary-color: #1a1919;
-    --color-variant: #7cf5c1;
-    background-color: var(--main-color-background); }
+  font-family: 'Hack', monospace;
+  font-size: 0.5em;
+  background-color: #161616;
+  --base-panel-height: calc((100vh - 8em) / 2); }
   body::-webkit-scrollbar {
     display: none;
     /* Chrome, Safari and Opera */ }
@@ -55,12 +43,12 @@ body {
     font-size: 10vw;
     font-weight: normal;
     mix-blend-mode: screen;
-    -webkit-text-stroke: 1px var(--main-color);
+    -webkit-text-stroke: 1px #4f4f51;
     background: transparent; }
   .header .arrowDown {
     position: absolute;
     display: inline-block;
-    border: solid var(--main-color);
+    border: solid #4f4f51;
     border-width: 0 1px 1px 0;
     padding: 2%;
     bottom: 5%;
@@ -82,7 +70,7 @@ body {
   .progressBarWrapper .progressBar {
     position: absolute;
     display: block;
-    background-color: var(--main-color-light);
+    background-color: #d6d6d6;
     overflow: hidden; }
   .progressBarWrapper--left {
     width: 4em;
@@ -137,8 +125,8 @@ body {
       width: 100vw;
       height: 100vh;
       padding: 8em;
-      background-color: var(--main-color-background);
-      color: var(--main-color-light); }
+      background-color: #161616;
+      color: #d6d6d6; }
       .progressBarWrapper .overlayWrapper .overlay .buttonWrapper {
         position: absolute;
         width: 4em;
@@ -150,7 +138,7 @@ body {
           display: block;
           width: 100%;
           height: 100%;
-          color: var(--main-color-light);
+          color: #d6d6d6;
           font-size: 1em; }
           .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before, .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:after {
             position: absolute;
@@ -159,7 +147,7 @@ body {
             top: 0;
             left: 50%;
             content: ' ';
-            background-color: var(--main-color-light); }
+            background-color: #d6d6d6; }
           .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before {
             -webkit-transform: translate(-100%, 0) rotate(45deg);
                     transform: translate(-100%, 0) rotate(45deg); }
@@ -185,13 +173,19 @@ body {
       position: relative;
       width: 100%;
       margin: 1em auto; }
-      .progressBarWrapper .navigationWrapper .navigationItem span,
-      .progressBarWrapper .navigationWrapper .progressDisplay span {
+      .progressBarWrapper .navigationWrapper .navigationItem .about,
+      .progressBarWrapper .navigationWrapper .navigationItem .social,
+      .progressBarWrapper .navigationWrapper .navigationItem .contact,
+      .progressBarWrapper .navigationWrapper .navigationItem .progress,
+      .progressBarWrapper .navigationWrapper .progressDisplay .about,
+      .progressBarWrapper .navigationWrapper .progressDisplay .social,
+      .progressBarWrapper .navigationWrapper .progressDisplay .contact,
+      .progressBarWrapper .navigationWrapper .progressDisplay .progress {
         display: block;
         position: relative;
         width: 1em;
         margin: 0 auto;
-        color: var(--main-color-light);
+        color: #d6d6d6;
         font-size: 1em;
         text-transform: uppercase;
         font-weight: normal;
@@ -211,7 +205,7 @@ body {
 .imageContainer {
   position: relative;
   width: 100%;
-  background: var(--main-color-background); }
+  background: #161616; }
   .imageContainer .panelWrapper {
     position: relative;
     box-sizing: border-box;
@@ -242,7 +236,7 @@ body {
       height: auto;
       top: 50%;
       font-size: 1em;
-      color: var(--main-color-dark);
+      color: #2c2b30;
       font-weight: normal;
       line-height: 1em;
       text-transform: uppercase;
@@ -255,7 +249,8 @@ body {
         width: 0;
         overflow: hidden;
         height: auto;
-        color: var(--main-color-light);
+        background-color: #161616;
+        color: #d6d6d6;
         opacity: 0;
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear; }
@@ -271,31 +266,31 @@ body {
       .imageContainer .panelWrapper:nth-child(2n + 0) .info::before {
         right: 0;
         text-align: right; }
-    .imageContainer .panelWrapper.panelWrapper--expand {
+    .imageContainer .panelWrapper--expand {
       height: 100vh;
       padding: 4em 0; }
-      .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper {
+      .imageContainer .panelWrapper--expand .imageWrapper {
         opacity: 1; }
-        .imageContainer .panelWrapper.panelWrapper--expand .imageWrapper .image {
+        .imageContainer .panelWrapper--expand .imageWrapper .image {
           display: block;
           height: 100%;
           max-height: 100vh;
           object-fit: contain;
           -webkit-transform: none;
                   transform: none; }
-      .imageContainer .panelWrapper.panelWrapper--expand .info {
+      .imageContainer .panelWrapper--expand .info {
         display: none; }
-    .imageContainer .panelWrapper.panelWrapper--showInfo .imageWrapper {
+    .imageContainer .panelWrapper--showInfo .imageWrapper {
       opacity: 1; }
-      .imageContainer .panelWrapper.panelWrapper--showInfo .imageWrapper .image {
+      .imageContainer .panelWrapper--showInfo .imageWrapper .image {
         display: block; }
-    .imageContainer .panelWrapper.panelWrapper--showInfo .info {
+    .imageContainer .panelWrapper--showInfo .info {
       color: rgba(0, 0, 0, 0); }
-      .imageContainer .panelWrapper.panelWrapper--showInfo .info::before {
+      .imageContainer .panelWrapper--showInfo .info::before {
         width: 100%;
         overflow: visible;
         opacity: 1; }
-    .imageContainer .panelWrapper.panelWrapper--showInfo.panelWrapper--expand .info {
+    .imageContainer .panelWrapper--showInfo.panelWrapper--expand .info {
       display: none; }
     @media (min-width: 768px) {
       .imageContainer .panelWrapper .info {
@@ -334,10 +329,10 @@ body {
     -webkit-justify-content: space-around;
         -ms-flex-pack: distribute;
             justify-content: space-around;
-    background-color: var(--main-color-background); }
+    background-color: #161616; }
     .footer .footerContent span {
       width: 25%;
-      color: var(--main-color-dark);
+      color: #2c2b30;
       font-size: 1em;
       text-align: center;
       font-weight: bold; }
