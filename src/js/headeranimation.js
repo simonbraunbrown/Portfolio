@@ -1,0 +1,1 @@
+import * as THREE from './vendor/three/three.min.js';
