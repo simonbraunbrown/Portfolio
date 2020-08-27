@@ -1,4 +1,3 @@
-import * as THREE from './vendor/three/three.module.js';
 
 let container;
 let time = 0;
