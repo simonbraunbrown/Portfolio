@@ -58,6 +58,12 @@ const AUTOPREFIXER_BROWSERS = [
     .pipe(gulp.dest("dist"));
 });
 
+gulp.task('vendor', function() {
+  return gulp
+  .src("src/js/vendor/**")
+  .pipe(gulp.dest("dist/js/vendor/"));
+});
+
  gulp.task('handleSass', function() {
   return gulp
     .src("src/styles/scss/*.scss")
@@ -159,7 +165,7 @@ gulp.task('handleJS', () =>
 
 const serve = gulp.parallel('hello','handleSass', 'sync', 'observe');
 
-const build = gulp.series('cleanDist', 'handleSass','ref', 'fonts', 'images', 'videos');
+const build = gulp.series('cleanDist', 'handleSass','ref', 'vendor', 'fonts', 'images', 'videos');
 
 exports.serve = serve;
 
