@@ -53,15 +53,10 @@ const AUTOPREFIXER_BROWSERS = [
   return gulp
     .src('src/*.html')
     .pipe(useref())
-    .pipe(gulpIf('*.js', handleJS()))
+    .pipe(gulpIf('./src/js/*.js', handleJS()))
+    .pipe(gulpIf('./js/vendor/**/*.js', terser()))
     .pipe(gulpIf('*.css', cleanCSS()))
     .pipe(gulp.dest('dist'));
-});
-
-gulp.task('vendor', function() {
-  return gulp
-  .src('src/js/vendor/**')
-  .pipe(gulp.dest('dist/js/vendor/'));
 });
 
  gulp.task('handleSass', function() {
@@ -165,7 +160,7 @@ gulp.task('handleJS', () =>
 
 const serve = gulp.parallel('hello','handleSass', 'sync', 'observe');
 
-const build = gulp.series('cleanDist', 'handleSass','ref', 'vendor', 'fonts', 'images', 'videos');
+const build = gulp.series('cleanDist', 'handleSass','ref', 'fonts', 'images', 'videos');
 
 exports.serve = serve;
 
