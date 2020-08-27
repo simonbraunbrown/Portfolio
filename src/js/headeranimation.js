@@ -19,9 +19,19 @@ function init() {
   createRenderer();
 }
 
-function createScene() {}
+function createScene() {
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x161616);
+}
 
-function createCamera() {}
+function createCamera() {
+  const fov = 75;
+  const aspect = container.clientWidth / container.clientHeight;
+  const near = 0.1;
+  const far = 5;
+  camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+  camera.position.z = 2;
+}
 
 function createLight() {}
 
@@ -45,7 +55,7 @@ function stop() {
 }
 
 function onWindowResize() {
-    console.log('resize');
+  console.log('resize');
 }
 
 init();
