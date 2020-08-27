@@ -33,7 +33,13 @@ function createCamera() {
   camera.position.z = 2;
 }
 
-function createLight() {}
+function createLight() {
+  const color = 0xffffff;
+  const intensity = 1;
+  const light = new THREE.DirectionalLight(color, intensity);
+  light.position.set(-1, 2, 4);
+  scene.add(light);
+}
 
 function createMesh() {}
 
