@@ -9,6 +9,7 @@ let mesh;
 let renderer;
 
 function init() {
+  window.addEventListener('resize', onWindowResize);
   let container = document.querySelector('.canvasContainer');
 
   createScene();
@@ -42,3 +43,9 @@ function play() {
 function stop() {
   renderer.setAnimationLoop(null);
 }
+
+function onWindowResize() {
+    console.log('resize');
+}
+
+init();
