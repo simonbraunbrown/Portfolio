@@ -64,9 +64,18 @@ function createRenderer() {
   container.appendChild(renderer.domElement);
 }
 
-function update() {}
+function update() {
+  time += 0.001;
+  const speed = 1;
+  const rot = time * speed;
 
-function render() {}
+  mesh.rotation.x = rot;
+  mesh.rotation.y = rot;
+}
+
+function render() {
+  renderer.render(scene, camera);
+}
 
 function play() {
   renderer.setAnimationLoop(() => {
@@ -80,7 +89,8 @@ function stop() {
 }
 
 function onWindowResize() {
-  console.log('resize');
+  
 }
 
 init();
+play();
