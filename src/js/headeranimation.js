@@ -1,5 +1,6 @@
-import * as THREE from './vendor/three/three.min.js';
+import * as THREE from './vendor/three/three.module.js';
 
+let container;
 let time = 0;
 
 let scene;
@@ -10,7 +11,7 @@ let renderer;
 
 function init() {
   window.addEventListener('resize', onWindowResize);
-  let container = document.querySelector('.canvasContainer');
+  container = document.querySelector('.canvasContainer');
 
   createScene();
   createCamera();
@@ -41,9 +42,27 @@ function createLight() {
   scene.add(light);
 }
 
-function createMesh() {}
+function createMesh() {
+  const boxWidth = 1;
+  const boxHeight = 1;
+  const boxDepth = 1;
+  const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
 
-function createRenderer() {}
+  const material = new THREE.MeshStandardMaterial({ color: 0xd6d6d6 });
+
+  mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(0, 0, 0);
+  scene.add(mesh);
+}
+
+function createRenderer() {
+  renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+
+  renderer.setPixelRatio(window.devicePixelRatio);
+
+  container.appendChild(renderer.domElement);
+}
 
 function update() {}
 
