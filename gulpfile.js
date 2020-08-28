@@ -96,6 +96,10 @@ const AUTOPREFIXER_BROWSERS = [
   return gulp.src('src/fonts/**/*').pipe(gulp.dest('dist/fonts'));
 });
 
+gulp.task('models', function() {
+  return gulp.src('src/models/*').pipe(gulp.dest('dist/models'));
+});
+
  gulp.task('images', function() {
   return gulp
     .src('src/images/**/*.+(png|jpg|gif|svg)')
@@ -160,7 +164,7 @@ gulp.task('handleJS', () =>
 
 const serve = gulp.parallel('hello','handleSass', 'sync', 'observe');
 
-const build = gulp.series('cleanDist', 'handleSass','ref', 'fonts', 'images', 'videos');
+const build = gulp.series('cleanDist', 'handleSass','ref', 'fonts', 'models', 'images', 'videos');
 
 exports.serve = serve;
 
