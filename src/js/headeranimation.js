@@ -7,6 +7,7 @@ let light;
 let mesh;
 let model;
 let renderer;
+let controls;
 
 function init() {
   window.addEventListener('resize', onWindowResize);
@@ -18,6 +19,7 @@ function init() {
   createMesh();
   loadModel();
   createRenderer();
+  createControls();
 }
 
 function createScene() {
@@ -31,7 +33,7 @@ function createCamera() {
   const near = 0.1;
   const far = 5;
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.set( 0, 0, 1.5 );
+  camera.position.set(0, 0, 1.5);
 }
 
 function createLight() {
@@ -58,30 +60,40 @@ function createMesh() {
 function loadModel() {
   const loader = new THREE.GLTFLoader();
   const url = '../models/me_lowPoly.glb';
-  const modelPosition = new THREE.Vector3( 0, 0, 0 );
+  const modelPosition = new THREE.Vector3(0, 0, 0);
 
   const addModel = (gltf, position) => {
     console.log(gltf);
-    model = gltf.scene.children[ 0 ];
+    model = gltf.scene.children[0];
     model.position.copy(position);
 
-    const material = new THREE.MeshStandardMaterial({ color: 0xd6d6d6, flatShading: true });
+    const material = new THREE.MeshStandardMaterial({
+      color: 0xd6d6d6,
+      flatShading: true,
+      roughness: 0.35,
+      metalness: 1.0
+    });
 
     model.material.copy(material);
 
-    scene.add( model );
+    scene.add(model);
     play();
   };
 
   const onProgress = (progress) => {
-      //console.log(progress);
+    //console.log(progress);
   };
 
   const onError = (e) => {
     console.log(e);
   };
 
-  loader.load(url, response => addModel(response, modelPosition), onProgress, onError);
+  loader.load(
+    url,
+    (response) => addModel(response, modelPosition),
+    onProgress,
+    onError
+  );
 }
 
 function createRenderer() {
@@ -93,7 +105,18 @@ function createRenderer() {
   container.appendChild(renderer.domElement);
 }
 
-function update() {
+function createControls() {
+  controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.enablePan = false;
+  controls.enableZoom = false;
+  controls.enableKeys = false;
+  controls.minPolarAngle = Math.PI/2;
+  controls.maxPolarAngle = Math.PI/2;
+
+}
+
+function update() { 
   time += 0.001;
   const speed = 1;
   const rot = time * speed;
@@ -101,6 +124,8 @@ function update() {
   mesh.rotation.x = rot;
   mesh.rotation.y = rot;
   model.rotation.y = rot;
+
+  controls.update(); 
 }
 
 function render() {
