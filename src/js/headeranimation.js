@@ -1,4 +1,3 @@
-
 let container;
 let time = 0;
 
@@ -6,6 +5,7 @@ let scene;
 let camera;
 let light;
 let mesh;
+let model;
 let renderer;
 
 function init() {
@@ -16,6 +16,7 @@ function init() {
   createCamera();
   createLight();
   createMesh();
+  loadModel();
   createRenderer();
 }
 
@@ -30,14 +31,14 @@ function createCamera() {
   const near = 0.1;
   const far = 5;
   camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  camera.position.z = 2;
+  camera.position.set( 0, 0, 1.5 );
 }
 
 function createLight() {
   const color = 0xffffff;
   const intensity = 1;
   const light = new THREE.DirectionalLight(color, intensity);
-  light.position.set(-1, 2, 4);
+  light.position.set(-10, 2, 4);
   scene.add(light);
 }
 
@@ -51,7 +52,36 @@ function createMesh() {
 
   mesh = new THREE.Mesh(geometry, material);
   mesh.position.set(0, 0, 0);
-  scene.add(mesh);
+  //scene.add(mesh);
+}
+
+function loadModel() {
+  const loader = new THREE.GLTFLoader();
+  const url = '../models/me_lowPoly.glb';
+  const modelPosition = new THREE.Vector3( 0, 0, 0 );
+
+  const addModel = (gltf, position) => {
+    console.log(gltf);
+    model = gltf.scene.children[ 0 ];
+    model.position.copy(position);
+
+    const material = new THREE.MeshStandardMaterial({ color: 0xd6d6d6, flatShading: true });
+
+    model.material.copy(material);
+
+    scene.add( model );
+    play();
+  };
+
+  const onProgress = (progress) => {
+      //console.log(progress);
+  };
+
+  const onError = (e) => {
+    console.log(e);
+  };
+
+  loader.load(url, response => addModel(response, modelPosition), onProgress, onError);
 }
 
 function createRenderer() {
@@ -70,6 +100,7 @@ function update() {
 
   mesh.rotation.x = rot;
   mesh.rotation.y = rot;
+  model.rotation.y = rot;
 }
 
 function render() {
@@ -88,12 +119,11 @@ function stop() {
 }
 
 function onWindowResize() {
-    camera.aspect = container.clientWidth / container.clientHeight;
+  camera.aspect = container.clientWidth / container.clientHeight;
 
-    camera.updateProjectionMatrix();
-  
-    renderer.setSize(container.clientWidth, container.clientHeight);
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(container.clientWidth, container.clientHeight);
 }
 
 init();
-play();
