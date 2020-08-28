@@ -3,4 +3,5 @@ package-lock.json
 node_modules
 src/images/*
 src/videos/*
+src/models/*
 dist/
