@@ -53,8 +53,8 @@ const AUTOPREFIXER_BROWSERS = [
   return gulp
     .src('src/*.html')
     .pipe(useref())
-    .pipe(gulpIf('./src/js/*.js', handleJS()))
-    .pipe(gulpIf('./js/vendor/**/*.js', terser()))
+    .pipe(gulpIf('**/js/*.js', handleJS()))
+    .pipe(gulpIf('**/vendor/**/*.js', terser()))
     .pipe(gulpIf('*.css', cleanCSS()))
     .pipe(gulp.dest('dist'));
 });
