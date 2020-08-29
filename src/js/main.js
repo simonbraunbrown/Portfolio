@@ -147,7 +147,7 @@ function toggleOnScroll() {
       }
       ebos[i].element.classList.add('panelWrapper--showInfo');
     } else {
-      if (ebos[i].element.querySelector('.image')) {
+      if (ebos[i].element.classList.contains('panelWrapper--expand')) {
         ebos[i].element.querySelector('.image').style.transform = 'none';
       }
       ebos[i].element.classList.remove('panelWrapper--showInfo');

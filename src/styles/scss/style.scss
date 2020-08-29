@@ -10,7 +10,7 @@ $prime-color: #4f4a4a;
 $secondary-color: #1a1919;
 $color-variant: #7cf5c1;
 $color-transparent: rgba(0, 0, 0, 0);
-
+//#eaeaea #111 #fafafa
 html {
   scroll-behavior: smooth;
 }
@@ -259,9 +259,9 @@ body {
     position: relative;
     box-sizing: border-box;
     display: block;
-    width: 100%;
+    width: auto;
     height: var(--base-panel-height);
-    margin: 4em 0;
+    margin: 4em 8em;
     & .imageWrapper {
       position: relative;
       display: block;
@@ -272,10 +272,16 @@ body {
       transition: opacity 0.3s linear;
       & .image {
         position: relative;
-        display: none;
+        display: block;
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
         object-fit: cover;
+        animation-name: hide;
+        animation-duration: 0.1ms;
+        @keyframes hide {
+          from {display: block;}
+          to {display: none;}
+        }
       }
     }
     & .info {
@@ -330,6 +336,7 @@ body {
     }
     &--expand {
       height: 100vh;
+      margin: 4em 0;
       padding: 4em 0;
       & .imageWrapper {
         opacity: 1;

@@ -213,9 +213,9 @@ body {
     position: relative;
     box-sizing: border-box;
     display: block;
-    width: 100%;
+    width: auto;
     height: var(--base-panel-height);
-    margin: 4em 0; }
+    margin: 4em 8em; }
     .imageContainer .panelWrapper .imageWrapper {
       position: relative;
       display: block;
@@ -226,10 +226,26 @@ body {
       transition: opacity 0.3s linear; }
       .imageContainer .panelWrapper .imageWrapper .image {
         position: relative;
-        display: none;
+        display: block;
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
-        object-fit: cover; }
+        object-fit: cover;
+        -webkit-animation-name: hide;
+                animation-name: hide;
+        -webkit-animation-duration: 0.1ms;
+                animation-duration: 0.1ms; }
+
+@-webkit-keyframes hide {
+  from {
+    display: block; }
+  to {
+    display: none; } }
+
+@keyframes hide {
+  from {
+    display: block; }
+  to {
+    display: none; } }
     .imageContainer .panelWrapper .info {
       position: absolute;
       display: block;
@@ -271,6 +287,7 @@ body {
         text-align: right; }
     .imageContainer .panelWrapper--expand {
       height: 100vh;
+      margin: 4em 0;
       padding: 4em 0; }
       .imageContainer .panelWrapper--expand .imageWrapper {
         opacity: 1; }
