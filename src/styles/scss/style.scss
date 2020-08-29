@@ -218,19 +218,15 @@ body {
     & .navigationItem,
     .progressDisplay {
       display: block;
-      position: relative;
       width: 100%;
-      margin: 1em auto;
+      margin: 1em 0;
+      text-align: center;
       & .about,
       .social,
       .contact,
       .progress {
-        display: block;
-        position: relative;
-        width: 1em;
-        margin: 0 auto;
+        display: inline-block;
         color: $main-color-light;
-        font-size: 1em;
         text-transform: uppercase;
         font-weight: normal;
         writing-mode: vertical-rl;
@@ -246,7 +242,6 @@ body {
 }
 
 .globalWrapper {
-  overflow: hidden;
   width: calc(100% - 8em);
   margin: 0 auto;
 }
@@ -310,6 +305,23 @@ body {
         opacity: 0;
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear;
+      }
+    }
+
+    & .fileNameWrapper {
+      position: absolute;
+      display: block;
+      width: 4em;
+      top: 50%;
+      left: calc(100% + 8em);
+      text-align: center;
+      transform: translate(0, -50%);
+      & .fileName {
+        display: inline-block;
+        color: $main-color-light;
+        text-transform: uppercase;
+        writing-mode: vertical-rl;
+        text-orientation: upright;
       }
     }
 
