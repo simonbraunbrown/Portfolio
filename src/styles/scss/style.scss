@@ -33,6 +33,16 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
+
+  & {
+    .--hidden {
+      display: none !important;
+    }
+    
+    .--fading {
+      opacity: 0 !important;
+    }
+  }
 }
 
 @media (min-width: 768px) {
@@ -268,11 +278,11 @@ body {
       overflow: hidden;
       width: 100%;
       height: 100%;
-      opacity: 0;
+      opacity: 1;
       transition: opacity 0.3s linear;
       & .image {
         position: relative;
-        display: none;
+        display: block;
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
         object-fit: cover;
@@ -393,11 +403,6 @@ body {
         & .info {
           display: none;
         }
-      }
-    }
-    @media (min-width: 768px) {
-      & .info {
-        font-size: 1em;
       }
     }
   }
