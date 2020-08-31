@@ -1,5 +1,4 @@
 const imageContainer = document.querySelector('.imageContainer');
-const imageDisplay = imageContainer.querySelector('.imageDisplay');
 const images = imageContainer.querySelectorAll('.image');
 const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
 const Infos = imageContainer.querySelectorAll('.info');
@@ -35,6 +34,11 @@ function drawAnimation() {
   toggleOnScroll();
   makeProgress();
 }
+
+const imageWrappers = document.querySelectorAll('.imageWrapper');
+imageWrappers.forEach((w) => {
+  w.classList.add('--hidden');
+});
 
 navigation.querySelectorAll('.navigationItem').forEach((item) => {
   item.addEventListener('click', function (event) {
@@ -128,15 +132,19 @@ function toggleOnScroll() {
   const ebos = elementBodyOffsets;
   const wC = windowHeight * 0.5;
   let y = Math.floor(window.scrollY);
+  const expanded = (index) =>
+    ebos[index].element.classList.contains('panelWrapper--expand');
+  const showInfo = (index) =>
+    ebos[index].element.classList.contains('panelWrapper--showInfo');
+  let imageWrapper = null;
   for (let i = 0; i < ebos.length; i++) {
+    if (ebos[i].element.querySelector('.imageWrapper')) {
+      imageWrapper = ebos[i].element.querySelector('.imageWrapper');
+    }
     const eH = ebos[i].elementHeight * 0.5;
     const eCBO = Math.floor(ebos[i].elementCenterBodyOffset);
     const cCO = y + wC - eCBO; // center to center offset
-    if (
-      cCO <= eH &&
-      cCO >= -eH &&
-      !ebos[i].element.classList.contains('panelWrapper--expand')
-    ) {
+    if (cCO <= eH && cCO >= -eH && !expanded(i)) {
       if (ebos[i].element.querySelector('.image')) {
         ebos[i].element.querySelector('.image').style.transform =
           'scale(1.0) translate(0,calc(' +
@@ -146,18 +154,54 @@ function toggleOnScroll() {
           'px))'; // 1.25 from image scale in css
       }
       ebos[i].element.classList.add('panelWrapper--showInfo');
+      if (imageWrapper && !expanded(i)) {
+        fadeIn(imageWrapper);
+      }
     } else {
-      if (ebos[i].element.classList.contains('panelWrapper--expand')) {
+      if (expanded(i)) {
         ebos[i].element.querySelector('.image').style.transform = 'none';
       }
       ebos[i].element.classList.remove('panelWrapper--showInfo');
+      if (imageWrapper && !expanded(i)) {
+        fadeOut(imageWrapper);
+      }
     }
   }
 }
 
+function fadeIn(element) {
+  if (!element.classList.contains('--hidden')) return;
+  element.classList.add('--fading');
+  element.classList.remove('--hidden');
+  setTimeout(function () {
+    element.classList.remove('--fading');
+  }, 50);
+}
+
+function fadeOut(element) {
+  if (element.classList.contains('--hidden')) return;
+  element.classList.add('--fading');
+  element.addEventListener(
+    'transitionend',
+    function (event) {
+      element.classList.add('--hidden');
+      element.classList.remove('--fading');
+    },
+    {
+      capture: false,
+      once: true,
+      passive: false,
+    }
+  );
+}
+
 panelWrappers.forEach((wrapper) => {
   const self = wrapper;
+  const image = wrapper.querySelector('.image');
   const video = wrapper.querySelector('.image--video');
+  if (image) {
+    displayFilename(wrapper, image);
+  }
   wrapper.addEventListener('click', (e) => {
     if (!self.classList.contains('panelWrapper--expand')) {
       squeezeAll(panelWrappers);
@@ -175,6 +219,21 @@ panelWrappers.forEach((wrapper) => {
     }
   });
 });
+
+function displayFilename(element, image) {
+  let filename = image.src
+    ? image.src.split('/')[4]
+    : image.getElementsByTagName('source')[0].src.split('/')[4];
+  filename = filename.split('.')[0];
+  console.log(filename);
+  const f = document.createElement('span');
+  const fW = document.createElement('div');
+  f.className = 'fileName';
+  fW.className = 'fileNameWrapper';
+  f.innerHTML = filename;
+  fW.appendChild(f);
+  element.appendChild(fW);
+}
 
 function expand(wrapper) {
   if (wrapper.querySelector('.image')) {
