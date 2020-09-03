@@ -66,7 +66,7 @@ function createPanels() {
 	function createImagePanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
-		const imageWrapper = createElementWithClassname('div', ['imageWrapper']);
+		const imageWrapper = createElementWithClassname('div', ['imageWrapper', '--hidden']);
 		const image = createElementWithClassname('img', ['image']);
 		image.addEventListener('load', function () {});
 		image.setAttribute('src', project.src);
@@ -93,7 +93,7 @@ function createPanels() {
 	function createVideoPanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
-		const imageWrapper = createElementWithClassname('div', ['imageWrapper']);
+		const imageWrapper = createElementWithClassname('div', ['imageWrapper', '--hidden']);
 		const video = createElementWithClassname('video', [
 			'image',
 			'image--video',
@@ -144,11 +144,6 @@ function createPanels() {
 		return parent;
 	}
 }
-
-const imageWrappers = document.querySelectorAll('.imageWrapper');
-imageWrappers.forEach((w) => {
-	w.classList.add('--hidden');
-});
 
 navigation.querySelectorAll('.navigationItem').forEach((item) => {
 	item.addEventListener('click', function (event) {
