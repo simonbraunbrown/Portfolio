@@ -324,7 +324,7 @@ body {
 			}
 		}
 
-		& .fileNameWrapper {
+		& .filenameWrapper {
 			position: absolute;
 			display: block;
 			width: 4em;
@@ -332,7 +332,7 @@ body {
 			left: 100%;
 			text-align: center;
 			transform: translate(0, -50%);
-			& .fileName {
+			& .filename {
 				display: inline-block;
 				color: $main-color-light;
 				text-transform: uppercase;

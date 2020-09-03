@@ -66,15 +66,19 @@ function createPanels() {
 	function createImagePanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
+		const filenameWrapper = createElementWithClassname('div', ['filenameWrapper']);
+		const filename = createElementWithClassname('span', ['filename']);
 		const imageWrapper = createElementWithClassname('div', ['imageWrapper', '--hidden']);
 		const image = createElementWithClassname('img', ['image']);
+		const info = createElementWithClassname('span', ['info']);
+		filename.innerHTML = project.name;
+		filenameWrapper.appendChild(filename);
 		image.addEventListener('load', function () {});
 		image.setAttribute('src', project.src);
 		imageWrapper.appendChild(image);
-		const info = createElementWithClassname('span', ['info']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		appendElements(panel, [imageWrapper, info]);
+		appendElements(panel, [filenameWrapper, imageWrapper, info]);
 		panelWrapper.appendChild(panel);
 		panelWrapper.addEventListener('click', () => {
 			const panelWrappers = document.querySelectorAll('.panelWrappers');
@@ -93,11 +97,15 @@ function createPanels() {
 	function createVideoPanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
+		const filenameWrapper = createElementWithClassname('div', ['filenameWrapper']);
+		const filename = createElementWithClassname('span', ['filename']);
 		const imageWrapper = createElementWithClassname('div', ['imageWrapper', '--hidden']);
 		const video = createElementWithClassname('video', [
 			'image',
 			'image--video',
 		]);
+		filename.innerHTML = project.name;
+		filenameWrapper.appendChild(filename);
 		video.setAttribute('preload', 'preload');
 		video.setAttribute('playsinline', 'playsinline');
 		video.setAttribute('autoplay', 'autoplay');
@@ -111,7 +119,7 @@ function createPanels() {
 		const info = createElementWithClassname('span', ['info']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		appendElements(panel, [imageWrapper, info]);
+		appendElements(panel, [filenameWrapper, imageWrapper, info]);
 		panelWrapper.appendChild(panel);
 		panelWrapper.addEventListener('click', () => {
 			const panelWrappers = document.querySelectorAll('.panelWrappers');
@@ -291,20 +299,6 @@ function fadeOut(element) {
 			passive: false,
 		}
 	);
-}
-
-function displayFilename(element, image) {
-	let filename = image.src
-		? image.src.split('/')[4]
-		: image.getElementsByTagName('source')[0].src.split('/')[4];
-	filename = filename.split('.')[0];
-	const f = document.createElement('span');
-	const fW = document.createElement('div');
-	f.className = 'fileName';
-	fW.className = 'fileNameWrapper';
-	f.innerHTML = filename;
-	fW.appendChild(f);
-	element.appendChild(fW);
 }
 
 function expand(wrapper) {

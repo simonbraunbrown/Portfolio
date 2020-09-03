@@ -269,7 +269,7 @@ body {
         opacity: 0;
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear; }
-    .panelContainer .panelWrapper .fileNameWrapper {
+    .panelContainer .panelWrapper .filenameWrapper {
       position: absolute;
       display: block;
       width: 4em;
@@ -278,7 +278,7 @@ body {
       text-align: center;
       -webkit-transform: translate(0, -50%);
               transform: translate(0, -50%); }
-      .panelContainer .panelWrapper .fileNameWrapper .fileName {
+      .panelContainer .panelWrapper .filenameWrapper .filename {
         display: inline-block;
         color: #d6d6d6;
         text-transform: uppercase;
