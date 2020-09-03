@@ -123,10 +123,11 @@ body {
     top: 0;
     left: 0;
     & .progressBar {
-      top: 0;
+      top: 50%;
       right: 0;
       width: 0.1em;
       max-height: 100vh;
+      transform: translate(0, -50%);
     }
   }
   &--right {
@@ -135,10 +136,11 @@ body {
     top: 0;
     right: 0;
     & .progressBar {
-      bottom: 0;
+      bottom: 50%;
       left: 0;
       width: 0.1em;
       max-height: 100vh;
+      transform: translate(0, 50%);
     }
   }
   &--top {

@@ -87,20 +87,24 @@ body {
     top: 0;
     left: 0; }
     .progressBarWrapper--left .progressBar {
-      top: 0;
+      top: 50%;
       right: 0;
       width: 0.1em;
-      max-height: 100vh; }
+      max-height: 100vh;
+      -webkit-transform: translate(0, -50%);
+              transform: translate(0, -50%); }
   .progressBarWrapper--right {
     width: 4em;
     height: 100vh;
     top: 0;
     right: 0; }
     .progressBarWrapper--right .progressBar {
-      bottom: 0;
+      bottom: 50%;
       left: 0;
       width: 0.1em;
-      max-height: 100vh; }
+      max-height: 100vh;
+      -webkit-transform: translate(0, 50%);
+              transform: translate(0, 50%); }
   .progressBarWrapper--top {
     width: 100vw;
     height: 4em;
