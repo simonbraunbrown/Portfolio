@@ -1,7 +1,7 @@
-const imageContainer = document.querySelector('.imageContainer');
-const images = imageContainer.querySelectorAll('.image');
-const panelWrappers = imageContainer.querySelectorAll('.panelWrapper');
-const Infos = imageContainer.querySelectorAll('.info');
+const panelContainer = document.querySelector('.panelContainer');
+const images = panelContainer.querySelectorAll('.image');
+const panelWrappers = panelContainer.querySelectorAll('.panelWrapper');
+const Infos = panelContainer.querySelectorAll('.info');
 const progressBarWrappers = document.querySelectorAll('.progressBarWrapper');
 const progressCount = document.querySelector('.progress');
 const navigation = document.querySelector('.navigationWrapper');
@@ -16,6 +16,7 @@ let redraw = hasScrolled();
 document.addEventListener('DOMContentLoaded', function (event) {
 	console.log('DOM fully loaded');
 	loaded = true;
+	createPanels();
 	getPanelCords();
 	drawAnimation();
 });
@@ -33,6 +34,89 @@ function drawAnimation() {
 	if (!redraw) return;
 	toggleOnScroll();
 	makeProgress();
+}
+
+function createPanels() {
+	const panelContainer = document.querySelector('.panelContainer');
+	let panelContainerContent = [];
+	projects.forEach((project) => {
+		let panelContent;
+		if (project.type === 'text') {
+			panelContent = createTextPanel(project);
+		} else if (project.type === 'image') {
+			panelContent = createImagePanel(project);
+		} else if (project.type === 'video') {
+			panelContent = createVideoPanel(project);
+		}
+		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		const panel = createElementWithClassname('div', ['panel']);
+		appendElements(panel, panelContent);
+		panelWrapper.appendChild(panel);
+		panelContainerContent.push(panelWrapper);
+	});
+	console.log(panelContainerContent);
+	appendElements(panelContainer, panelContainerContent);
+
+	function createTextPanel(project) {
+		let panelContent = [];
+		const info = createElementWithClassname('span', ['info']);
+		info.innerHTML = project.description;
+		info.setAttribute('data-text', project.description);
+		panelContent.push(info);
+		return panelContent;
+	}
+
+	function createImagePanel(project) {
+		let panelContent = [];
+		const imageWrapper = createElementWithClassname('div', ['imageWrapper']);
+		const image = createElementWithClassname('img', ['image']);
+		image.addEventListener('load', function() {});
+		image.setAttribute('src', project.src);
+		imageWrapper.appendChild(image);
+		panelContent.push(imageWrapper);
+		const info = createElementWithClassname('span', ['info']);
+		info.innerHTML = project.description;
+		info.setAttribute('data-text', project.description);
+		panelContent.push(info);
+		return panelContent;
+	}
+
+	function createVideoPanel(project) {
+		let panelContent = [];
+		const imageWrapper = createElementWithClassname('div', ['imageWrapper']);
+		const video = createElementWithClassname('video', ['image', 'image--video']);
+		video.setAttribute('preload', 'preload');
+		video.setAttribute('playsinline', 'playsinline');
+		video.setAttribute('autoplay', 'autoplay');
+		video.setAttribute('muted', 'muted');
+		video.setAttribute('loop', 'loop');
+		video.pause();
+		const source = document.createElement('source');
+		source.setAttribute('src', project.src);
+		video.appendChild(source);
+		imageWrapper.appendChild(video);
+		panelContent.push(imageWrapper);
+		const info = createElementWithClassname('span', ['info']);
+		info.innerHTML = project.description;
+		info.setAttribute('data-text', project.description);
+		panelContent.push(info);
+		return panelContent;
+	}
+
+	function createElementWithClassname(type, className) {
+		const element = document.createElement(type);
+		className.forEach((name) => {
+			element.classList.add(name);
+		});
+		return element;
+	}
+
+	function appendElements(parent, childsToAppend) {
+		childsToAppend.forEach((child) => {
+			parent.appendChild(child);
+		});
+		return parent;
+	}
 }
 
 const imageWrappers = document.querySelectorAll('.imageWrapper');
@@ -69,13 +153,6 @@ closeButtons.forEach((button) => {
 	});
 });
 
-imageContainer
-	.querySelectorAll('.image--video')
-	.forEach((video) => video.pause());
-Infos.forEach((info) => {
-	const infoText = info.innerHTML;
-	info.setAttribute('data-text', infoText);
-});
 
 function hasScrolled() {
 	let redraw = previousScrollY !== window.scrollY;
@@ -110,6 +187,7 @@ function makeProgress() {
 }
 
 function getPanelCords() {
+	const panelWrappers = document.querySelectorAll('.panelWrapper');
 	elementBodyOffsets = [];
 	panelWrappers.forEach((wrapper) => {
 		const bodyRect = document.body.getBoundingClientRect();
