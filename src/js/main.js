@@ -48,43 +48,56 @@ function createPanels() {
 		} else if (project.type === 'video') {
 			panelContent = createVideoPanel(project);
 		}
-		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
-		const panel = createElementWithClassname('div', ['panel']);
-		appendElements(panel, panelContent);
-		panelWrapper.appendChild(panel);
-		panelContainerContent.push(panelWrapper);
+		panelContainerContent.push(panelContent);
 	});
-	console.log(panelContainerContent);
 	appendElements(panelContainer, panelContainerContent);
 
 	function createTextPanel(project) {
-		let panelContent = [];
+		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		const panel = createElementWithClassname('div', ['panel']);
 		const info = createElementWithClassname('span', ['info']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		panelContent.push(info);
-		return panelContent;
+		panel.appendChild(info);
+		panelWrapper.appendChild(panel);
+		return panelWrapper;
 	}
 
 	function createImagePanel(project) {
-		let panelContent = [];
+		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		const panel = createElementWithClassname('div', ['panel']);
 		const imageWrapper = createElementWithClassname('div', ['imageWrapper']);
 		const image = createElementWithClassname('img', ['image']);
-		image.addEventListener('load', function() {});
+		image.addEventListener('load', function () {});
 		image.setAttribute('src', project.src);
 		imageWrapper.appendChild(image);
-		panelContent.push(imageWrapper);
 		const info = createElementWithClassname('span', ['info']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		panelContent.push(info);
-		return panelContent;
+		appendElements(panel, [imageWrapper, info]);
+		panelWrapper.appendChild(panel);
+		panelWrapper.addEventListener('click', () => {
+			const panelWrappers = document.querySelectorAll('.panelWrappers');
+			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
+				squeezeAll(panelWrappers);
+				expand(panelWrapper);
+				getPanelCords();
+			} else {
+				squeezeIt(panelWrapper);
+				getPanelCords();
+			}
+		});
+		return panelWrapper;
 	}
 
 	function createVideoPanel(project) {
-		let panelContent = [];
+		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		const panel = createElementWithClassname('div', ['panel']);
 		const imageWrapper = createElementWithClassname('div', ['imageWrapper']);
-		const video = createElementWithClassname('video', ['image', 'image--video']);
+		const video = createElementWithClassname('video', [
+			'image',
+			'image--video',
+		]);
 		video.setAttribute('preload', 'preload');
 		video.setAttribute('playsinline', 'playsinline');
 		video.setAttribute('autoplay', 'autoplay');
@@ -95,12 +108,25 @@ function createPanels() {
 		source.setAttribute('src', project.src);
 		video.appendChild(source);
 		imageWrapper.appendChild(video);
-		panelContent.push(imageWrapper);
 		const info = createElementWithClassname('span', ['info']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		panelContent.push(info);
-		return panelContent;
+		appendElements(panel, [imageWrapper, info]);
+		panelWrapper.appendChild(panel);
+		panelWrapper.addEventListener('click', () => {
+			const panelWrappers = document.querySelectorAll('.panelWrappers');
+			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
+				squeezeAll(panelWrappers);
+				expand(panelWrapper);
+				getPanelCords();
+				video.play();
+			} else {
+				squeezeIt(panelWrapper);
+				getPanelCords();
+				video.pause();
+			}
+		});
+		return panelWrapper;
 	}
 
 	function createElementWithClassname(type, className) {
@@ -152,7 +178,6 @@ closeButtons.forEach((button) => {
 		overlay.classList.remove('overlay--visible');
 	});
 });
-
 
 function hasScrolled() {
 	let redraw = previousScrollY !== window.scrollY;
@@ -272,31 +297,6 @@ function fadeOut(element) {
 		}
 	);
 }
-
-panelWrappers.forEach((wrapper) => {
-	const self = wrapper;
-	const image = wrapper.querySelector('.image');
-	const video = wrapper.querySelector('.image--video');
-	if (image) {
-		displayFilename(wrapper, image);
-	}
-	wrapper.addEventListener('click', (e) => {
-		if (!self.classList.contains('panelWrapper--expand')) {
-			squeezeAll(panelWrappers);
-			expand(self);
-			getPanelCords();
-			if (video) {
-				video.play();
-			}
-		} else {
-			squeezeIt(self);
-			getPanelCords();
-			if (video) {
-				video.pause();
-			}
-		}
-	});
-});
 
 function displayFilename(element, image) {
 	let filename = image.src
