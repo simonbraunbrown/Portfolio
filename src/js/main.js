@@ -32,7 +32,7 @@ function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
 	redraw = hasScrolled();
 	if (!redraw) return;
-	toggleOnScroll();
+	toggleOnScroll(elementBodyOffsets);
 	makeProgress();
 }
 
@@ -78,8 +78,8 @@ function createPanels() {
 		imageWrapper.appendChild(image);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		appendElements(panel, [filenameWrapper, imageWrapper, info]);
-		panelWrapper.appendChild(panel);
+		appendElements(panel, [imageWrapper, info]);
+		appendElements(panelWrapper, [panel, filenameWrapper]);
 		panelWrapper.addEventListener('click', () => {
 			const panelWrappers = document.querySelectorAll('.panelWrappers');
 			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
@@ -119,8 +119,8 @@ function createPanels() {
 		const info = createElementWithClassname('span', ['info']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
-		appendElements(panel, [filenameWrapper, imageWrapper, info]);
-		panelWrapper.appendChild(panel);
+		appendElements(panel, [imageWrapper, info]);
+		appendElements(panelWrapper, [panel, filenameWrapper]);
 		panelWrapper.addEventListener('click', () => {
 			const panelWrappers = document.querySelectorAll('.panelWrappers');
 			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
@@ -227,50 +227,58 @@ function getPanelCords() {
 			elementHeight: wrapperHeight,
 			elementTopBodyOffset: elementTopBodyOffset,
 			elementCenterBodyOffset: elementTopBodyOffset + wrapperHeight * 0.5,
+			active: false
 		};
 		elementBodyOffsets.push(values);
 	});
 }
 
-function toggleOnScroll() {
+function toggleOnScroll(elementBodyOffsets) {
 	if (!elementBodyOffsets) return;
 
-	const ebos = elementBodyOffsets;
+	//const ebos = elementBodyOffsets;
 	const wC = windowHeight * 0.5;
 	let y = Math.floor(window.scrollY);
 	const expanded = (index) =>
-		ebos[index].element.classList.contains('panelWrapper--expand');
+		elementBodyOffsets[index].element.classList.contains('panelWrapper--expand');
 	const showInfo = (index) =>
-		ebos[index].element.classList.contains('panelWrapper--showInfo');
+		elementBodyOffsets[index].element.classList.contains('panelWrapper--showInfo');
 	let imageWrapper = null;
-	for (let i = 0; i < ebos.length; i++) {
-		if (ebos[i].element.querySelector('.imageWrapper')) {
-			imageWrapper = ebos[i].element.querySelector('.imageWrapper');
+	let active = false
+	for (let i = 0; i < elementBodyOffsets.length; i++) {
+		if (elementBodyOffsets[i].element.querySelector('.imageWrapper')) {
+			imageWrapper = elementBodyOffsets[i].element.querySelector('.imageWrapper');
+			active = elementBodyOffsets[i].active;
 		}
-		const eH = ebos[i].elementHeight * 0.5;
-		const eCBO = Math.floor(ebos[i].elementCenterBodyOffset);
+		const eH = elementBodyOffsets[i].elementHeight * 0.5;
+		const eCBO = Math.floor(elementBodyOffsets[i].elementCenterBodyOffset);
 		const cCO = y + wC - eCBO; // center to center offset
 		if (cCO <= eH && cCO >= -eH && !expanded(i)) {
-			if (ebos[i].element.querySelector('.image')) {
-				ebos[i].element.querySelector('.image').style.transform =
+			if (elementBodyOffsets[i].element.querySelector('.image')) {
+				elementBodyOffsets[i].element.querySelector('.image').style.transform =
 					'scale(1.0) translate(0,calc(' +
 					(-eH * 1.25 + eH) +
 					'px - ' +
 					cCO / 4 +
 					'px))'; // 1.25 from image scale in css
 			}
-			ebos[i].element.classList.add('panelWrapper--showInfo');
-			if (imageWrapper && !expanded(i)) {
+			
+			if (!active && imageWrapper && !expanded(i)) {
 				fadeIn(imageWrapper);
+				elementBodyOffsets[i].active = true;
 			}
+			elementBodyOffsets[i].element.classList.add('panelWrapper--showInfo');
+			
 		} else {
 			if (expanded(i)) {
-				ebos[i].element.querySelector('.image').style.transform = 'none';
+				elementBodyOffsets[i].element.querySelector('.image').style.transform = 'none';
 			}
-			ebos[i].element.classList.remove('panelWrapper--showInfo');
-			if (imageWrapper && !expanded(i)) {
+			if (active && imageWrapper && !expanded(i)) {
 				fadeOut(imageWrapper);
+				elementBodyOffsets[i].active = false;
 			}
+			elementBodyOffsets[i].element.classList.remove('panelWrapper--showInfo');
+			
 		}
 	}
 }
