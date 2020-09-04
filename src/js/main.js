@@ -16,12 +16,15 @@ let redraw = hasScrolled();
 document.addEventListener('DOMContentLoaded', function (event) {
 	console.log('DOM fully loaded');
 	loaded = true;
+	checkBrowserSupport();
+	checkBrowserWidth();
 	createPanels();
 	getPanelCords();
 	drawAnimation();
 });
 
 window.addEventListener('resize', function (event) {
+	checkBrowserWidth();
 	if (loaded) {
 		getPanelCords();
 		windowHeight = window.innerHeight;
