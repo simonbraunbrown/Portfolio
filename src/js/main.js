@@ -167,11 +167,24 @@ navigation.querySelectorAll('.navigationItem').forEach((item) => {
 
 		if (isVisible) {
 			overlay.classList.remove('overlay--visible');
+			window.aboutAnimationStop();
 		} else {
 			overlayWrapper.querySelectorAll('.overlay--visible').forEach((item) => {
 				item.classList.remove('overlay--visible');
 			});
 			overlay.classList.add('overlay--visible');
+			// setTimeout(() => {
+			// 	window.aboutAnimationResize();
+			// 	window.aboutAnimationPlay();
+			// },300);
+			overlay.addEventListener('transitionend', function() {
+				window.aboutAnimationResize();
+				window.aboutAnimationPlay();
+			}, {
+				capture: false,
+				once: true,
+				passive: false,
+			});
 		}
 		// const overlay = overlayWrapper.querySelector('.overlay--'+ item.dataset.className);
 		// overlayWrapper.querySelectorAll('.overlay').forEach(item => {
@@ -184,6 +197,7 @@ closeButtons.forEach((button) => {
 	button.addEventListener('click', function (event) {
 		const overlay = overlayWrapper.querySelector('.overlay--visible');
 		overlay.classList.remove('overlay--visible');
+		window.aboutAnimationStop();
 	});
 });
 

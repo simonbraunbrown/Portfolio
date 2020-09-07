@@ -1,4 +1,4 @@
-(function headerAnimation() {
+(function aboutAnimation() {
 	let container;
 	let time = 0;
 
@@ -12,7 +12,7 @@
 
 	function init() {
 		window.addEventListener('resize', onWindowResize);
-		container = document.querySelector('.headerCanvasContainer');
+		container = document.querySelector('.aboutCanvasContainer');
 
 		createScene();
 		createCamera();
@@ -29,7 +29,7 @@
 	}
 
 	function createCamera() {
-		const fov = 75;
+		const fov = 80;
 		const aspect = container.clientWidth / container.clientHeight;
 		const near = 0.1;
 		const far = 5;
@@ -80,7 +80,7 @@
 
 	function loadModel() {
 		const loader = new THREE.GLTFLoader();
-		const url = '../models/me_lowPoly_matcap.glb';
+		const url = '../models/me_lowPoly.glb';
 		const modelPosition = new THREE.Vector3(0, 0, 0);
 
 		const addModel = (gltf, position) => {
@@ -103,8 +103,9 @@
 			});
 
 			const matMaterial = new THREE.MeshMatcapMaterial({
+				flatShading: true,
 				color: 0xffffff,
-				matcap: loadTexture('../images/YouTubeHistory_all_small.png'),
+				matcap: loadTexture('../images/nebula1.png'),
 			});
 
 			model.traverse((child) => {
@@ -114,7 +115,6 @@
 			//model.material.copy(material);
 			console.log(model);
 			scene.add(model);
-			play();
 		};
 
 		const onProgress = (progress) => {
@@ -189,6 +189,10 @@
 
 		renderer.setSize(container.clientWidth, container.clientHeight);
 	}
+
+	window.aboutAnimationPlay = play;
+	window.aboutAnimationStop = stop;
+	window.aboutAnimationResize = onWindowResize;
 
 	init();
 })();

@@ -21,6 +21,8 @@ body {
     display: none !important; }
   body .--fading {
     opacity: 0 !important; }
+  body canvas {
+    outline: none; }
 
 @media (min-width: 768px) {
   body {
@@ -66,7 +68,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover; }
-  .header .canvasContainer {
+  .header .headerCanvasContainer {
     display: block;
     width: 100%;
     height: 100%; }
@@ -213,6 +215,18 @@ body {
             .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink:hover {
               color: #d6d6d6;
               -webkit-text-stroke: none; }
+        .progressBarWrapper .overlayWrapper .overlay .overlayContent .aboutCanvasContainer {
+          position: absolute;
+          display: block;
+          width: 16em;
+          height: 16em;
+          right: 0;
+          bottom: 0;
+          opacity: 0;
+          border: 0.1em solid #d6d6d6;
+          border-radius: 100%;
+          transition: opacity 0s linear;
+          transition-delay: 0s; }
       .progressBarWrapper .overlayWrapper .overlay--visible {
         width: 100vw;
         padding: 8em; }
@@ -236,6 +250,10 @@ body {
             width: 100%;
             transition: width 0.3s linear;
             transition-delay: 1.2s; }
+        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .aboutCanvasContainer {
+          opacity: 1;
+          transition: opacity 0.3s linear;
+          transition-delay: 0.9s; }
   .progressBarWrapper .navigationWrapper {
     position: absolute;
     width: 100%;
