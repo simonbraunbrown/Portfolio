@@ -24,7 +24,7 @@ function init() {
 
 function createScene() {
 	scene = new THREE.Scene();
-	scene.background = new THREE.Color(0x161616);
+	//scene.background = new THREE.Color(0x161616);
 }
 
 function createCamera() {
@@ -79,7 +79,7 @@ function loadTexture(_url) {
 
 function loadModel() {
 	const loader = new THREE.GLTFLoader();
-	const url = '../models/me_lowPoly.glb';
+	const url = '../models/me_lowPoly_matcap.glb';
 	const modelPosition = new THREE.Vector3(0, 0, 0);
 
 	const addModel = (gltf, position) => {
@@ -98,14 +98,19 @@ function loadModel() {
 			envMap: envMap,
 			envMapIntensity: 1.5,
 			morphNormals: true,
+			opacity: 1.0,
 		});
 
 		const matMaterial = new THREE.MeshMatcapMaterial({
-			color: 0x7cf5c1,
-			matcap: loadTexture('../images/displacement10.png'),
+			color: 0xffffff,
+			matcap: loadTexture('../images/YouTubeHistory_all_small.png'),
 		});
 
-		model.material.copy(material);
+		model.traverse(child => {
+			if ( child.material ) child.material = matMaterial;
+		});
+
+		//model.material.copy(material);
 		console.log(model);
 		scene.add(model);
 		play();
@@ -128,7 +133,10 @@ function loadModel() {
 }
 
 function createRenderer() {
-	renderer = new THREE.WebGLRenderer({ antialias: true });
+	renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+
+	renderer.setClearColor( 0x000000, 0 );
+
 	renderer.setSize(container.clientWidth, container.clientHeight);
 
 	renderer.setPixelRatio(window.devicePixelRatio);
