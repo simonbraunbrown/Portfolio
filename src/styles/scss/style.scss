@@ -172,20 +172,25 @@ body {
 		top: 0;
 		left: 0;
 		& .overlay {
-			position: absolute;
-			display: none;
+			position: relative;
+			display: block;
 			box-sizing: border-box;
-			width: 100vw;
+			overflow: hidden;
+			width: 0;
 			height: 100vh;
-			padding: 8em;
+			padding: 0;
 			background-color: $main-color-background;
 			color: $main-color-light;
+			transition: width 0.3s linear;
 			& .buttonWrapper {
 				position: absolute;
 				width: 4em;
 				height: 4em;
-				bottom: 4em;
-				right: 4em;
+				opacity: 0;
+				top: 8em;
+				right: 8em;
+				transition: opacity 0s linear;
+					transition-delay: 0s;
 				& .closeButton {
 					position: relative;
 					display: block;
@@ -215,9 +220,84 @@ body {
 				position: relative;
 				width: 100%;
 				height: 100%;
+				& .about {
+					opacity: 0;
+					transition: opacity 0s linear;
+					transition-delay: 0s;
+				}
+				& .overlayText {
+					width: 50%;
+					opacity: 0;
+					transition: opacity 0s linear;
+					transition-delay: 0s;
+				}
+				& .overlayLinkWrapper {
+					position: absolute;
+					display: block;
+					left: 0;
+					bottom: 0;
+				& .overlayLink {
+					display: table;
+					position: relative;
+					margin: 0.5em 0;
+					margin-right: 100%;
+					opacity: 0;
+					font-size: 2em;
+					color: $color-transparent;
+					-webkit-text-stroke: 1px $main-color-light;
+					text-decoration: none;
+					text-transform: uppercase;
+					transition: opacity 0s linear;
+					transition-delay: 0s;
+					&::after {
+						position: absolute;
+						content: '';
+						top: 100%;
+						left: 0;
+						width: 0;
+						height: 0.1em;
+						background-color: $main-color-light;
+						transition: width 0.3s linear;
+					}
+					&:hover {
+						color: $main-color-light;
+					-webkit-text-stroke: none;
+					}
+				}
+			}
 			}
 			&--visible {
-				display: block;
+				width: 100vw;
+				padding: 8em;
+				& .buttonWrapper{
+					opacity: 1;
+					transition: opacity 0.3s linear;
+					transition-delay: 0.9s;
+				}
+				& .overlayContent {
+					& .about {
+						opacity: 1;
+						transition: opacity 0.3s linear;
+						transition-delay: 0.3s;
+					}
+					& .overlayText {
+						opacity: 1;
+						transition: opacity 0.3s linear;
+						transition-delay: 0.6s;
+					}
+					& .overlayLinkWrapper {
+					& .overlayLink {
+						opacity: 1;
+					transition: opacity 0.3s linear;
+					transition-delay: 0.9s;
+					&::after {
+						width: 100%;
+						transition: width 0.3s linear;
+						transition-delay: 1.2s;
+					}
+					}
+				}
+				}
 			}
 		}
 	}
