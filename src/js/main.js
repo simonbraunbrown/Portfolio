@@ -42,14 +42,15 @@ function drawAnimation() {
 function createPanels() {
 	const panelContainer = document.querySelector('.panelContainer');
 	let panelContainerContent = [];
-	projects.forEach((project) => {
+	let projectCount = projects.filter(project => project.type !== 'text').length;
+	projects.forEach((project, index) => {
 		let panelContent;
 		if (project.type === 'text') {
 			panelContent = createTextPanel(project);
 		} else if (project.type === 'image') {
-			panelContent = createImagePanel(project);
+			panelContent = createImagePanel(project, index, projectCount);
 		} else if (project.type === 'video') {
-			panelContent = createVideoPanel(project);
+			panelContent = createVideoPanel(project, index, projectCount);
 		}
 		panelContainerContent.push(panelContent);
 	});
@@ -66,7 +67,7 @@ function createPanels() {
 		return panelWrapper;
 	}
 
-	function createImagePanel(project) {
+	function createImagePanel(project, index, totalProjects) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
 		const filenameWrapper = createElementWithClassname('div', ['filenameWrapper']);
@@ -76,7 +77,7 @@ function createPanels() {
 		const info = createElementWithClassname('span', ['info']);
 		filename.innerHTML = project.name;
 		filenameWrapper.appendChild(filename);
-		image.addEventListener('load', function () {});
+		image.addEventListener('load', function () {console.log('project'+index+'of'+totalProjects+'is loaded');});
 		image.setAttribute('src', project.src);
 		imageWrapper.appendChild(image);
 		info.innerHTML = project.description;
@@ -97,7 +98,7 @@ function createPanels() {
 		return panelWrapper;
 	}
 
-	function createVideoPanel(project) {
+	function createVideoPanel(project, index, totalProjects) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
 		const filenameWrapper = createElementWithClassname('div', ['filenameWrapper']);
@@ -115,6 +116,7 @@ function createPanels() {
 		video.setAttribute('muted', 'muted');
 		video.setAttribute('loop', 'loop');
 		video.pause();
+		video.addEventListener('canplaythrough', function() {console.log('project'+index+'of'+totalProjects+'is loaded');});
 		const source = document.createElement('source');
 		source.setAttribute('src', project.src);
 		video.appendChild(source);
