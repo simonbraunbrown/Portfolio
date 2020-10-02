@@ -11,6 +11,19 @@ $secondary-color: #1a1919;
 $color-variant: #7cf5c1;
 $color-transparent: rgba(0, 0, 0, 0);
 //#eaeaea #111 #fafafa
+
+@font-face {
+	font-family: 'ME';
+	src: url('../../fonts/MonumentExtended_Regular.otf') format('opentype');
+	font-weight: normal;
+}
+
+@font-face {
+	font-family: 'MEB';
+	src: url('../../fonts/MonumentExtended_Ultrabold.otf') format('opentype');
+	font-weight: bold;
+}
+
 html {
 	scroll-behavior: smooth;
 }
@@ -20,7 +33,8 @@ body {
 	margin: 0;
 	padding: 0;
 	//font-family: "Roboto", sans-serif;
-	font-family: 'Hack', monospace;
+	//font-family: 'Hack', monospace;
+	font-family: 'ME', sans-serif;
 	font-size: 0.5em;
 	background-color: $main-color-background;
 	--base-panel-height: calc((100vh - 8em) / 2);

@@ -4,4 +4,5 @@ node_modules
 src/images/*
 src/videos/*
 src/models/*
+src/fonts/*
 dist/
