@@ -17,7 +17,6 @@
 		createScene();
 		createCamera();
 		createLight();
-		createMesh();
 		loadModel();
 		createRenderer();
 		createControls();
@@ -29,33 +28,20 @@
 	}
 
 	function createCamera() {
-		const fov = 80;
+		const fov = 40;
 		const aspect = container.clientWidth / container.clientHeight;
 		const near = 0.1;
 		const far = 5;
 		camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-		camera.position.set(0, 0, 1.5);
+		camera.position.set(0, 0, 3.0);
 	}
 
 	function createLight() {
-		const color = 0x404040;
+		const color = 0xffffff;
 		const intensity = 1.0;
 		light = new THREE.AmbientLight(color, intensity);
-		//light.position.set(-10, 2, 4);
+		light.position.set(-10, 2, 4);
 		scene.add(light);
-	}
-
-	function createMesh() {
-		const boxWidth = 1;
-		const boxHeight = 1;
-		const boxDepth = 1;
-		const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
-
-		const material = new THREE.MeshStandardMaterial({ color: 0xd6d6d6 });
-
-		mesh = new THREE.Mesh(geometry, material);
-		mesh.position.set(0, 0, 0);
-		//scene.add(mesh);
 	}
 
 	function loadTexture(_url) {
@@ -80,8 +66,8 @@
 
 	function loadModel() {
 		const loader = new THREE.GLTFLoader();
-		const url = '../models/me_lowPoly.glb';
-		const modelPosition = new THREE.Vector3(0, 0, 0);
+		const url = '../models/me_lowPoly_tex.glb';
+		const modelPosition = new THREE.Vector3(0, -0.1, 0);
 
 		const addModel = (gltf, position) => {
 			model = gltf.scene.children[0];
@@ -102,6 +88,8 @@
 				opacity: 1.0,
 			});
 
+			let mat = new THREE.MeshStandardMaterial();
+
 			const matMaterial = new THREE.MeshMatcapMaterial({
 				flatShading: true,
 				color: 0xffffff,
@@ -109,7 +97,12 @@
 			});
 
 			model.traverse((child) => {
-				if (child.material) child.material = matMaterial;
+				if (child.material) mat.copy(child.material);
+				mat.envMap = envMap;
+				mat.envMapIntensity = 2.0;
+				mat.metalness = 0.0;
+				mat.roughness = 0.4;
+				if (child.material) child.material = mat;
 			});
 
 			//model.material.copy(material);
@@ -160,8 +153,6 @@
 		const speed = 1;
 		const rot = time * speed;
 
-		mesh.rotation.x = rot;
-		mesh.rotation.y = rot;
 		model.rotation.y = rot;
 
 		controls.update();
