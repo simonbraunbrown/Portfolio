@@ -186,7 +186,8 @@ void main() {
 	}
 
 	function update() {
-		object.material.uniforms.dispFactor.value = Math.sin(rad * Math.PI) * 0.25 + 0.5;
+		object.material.uniforms.dispFactor.value =
+			Math.sin(rad * Math.PI) * 0.25 + 0.5;
 		rad += increment;
 	}
 
