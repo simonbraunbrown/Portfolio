@@ -44,15 +44,15 @@ function createPanels() {
 	let panelContainerContent = [];
 	let projectCount = projects.filter((project) => project.type !== 'text')
 		.length;
+	let projectLoaded = 0;
 
 	function loadProgress() {
 		const progressBar = document.querySelector('.loadProgress');
-		const increment = 100 / projectCount;
+		const progress = projectLoaded / projectCount;
 		const elementWidth =
 			(progressBar.clientWidth * 100) / document.body.clientWidth;
-		progressBar.style.width = elementWidth + increment + '%';
-
-		if (elementWidth + increment >= 95) {
+		progressBar.style.width = progress * 100 + '%';
+		if (progress === 1) {
 			const loadingOverlay = document.querySelector('.loadingOverlay');
 			fadeOut(loadingOverlay);
 		}
@@ -98,6 +98,7 @@ function createPanels() {
 		filename.innerHTML = project.name;
 		filenameWrapper.appendChild(filename);
 		image.addEventListener('load', function () {
+			projectLoaded += 1;
 			loadProgress();
 		});
 		image.setAttribute('src', project.src);
@@ -144,6 +145,7 @@ function createPanels() {
 		video.setAttribute('loop', 'loop');
 		video.pause();
 		video.addEventListener('canplaythrough', function () {
+			projectLoaded += 1;
 			loadProgress();
 		});
 		const source = document.createElement('source');
