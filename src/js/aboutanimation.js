@@ -60,7 +60,6 @@
 			undefined,
 			onError
 		);
-		console.log(texture);
 		return texture;
 	}
 
@@ -106,7 +105,7 @@
 			});
 
 			//model.material.copy(material);
-			console.log(model);
+			//console.log(model);
 			scene.add(model);
 		};
 
