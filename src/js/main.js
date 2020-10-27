@@ -58,7 +58,7 @@ function createPanels() {
 		}
 	}
 
-	projects.forEach(project => {
+	projects.forEach((project) => {
 		let panelContent;
 		if (project.type === 'text') {
 			panelContent = createTextPanel(project);
