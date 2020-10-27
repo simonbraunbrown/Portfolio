@@ -58,14 +58,14 @@ function createPanels() {
 		}
 	}
 
-	projects.forEach((project, index) => {
+	projects.forEach(project => {
 		let panelContent;
 		if (project.type === 'text') {
 			panelContent = createTextPanel(project);
 		} else if (project.type === 'image') {
-			panelContent = createImagePanel(project, index, projectCount);
+			panelContent = createImagePanel(project);
 		} else if (project.type === 'video') {
-			panelContent = createVideoPanel(project, index, projectCount);
+			panelContent = createVideoPanel(project);
 		}
 		panelContainerContent.push(panelContent);
 	});
@@ -82,7 +82,7 @@ function createPanels() {
 		return panelWrapper;
 	}
 
-	function createImagePanel(project, index, totalProjects) {
+	function createImagePanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
 		const filenameWrapper = createElementWithClassname('div', [
@@ -98,7 +98,6 @@ function createPanels() {
 		filename.innerHTML = project.name;
 		filenameWrapper.appendChild(filename);
 		image.addEventListener('load', function () {
-			console.log('project' + index + 'of' + totalProjects + 'is loaded');
 			loadProgress();
 		});
 		image.setAttribute('src', project.src);
@@ -121,7 +120,7 @@ function createPanels() {
 		return panelWrapper;
 	}
 
-	function createVideoPanel(project, index, totalProjects) {
+	function createVideoPanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
 		const filenameWrapper = createElementWithClassname('div', [
@@ -145,7 +144,6 @@ function createPanels() {
 		video.setAttribute('loop', 'loop');
 		video.pause();
 		video.addEventListener('canplaythrough', function () {
-			console.log('project' + index + 'of' + totalProjects + 'is loaded');
 			loadProgress();
 		});
 		const source = document.createElement('source');
