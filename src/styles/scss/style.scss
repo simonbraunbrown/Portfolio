@@ -123,6 +123,24 @@ body {
 	}
 }
 
+.loadingOverlay {
+	position: fixed;
+	z-index: 3;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	left: 0;
+	background-color: $main-color-background;
+	opacity: 1;
+	transition: opacity 0.5s linear;
+
+	.loadProgress {
+		width: 0;
+		color: $main-color-background;
+		background-color: $main-color-light;
+	}
+}
+
 .progressBarWrapper {
 	position: fixed;
 	z-index: 2;

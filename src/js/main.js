@@ -42,7 +42,22 @@ function drawAnimation() {
 function createPanels() {
 	const panelContainer = document.querySelector('.panelContainer');
 	let panelContainerContent = [];
-	let projectCount = projects.filter(project => project.type !== 'text').length;
+	let projectCount = projects.filter((project) => project.type !== 'text')
+		.length;
+
+	function loadProgress() {
+		const progressBar = document.querySelector('.loadProgress');
+		const increment = 100 / projectCount;
+		const elementWidth =
+			(progressBar.clientWidth * 100) / document.body.clientWidth;
+		progressBar.style.width = elementWidth + increment + '%';
+
+		if (elementWidth + increment >= 95) {
+			const loadingOverlay = document.querySelector('.loadingOverlay');
+			fadeOut(loadingOverlay);
+		}
+	}
+
 	projects.forEach((project, index) => {
 		let panelContent;
 		if (project.type === 'text') {
@@ -70,14 +85,22 @@ function createPanels() {
 	function createImagePanel(project, index, totalProjects) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
-		const filenameWrapper = createElementWithClassname('div', ['filenameWrapper']);
+		const filenameWrapper = createElementWithClassname('div', [
+			'filenameWrapper',
+		]);
 		const filename = createElementWithClassname('span', ['filename']);
-		const imageWrapper = createElementWithClassname('div', ['imageWrapper', '--hidden']);
+		const imageWrapper = createElementWithClassname('div', [
+			'imageWrapper',
+			'--hidden',
+		]);
 		const image = createElementWithClassname('img', ['image']);
 		const info = createElementWithClassname('span', ['info']);
 		filename.innerHTML = project.name;
 		filenameWrapper.appendChild(filename);
-		image.addEventListener('load', function () {console.log('project'+index+'of'+totalProjects+'is loaded');});
+		image.addEventListener('load', function () {
+			console.log('project' + index + 'of' + totalProjects + 'is loaded');
+			loadProgress();
+		});
 		image.setAttribute('src', project.src);
 		imageWrapper.appendChild(image);
 		info.innerHTML = project.description;
@@ -101,9 +124,14 @@ function createPanels() {
 	function createVideoPanel(project, index, totalProjects) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
-		const filenameWrapper = createElementWithClassname('div', ['filenameWrapper']);
+		const filenameWrapper = createElementWithClassname('div', [
+			'filenameWrapper',
+		]);
 		const filename = createElementWithClassname('span', ['filename']);
-		const imageWrapper = createElementWithClassname('div', ['imageWrapper', '--hidden']);
+		const imageWrapper = createElementWithClassname('div', [
+			'imageWrapper',
+			'--hidden',
+		]);
 		const video = createElementWithClassname('video', [
 			'image',
 			'image--video',
@@ -116,7 +144,10 @@ function createPanels() {
 		video.setAttribute('muted', 'muted');
 		video.setAttribute('loop', 'loop');
 		video.pause();
-		video.addEventListener('canplaythrough', function() {console.log('project'+index+'of'+totalProjects+'is loaded');});
+		video.addEventListener('canplaythrough', function () {
+			console.log('project' + index + 'of' + totalProjects + 'is loaded');
+			loadProgress();
+		});
 		const source = document.createElement('source');
 		source.setAttribute('src', project.src);
 		video.appendChild(source);
@@ -177,14 +208,18 @@ navigation.querySelectorAll('.navigationItem').forEach((item) => {
 			// 	window.aboutAnimationResize();
 			// 	window.aboutAnimationPlay();
 			// },300);
-			overlay.addEventListener('transitionend', function() {
-				window.aboutAnimationResize();
-				window.aboutAnimationPlay();
-			}, {
-				capture: false,
-				once: true,
-				passive: false,
-			});
+			overlay.addEventListener(
+				'transitionend',
+				function () {
+					window.aboutAnimationResize();
+					window.aboutAnimationPlay();
+				},
+				{
+					capture: false,
+					once: true,
+					passive: false,
+				}
+			);
 		}
 		// const overlay = overlayWrapper.querySelector('.overlay--'+ item.dataset.className);
 		// overlayWrapper.querySelectorAll('.overlay').forEach(item => {
@@ -246,7 +281,7 @@ function getPanelCords() {
 			elementHeight: wrapperHeight,
 			elementTopBodyOffset: elementTopBodyOffset,
 			elementCenterBodyOffset: elementTopBodyOffset + wrapperHeight * 0.5,
-			active: false
+			active: false,
 		};
 		elementBodyOffsets.push(values);
 	});
@@ -259,14 +294,20 @@ function toggleOnScroll(elementBodyOffsets) {
 	const wC = windowHeight * 0.5;
 	let y = Math.floor(window.scrollY);
 	const expanded = (index) =>
-		elementBodyOffsets[index].element.classList.contains('panelWrapper--expand');
+		elementBodyOffsets[index].element.classList.contains(
+			'panelWrapper--expand'
+		);
 	const showInfo = (index) =>
-		elementBodyOffsets[index].element.classList.contains('panelWrapper--showInfo');
+		elementBodyOffsets[index].element.classList.contains(
+			'panelWrapper--showInfo'
+		);
 	let imageWrapper = null;
-	let active = false
+	let active = false;
 	for (let i = 0; i < elementBodyOffsets.length; i++) {
 		if (elementBodyOffsets[i].element.querySelector('.imageWrapper')) {
-			imageWrapper = elementBodyOffsets[i].element.querySelector('.imageWrapper');
+			imageWrapper = elementBodyOffsets[i].element.querySelector(
+				'.imageWrapper'
+			);
 			active = elementBodyOffsets[i].active;
 		}
 		const eH = elementBodyOffsets[i].elementHeight * 0.5;
@@ -281,23 +322,22 @@ function toggleOnScroll(elementBodyOffsets) {
 					cCO / 4 +
 					'px))'; // 1.25 from image scale in css
 			}
-			
+
 			if (!active && imageWrapper && !expanded(i)) {
 				fadeIn(imageWrapper);
 				elementBodyOffsets[i].active = true;
 			}
 			elementBodyOffsets[i].element.classList.add('panelWrapper--showInfo');
-			
 		} else {
 			if (expanded(i)) {
-				elementBodyOffsets[i].element.querySelector('.image').style.transform = 'none';
+				elementBodyOffsets[i].element.querySelector('.image').style.transform =
+					'none';
 			}
 			if (active && imageWrapper && !expanded(i)) {
 				fadeOut(imageWrapper);
 				elementBodyOffsets[i].active = false;
 			}
 			elementBodyOffsets[i].element.classList.remove('panelWrapper--showInfo');
-			
 		}
 	}
 }
