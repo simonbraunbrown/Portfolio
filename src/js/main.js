@@ -158,9 +158,8 @@ function createPanels() {
 		appendElements(panel, [imageWrapper, info]);
 		appendElements(panelWrapper, [panel, filenameWrapper]);
 		panelWrapper.addEventListener('click', () => {
-			const panelWrappers = document.querySelectorAll('.panelWrappers');
 			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
-				squeezeAll(panelWrappers);
+				squeezeAll();
 				expand(panelWrapper);
 				getPanelCords();
 				video.play();
@@ -375,8 +374,9 @@ function expand(wrapper) {
 	}
 }
 
-function squeezeAll(wrappers) {
-	wrappers.forEach((w) => {
+function squeezeAll() {
+	const panelWrappers = document.querySelectorAll('.panelWrapper');
+	panelWrappers.forEach((w) => {
 		w.classList.remove('panelWrapper--expand');
 	});
 }
