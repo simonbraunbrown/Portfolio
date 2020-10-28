@@ -63,6 +63,8 @@ void main() {
   vec2 distortedPosition2 = myUV + getRotM(angle2) * dispVec * intensity2 * (1.0 - dispFactor);
   vec4 _texture1 = texture2D(tex, distortedPosition1);
   vec4 _texture2 = texture2D(tex, distortedPosition2);
+  _texture1.rgb = smoothstep(0.3,1.0, _texture1.rgb);
+  _texture2.rgb = smoothstep(0.5,1.0, _texture2.rgb);
   gl_FragColor = mix(_texture1, _texture2, dispFactor);
 }
 `;
