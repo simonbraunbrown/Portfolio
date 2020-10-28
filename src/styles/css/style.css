@@ -8,9 +8,6 @@
   src: url("../../fonts/MonumentExtended_Ultrabold.otf") format("opentype");
   font-weight: bold; }
 
-html {
-  scroll-behavior: smooth; }
-
 body {
   width: 100%;
   margin: 0;
@@ -362,7 +359,10 @@ body {
         display: block;
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
-        object-fit: cover; }
+        object-fit: cover;
+        transition: -webkit-transform 0.1s linear;
+        transition: transform 0.1s linear;
+        transition: transform 0.1s linear, -webkit-transform 0.1s linear; }
     .panelContainer .panelWrapper .info {
       position: absolute;
       display: block;
