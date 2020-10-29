@@ -382,13 +382,31 @@ body {
 			.contact,
 			.progress {
 				display: inline-block;
+				padding: 1em 0;
 				color: $main-color-light;
 				text-transform: uppercase;
 				font-weight: normal;
 				writing-mode: vertical-rl;
 				text-orientation: upright;
 			}
+
+			& .about,
+			.social,
+			.contact {
+				cursor: pointer;
+				border-bottom: 0.1em solid $color-transparent;
+				border-top: 0.1em solid $color-transparent;
+
+				&:hover {
+					border-bottom: 0.1em solid $main-color-light;
+					border-top: 0.1em solid $main-color-light;
+				}
+
+			}
+
 			& .progress {
+				padding: 1.1em 0;
+				cursor: default;
 			}
 		}
 	}

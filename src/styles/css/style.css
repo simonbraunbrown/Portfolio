@@ -313,6 +313,7 @@ body {
       .progressBarWrapper .navigationWrapper .progressDisplay .contact,
       .progressBarWrapper .navigationWrapper .progressDisplay .progress {
         display: inline-block;
+        padding: 1em 0;
         color: #d6d6d6;
         text-transform: uppercase;
         font-weight: normal;
@@ -321,6 +322,27 @@ body {
                 writing-mode: vertical-rl;
         -webkit-text-orientation: upright;
                 text-orientation: upright; }
+      .progressBarWrapper .navigationWrapper .navigationItem .about,
+      .progressBarWrapper .navigationWrapper .navigationItem .social,
+      .progressBarWrapper .navigationWrapper .navigationItem .contact,
+      .progressBarWrapper .navigationWrapper .progressDisplay .about,
+      .progressBarWrapper .navigationWrapper .progressDisplay .social,
+      .progressBarWrapper .navigationWrapper .progressDisplay .contact {
+        cursor: pointer;
+        border-bottom: 0.1em solid rgba(0, 0, 0, 0);
+        border-top: 0.1em solid rgba(0, 0, 0, 0); }
+        .progressBarWrapper .navigationWrapper .navigationItem .about:hover,
+        .progressBarWrapper .navigationWrapper .navigationItem .social:hover,
+        .progressBarWrapper .navigationWrapper .navigationItem .contact:hover,
+        .progressBarWrapper .navigationWrapper .progressDisplay .about:hover,
+        .progressBarWrapper .navigationWrapper .progressDisplay .social:hover,
+        .progressBarWrapper .navigationWrapper .progressDisplay .contact:hover {
+          border-bottom: 0.1em solid #d6d6d6;
+          border-top: 0.1em solid #d6d6d6; }
+      .progressBarWrapper .navigationWrapper .navigationItem .progress,
+      .progressBarWrapper .navigationWrapper .progressDisplay .progress {
+        padding: 1.1em 0;
+        cursor: default; }
   .progressBarWrapper--visible {
     opacity: 1; }
 
