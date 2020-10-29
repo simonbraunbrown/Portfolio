@@ -1,8 +1,5 @@
 .gitignore
 package-lock.json
 node_modules
-src/images/*
-src/videos/*
-src/models/*
-src/fonts/*
+src/images/*.png
 dist/
