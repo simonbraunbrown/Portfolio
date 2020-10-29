@@ -7,13 +7,13 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/hdis.png',
+		src: './images/hdis.jpg',
 		name: 'hdis',
 		description: 'superdisplacement',
 	},
 	{
 		type: 'image',
-		src: './images/UI.png',
+		src: './images/UI.jpg',
 		name: 'UI',
 		description: 'concept holo table',
 	},
@@ -25,19 +25,19 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/nebula1.png',
+		src: './images/nebula1.jpg',
 		name: 'nebula',
 		description: 'nebula',
 	},
 	{
 		type: 'image',
-		src: './images/triste.png',
+		src: './images/triste.jpg',
 		name: 'window',
 		description: 'congrete window in verdun',
 	},
 	{
 		type: 'image',
-		src: './images/root.png',
+		src: './images/root.jpg',
 		name: 'root',
 		description: '',
 	},
@@ -49,7 +49,7 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/crate.png',
+		src: './images/crate.jpg',
 		name: 'crate',
 		description: '',
 	},
