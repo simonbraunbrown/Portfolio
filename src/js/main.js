@@ -12,6 +12,7 @@ let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
 let redraw = hasScrolled();
+let frameCounter = 0;
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	console.log('DOM fully loaded');
@@ -33,8 +34,8 @@ window.addEventListener('resize', function (event) {
 
 function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
-	redraw = hasScrolled();
-	if (!redraw) return;
+	frameCounter += 1;
+	if(frameCounter % 3 !== 0 && !hasScrolled()) return;
 	toggleOnScroll(elementBodyOffsets);
 	makeProgress();
 }
@@ -158,8 +159,9 @@ function createPanels() {
 		appendElements(panel, [imageWrapper, info]);
 		appendElements(panelWrapper, [panel, filenameWrapper]);
 		panelWrapper.addEventListener('click', () => {
+			const panelWrappers = document.querySelectorAll('.panelWrappers');
 			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
-				squeezeAll();
+				squeezeAll(panelWrappers);
 				expand(panelWrapper);
 				getPanelCords();
 				video.play();
@@ -336,6 +338,9 @@ function toggleOnScroll(elementBodyOffsets) {
 				fadeOut(imageWrapper);
 				elementBodyOffsets[i].active = false;
 			}
+			if (!active && imageWrapper && !expanded(i)) {
+				fadeOut(imageWrapper);
+			}
 			elementBodyOffsets[i].element.classList.remove('panelWrapper--showInfo');
 		}
 	}
@@ -343,28 +348,20 @@ function toggleOnScroll(elementBodyOffsets) {
 
 function fadeIn(element) {
 	if (!element.classList.contains('--hidden')) return;
-	element.classList.add('--fading');
 	element.classList.remove('--hidden');
+	element.classList.add('--fading');
 	setTimeout(function () {
 		element.classList.remove('--fading');
-	}, 50);
+	}, 30);
 }
 
 function fadeOut(element) {
 	if (element.classList.contains('--hidden')) return;
 	element.classList.add('--fading');
-	element.addEventListener(
-		'transitionend',
-		function (event) {
-			element.classList.add('--hidden');
-			element.classList.remove('--fading');
-		},
-		{
-			capture: false,
-			once: true,
-			passive: false,
-		}
-	);
+	setTimeout(function () {
+		element.classList.remove('--fading');
+		element.classList.add('--hidden');
+	}, 50);
 }
 
 function expand(wrapper) {
@@ -378,6 +375,8 @@ function squeezeAll() {
 	const panelWrappers = document.querySelectorAll('.panelWrapper');
 	panelWrappers.forEach((w) => {
 		w.classList.remove('panelWrapper--expand');
+		const video = w.querySelector('.image--video');
+		if (video) {video.pause();}
 	});
 }
 
