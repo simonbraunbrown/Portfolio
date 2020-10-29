@@ -368,6 +368,9 @@ function expand(wrapper) {
 	if (wrapper.querySelector('.image')) {
 		wrapper.classList.add('panelWrapper--expand');
 		window.scrollTo(0, alignToScreenCenter(wrapper));
+		if (wrapper.querySelector('.imageWrapper').classList.contains('--hidden')) {
+			fadeIn(wrapper.querySelector('.imageWrapper'));
+		}
 	}
 }
 
