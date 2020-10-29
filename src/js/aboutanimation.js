@@ -65,7 +65,7 @@
 
 	function loadModel() {
 		const loader = new THREE.GLTFLoader();
-		const url = '../models/me_lowPoly_tex.glb';
+		const url = '../models/export_me_lowPoly_glossy.glb';
 		const modelPosition = new THREE.Vector3(0, -0.1, 0);
 
 		const addModel = (gltf, position) => {
