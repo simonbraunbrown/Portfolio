@@ -1,12 +1,14 @@
 @font-face {
   font-family: 'ME';
-  src: url("../../fonts/MonumentExtended_Regular.otf") format("opentype");
-  font-weight: normal; }
+  font-style: normal;
+  font-weight: 400;
+  src: url("../../fonts/MonumentExtended_Regular.otf") format("opentype"); }
 
 @font-face {
   font-family: 'MEB';
-  src: url("../../fonts/MonumentExtended_Ultrabold.otf") format("opentype");
-  font-weight: bold; }
+  font-style: normal;
+  font-weight: 900;
+  src: url("../../fonts/MonumentExtended_Ultrabold.otf") format("opentype"); }
 
 body {
   width: 100%;

@@ -14,14 +14,16 @@ $color-transparent: rgba(0, 0, 0, 0);
 
 @font-face {
 	font-family: 'ME';
+	font-style: normal;
+	font-weight: 400;
 	src: url('../../fonts/MonumentExtended_Regular.otf') format('opentype');
-	font-weight: normal;
 }
 
 @font-face {
 	font-family: 'MEB';
+	font-style: normal;
+	font-weight: 900;
 	src: url('../../fonts/MonumentExtended_Ultrabold.otf') format('opentype');
-	font-weight: bold;
 }
 
 html {
