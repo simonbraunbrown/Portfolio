@@ -25,7 +25,8 @@ body {
     scrollbar-width: none;
     /* Firefox */ }
   body .--hidden {
-    display: none !important; }
+    display: none !important;
+    opacity: 0 !important; }
   body .--fading {
     opacity: 0 !important; }
   body canvas {
@@ -339,7 +340,7 @@ body {
     display: block;
     width: 100%;
     height: var(--base-panel-height);
-    margin: 4em 0;
+    margin: 12em 0;
     padding: 0 8em; }
     .panelContainer .panelWrapper .panel {
       position: relative;
@@ -360,9 +361,9 @@ body {
         width: 100%;
         height: calc(var(--base-panel-height) * 1.25);
         object-fit: cover;
-        transition: -webkit-transform 0.1s linear;
-        transition: transform 0.1s linear;
-        transition: transform 0.1s linear, -webkit-transform 0.1s linear; }
+        transition: -webkit-transform 0.05s linear;
+        transition: transform 0.05s linear;
+        transition: transform 0.05s linear, -webkit-transform 0.05s linear; }
     .panelContainer .panelWrapper .info {
       position: absolute;
       display: block;
@@ -433,10 +434,8 @@ body {
                   transform: none; }
       .panelContainer .panelWrapper--expand .info {
         display: none; }
-    .panelContainer .panelWrapper--showInfo .imageWrapper {
-      opacity: 1; }
-      .panelContainer .panelWrapper--showInfo .imageWrapper .image {
-        display: block; }
+    .panelContainer .panelWrapper--showInfo .imageWrapper .image {
+      display: block; }
     .panelContainer .panelWrapper--showInfo .info {
       color: rgba(0, 0, 0, 0); }
       .panelContainer .panelWrapper--showInfo .info::before {
