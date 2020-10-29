@@ -361,7 +361,7 @@ function fadeOut(element) {
 	setTimeout(function () {
 		element.classList.remove('--fading');
 		element.classList.add('--hidden');
-	}, 50);
+	}, 100);
 }
 
 function expand(wrapper) {
