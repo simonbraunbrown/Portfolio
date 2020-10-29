@@ -99,23 +99,23 @@ gulp.task('models', function () {
 gulp.task('images', function () {
 	return gulp
 		.src('src/images/**/*.+(png|jpg|gif|svg)')
-		.pipe(
-			imageMin(
-				[
-					//gif minify
-					imageMin.gifsicle({ interlaced: true }),
-					//jpg minify
-					imageMin.jpegtran({ progressive: true }),
-					//png minify
-					imageMin.optipng({ optimizationLevel: 5 }),
-					//svg minify
-					imageMin.svgo({
-						plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
-					}),
-				],
-				{ verbose: true }
-			)
-		)
+		// .pipe(
+		// 	imageMin(
+		// 		[
+		// 			//gif minify
+		// 			imageMin.gifsicle({ interlaced: true }),
+		// 			//jpg minify
+		// 			imageMin.jpegtran({ progressive: true }),
+		// 			//png minify
+		// 			imageMin.optipng({ optimizationLevel: 5 }),
+		// 			//svg minify
+		// 			imageMin.svgo({
+		// 				plugins: [{ removeViewBox: true }, { cleanupIDs: false }],
+		// 			}),
+		// 		],
+		// 		{ verbose: true }
+		// 	)
+		// )
 		.pipe(gulp.dest('dist/images'));
 });
 
