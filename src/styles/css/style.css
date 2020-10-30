@@ -426,12 +426,16 @@ body {
       .panelContainer .panelWrapper .filenameWrapper .filename {
         display: inline-block;
         color: #d6d6d6;
+        padding: 1em 0;
         text-transform: uppercase;
         -webkit-writing-mode: vertical-rl;
             -ms-writing-mode: tb-rl;
                 writing-mode: vertical-rl;
         -webkit-text-orientation: upright;
-                text-orientation: upright; }
+                text-orientation: upright;
+        border-bottom: 0.1em solid rgba(0, 0, 0, 0);
+        border-top: 0.1em solid rgba(0, 0, 0, 0);
+        transition: border 0.1s linear; }
     .panelContainer .panelWrapper:nth-child(2n + 1) .info {
       left: 4em;
       text-align: left; }
@@ -458,6 +462,9 @@ body {
                   transform: none; }
       .panelContainer .panelWrapper--expand .info {
         display: none; }
+      .panelContainer .panelWrapper--expand .filenameWrapper .filename {
+        border-bottom: 0.1em solid #d6d6d6;
+        border-top: 0.1em solid #d6d6d6; }
     .panelContainer .panelWrapper--showInfo .imageWrapper .image {
       display: block; }
     .panelContainer .panelWrapper--showInfo .info {
@@ -466,6 +473,9 @@ body {
         width: 100%;
         overflow: visible;
         opacity: 1; }
+    .panelContainer .panelWrapper--showInfo .filenameWrapper .filename {
+      border-bottom: 0.1em solid #d6d6d6;
+      border-top: 0.1em solid #d6d6d6; }
     .panelContainer .panelWrapper--showInfo.panelWrapper--expand .info {
       display: none; }
 

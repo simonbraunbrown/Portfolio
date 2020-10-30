@@ -498,9 +498,13 @@ body {
 			& .filename {
 				display: inline-block;
 				color: $main-color-light;
+				padding: 1em 0;
 				text-transform: uppercase;
 				writing-mode: vertical-rl;
 				text-orientation: upright;
+				border-bottom: 0.1em solid $color-transparent;
+				border-top: 0.1em solid $color-transparent;
+				transition: border 0.1s linear;
 			}
 		}
 
@@ -541,6 +545,13 @@ body {
 			& .info {
 				display: none;
 			}
+
+			& .filenameWrapper {
+				& .filename {
+					border-bottom: 0.1em solid $main-color-light;
+					border-top: 0.1em solid $main-color-light;
+				}
+			}
 		}
 		&--showInfo {
 			& .imageWrapper {
@@ -567,6 +578,13 @@ body {
 				& .info {
 					&::before {
 					}
+				}
+			}
+
+			& .filenameWrapper {
+				& .filename {
+					border-bottom: 0.1em solid $main-color-light;
+					border-top: 0.1em solid $main-color-light;
 				}
 			}
 			&.panelWrapper--expand {
