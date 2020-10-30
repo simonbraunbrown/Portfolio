@@ -31,6 +31,8 @@ body {
     opacity: 0 !important; }
   body .--fading {
     opacity: 0 !important; }
+  body h2 {
+    font-size: 2em; }
   body canvas {
     outline: none; }
 
@@ -216,6 +218,7 @@ body {
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .about,
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .social {
           opacity: 0;
+          text-transform: uppercase;
           transition: opacity 0s linear;
           transition-delay: 0s; }
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayText {
@@ -234,7 +237,7 @@ body {
             margin: 0.5em 0;
             margin-right: 100%;
             opacity: 0;
-            font-size: 2em;
+            font-size: 1.5em;
             color: rgba(0, 0, 0, 0);
             -webkit-text-stroke: 1px #d6d6d6;
             text-decoration: none;
