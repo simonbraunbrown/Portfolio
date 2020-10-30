@@ -165,11 +165,11 @@ body {
       height: 0.1em;
       max-width: 100vw; }
   .progressBarWrapper .overlayWrapper {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0; }
     .progressBarWrapper .overlayWrapper .overlay {
-      position: relative;
+      position: absolute;
       display: block;
       box-sizing: border-box;
       overflow: hidden;
@@ -213,7 +213,7 @@ body {
         position: relative;
         width: 100%;
         height: 100%; }
-        .progressBarWrapper .overlayWrapper .overlay .overlayContent .about {
+        .progressBarWrapper .overlayWrapper .overlay .overlayContent .about, .progressBarWrapper .overlayWrapper .overlay .overlayContent .social {
           opacity: 0;
           transition: opacity 0s linear;
           transition-delay: 0s; }
@@ -228,7 +228,7 @@ body {
           left: 0;
           bottom: 0; }
           .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink {
-            display: table;
+            display: inline-block;
             position: relative;
             margin: 0.5em 0;
             margin-right: 100%;
@@ -271,7 +271,7 @@ body {
           opacity: 1;
           transition: opacity 0.3s linear;
           transition-delay: 0.9s; }
-        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .about {
+        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .about, .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .social {
           opacity: 1;
           transition: opacity 0.3s linear;
           transition-delay: 0.3s; }
