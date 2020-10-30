@@ -21,13 +21,13 @@ let projects = [
 		type: 'image',
 		src: './images/YouTubeHistory_all.svg',
 		name: 'MYTH',
-		description: 'My YouTube History. displays videos which where watched from 2017 - 2020',
+		description: 'My YouTube History - displays data of all videos, which where watched between mid 2016 and end 2019',
 	},
 	{
 		type: 'image',
 		src: './images/nebula1.jpg',
 		name: 'nebula',
-		description: 'nebula',
+		description: 'nebula - volume render experiment',
 	},
 	{
 		type: 'image',
@@ -45,7 +45,7 @@ let projects = [
 		type: 'video',
 		src: './videos/glasParticlesColored_high422_21.mp4',
 		name: 'glasParticles',
-		description: 'glasParticles video loop',
+		description: 'glasParticles - video loop',
 	},
 	{
 		type: 'image',
