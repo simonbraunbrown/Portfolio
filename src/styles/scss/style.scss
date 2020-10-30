@@ -27,7 +27,7 @@ $color-transparent: rgba(0, 0, 0, 0);
 }
 
 html {
-	 //scroll-behavior: smooth;
+	//scroll-behavior: smooth;
 }
 
 body {
@@ -236,7 +236,7 @@ body {
 				top: 8em;
 				right: 8em;
 				transition: opacity 0s linear;
-					transition-delay: 0s;
+				transition-delay: 0s;
 				& .closeButton {
 					position: relative;
 					display: block;
@@ -266,7 +266,8 @@ body {
 				position: relative;
 				width: 100%;
 				height: 100%;
-				& .about, .social {
+				& .about,
+				.social {
 					opacity: 0;
 					transition: opacity 0s linear;
 					transition-delay: 0s;
@@ -282,59 +283,60 @@ body {
 					display: block;
 					left: 0;
 					bottom: 0;
-				& .overlayLink {
-					display: inline-block;
-					position: relative;
-					margin: 0.5em 0;
-					margin-right: 100%;
-					opacity: 0;
-					font-size: 2em;
-					color: $color-transparent;
-					-webkit-text-stroke: 1px $main-color-light;
-					text-decoration: none;
-					text-transform: uppercase;
-					transition: opacity 0s linear;
-					transition-delay: 0s;
-					&::after {
-						position: absolute;
-						content: '';
-						top: 100%;
-						left: 0;
-						width: 0;
-						height: 0.1em;
-						background-color: $main-color-light;
-						transition: width 0.3s linear;
-					}
-					&:hover {
-						color: $main-color-light;
-					-webkit-text-stroke: none;
+					& .overlayLink {
+						display: inline-block;
+						position: relative;
+						margin: 0.5em 0;
+						margin-right: 100%;
+						opacity: 0;
+						font-size: 2em;
+						color: $color-transparent;
+						-webkit-text-stroke: 1px $main-color-light;
+						text-decoration: none;
+						text-transform: uppercase;
+						transition: opacity 0s linear;
+						transition-delay: 0s;
+						&::after {
+							position: absolute;
+							content: '';
+							top: 100%;
+							left: 0;
+							width: 0;
+							height: 0.1em;
+							background-color: $main-color-light;
+							transition: width 0.3s linear;
+						}
+						&:hover {
+							color: $main-color-light;
+							-webkit-text-stroke: none;
+						}
 					}
 				}
-			}
-			& .aboutCanvasContainer {
-				position: absolute;
-				display: block;
-				width: 16em;
-				height: 16em;
-				right: 0;
-				bottom: 0;
-				opacity: 0;
-				border: 0.1em solid $main-color-light;
-				border-radius: 100%;
-				transition: opacity 0s linear;
-				transition-delay: 0s;
-			}
+				& .aboutCanvasContainer {
+					position: absolute;
+					display: block;
+					width: 16em;
+					height: 16em;
+					right: 0;
+					bottom: 0;
+					opacity: 0;
+					border: 0.1em solid $main-color-light;
+					border-radius: 100%;
+					transition: opacity 0s linear;
+					transition-delay: 0s;
+				}
 			}
 			&--visible {
 				width: 100vw;
 				padding: 8em;
-				& .buttonWrapper{
+				& .buttonWrapper {
 					opacity: 1;
 					transition: opacity 0.3s linear;
 					transition-delay: 0.9s;
 				}
 				& .overlayContent {
-					& .about, .social {
+					& .about,
+					.social {
 						opacity: 1;
 						transition: opacity 0.3s linear;
 						transition-delay: 0.3s;
@@ -345,22 +347,22 @@ body {
 						transition-delay: 0.6s;
 					}
 					& .overlayLinkWrapper {
-					& .overlayLink {
+						& .overlayLink {
+							opacity: 1;
+							transition: opacity 0.3s linear;
+							transition-delay: 0.9s;
+							&::after {
+								width: 100%;
+								transition: width 0.3s linear;
+								transition-delay: 1.2s;
+							}
+						}
+					}
+					& .aboutCanvasContainer {
 						opacity: 1;
-					transition: opacity 0.3s linear;
-					transition-delay: 0.9s;
-					&::after {
-						width: 100%;
-						transition: width 0.3s linear;
-						transition-delay: 1.2s;
+						transition: opacity 0.3s linear;
+						transition-delay: 0.9s;
 					}
-					}
-				}
-				& .aboutCanvasContainer {
-					opacity: 1;
-					transition: opacity 0.3s linear;
-					transition-delay: 0.9s;
-				}
 				}
 			}
 		}
@@ -404,7 +406,6 @@ body {
 					border-bottom: 0.1em solid $main-color-light;
 					border-top: 0.1em solid $main-color-light;
 				}
-
 			}
 
 			& .progress {
