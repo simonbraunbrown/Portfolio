@@ -64,7 +64,7 @@ void main() {
   vec4 _texture1 = texture2D(tex, distortedPosition1);
   vec4 _texture2 = texture2D(tex, distortedPosition2);
   _texture1.rgb = smoothstep(0.3,1.0, _texture1.rgb);
-  _texture2.rgb = smoothstep(0.5,1.0, _texture2.rgb);
+  _texture2.rgb = smoothstep(0.2,1.0, _texture2.rgb);
   gl_FragColor = mix(_texture1, _texture2, dispFactor);
 }
 `;
