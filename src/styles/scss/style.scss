@@ -477,8 +477,9 @@ body {
 			&::before {
 				position: absolute;
 				width: 0;
+				top: 0;
 				overflow: hidden;
-				height: auto;
+				height: 100%;
 				background-color: $main-color-background;
 				color: $main-color-light;
 				opacity: 0;
