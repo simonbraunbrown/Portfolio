@@ -367,8 +367,11 @@ body {
 	}
 	& .navigationWrapper {
 		position: absolute;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 		width: 100%;
-		height: auto;
+		height: calc(100% - 8em);
 		top: 50%;
 		transform: translate(0, -50%);
 		& .navigationItem,

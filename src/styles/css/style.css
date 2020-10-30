@@ -293,8 +293,17 @@ body {
           transition-delay: 0.9s; }
   .progressBarWrapper .navigationWrapper {
     position: absolute;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-justify-content: space-around;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
     width: 100%;
-    height: auto;
+    height: calc(100% - 8em);
     top: 50%;
     -webkit-transform: translate(0, -50%);
             transform: translate(0, -50%); }
