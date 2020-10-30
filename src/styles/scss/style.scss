@@ -247,6 +247,7 @@ body {
 					height: 100%;
 					color: $main-color-light;
 					font-size: 1em;
+					cursor: pointer;
 					&:before,
 					&:after {
 						position: absolute;
@@ -256,12 +257,23 @@ body {
 						left: 50%;
 						content: ' ';
 						background-color: $main-color-light;
+						transition: transform 0.1s linear;
 					}
 					&:before {
-						transform: translate(-100%, 0) rotate(45deg);
+						transform-origin: center top;
+						transform: translate(-100%, 50%) rotate(45deg) translate(50%, -50%);
 					}
 					&:after {
-						transform: translate(-100%, 0) rotate(-45deg);
+						transform-origin: center bottom;
+						transform: translate(-100%, -50%) rotate(-45deg) translate(-50%, 50%);
+					}
+				}
+				& .closeButton:hover {
+					&:before {
+						transform: translate(-100%, 25%) rotate(60deg) translate(50%, -50%);
+					}
+					&:after {
+						transform: translate(-100%, -25%) rotate(-60deg) translate(-50%, 50%);
 					}
 				}
 			}
