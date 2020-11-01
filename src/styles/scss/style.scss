@@ -261,19 +261,19 @@ body {
 					}
 					&:before {
 						transform-origin: center top;
-						transform: translate(-100%, 50%) rotate(45deg) translate(50%, -50%);
+						transform: translate(0, 50%) rotate(0.75rad) translate(0, -50%);
 					}
 					&:after {
 						transform-origin: center bottom;
-						transform: translate(-100%, -50%) rotate(-45deg) translate(-50%, 50%);
+						transform: translate(0, -50%) rotate(-0.75rad) translate(0, 50%);
 					}
 				}
 				& .closeButton:hover {
 					&:before {
-						transform: translate(-100%, 25%) rotate(60deg) translate(50%, -50%);
+						transform: translate(0, 30%) rotate(1.15rad) translate(0, -50%);
 					}
 					&:after {
-						transform: translate(-100%, -25%) rotate(-60deg) translate(-50%, 50%);
+						transform: translate(0, -30%) rotate(-1.15rad) translate(0, 50%);
 					}
 				}
 			}
