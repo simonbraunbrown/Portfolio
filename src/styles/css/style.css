@@ -15,7 +15,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'ME', sans-serif;
-  font-size: 0.5em;
+  font-size: 1vw;
   background-color: #161616;
   --base-panel-height: calc((100vh - 8em) / 2); }
   body::-webkit-scrollbar {
@@ -36,14 +36,6 @@ body {
   body canvas {
     outline: none; }
 
-@media (min-width: 768px) {
-  body {
-    font-size: 1em; } }
-
-@media (min-width: 1280px) {
-  body {
-    font-size: 1.5em; } }
-
 .header {
   position: relative;
   width: 100%;
@@ -55,12 +47,12 @@ body {
     display: block;
     top: 50%;
     left: 50%;
+    font-size: 10em;
     text-align: center;
-    font-size: 10vw;
     font-weight: normal;
     text-transform: uppercase;
     mix-blend-mode: screen;
-    -webkit-text-stroke: 1px #4f4f51;
+    -webkit-text-stroke: 0.01em #4f4f51;
     background: transparent;
     -webkit-transform: translate(-50%, -50%);
             transform: translate(-50%, -50%); }
@@ -68,7 +60,7 @@ body {
     position: absolute;
     display: inline-block;
     border: solid #4f4f51;
-    border-width: 0 1px 1px 0;
+    border-width: 0 0.1em 0.1em 0;
     padding: 2%;
     bottom: 5%;
     left: 50%;
@@ -228,7 +220,8 @@ body {
       .progressBarWrapper .overlayWrapper .overlay .overlayContent {
         position: relative;
         width: 100%;
-        height: 100%; }
+        height: 100%;
+        font-size: 2em; }
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .about,
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .social {
           opacity: 0;
