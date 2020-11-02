@@ -75,7 +75,7 @@ function createPanels() {
 	function createTextPanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
 		const panel = createElementWithClassname('div', ['panel']);
-		const info = createElementWithClassname('span', ['info']);
+		const info = createElementWithClassname('span', ['info', 'info--headline']);
 		info.innerHTML = project.description;
 		info.setAttribute('data-text', project.description);
 		panel.appendChild(info);

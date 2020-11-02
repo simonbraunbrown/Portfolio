@@ -488,13 +488,12 @@ body {
 			position: absolute;
 			display: block;
 			z-index: 1;
-			width: 50%;
+			width: auto;
+			max-width: 70%;
 			height: auto;
 			top: 50%;
-			font-size: 1em;
 			color: $main-color-dark;
 			font-weight: normal;
-			line-height: 1em;
 			text-transform: uppercase;
 			pointer-events: none;
 			transform: translate(0, -50%);
@@ -510,6 +509,12 @@ body {
 				opacity: 0;
 				content: attr(data-text);
 				transition: width 0.3s linear, opacity 0.3s linear;
+			}
+
+			&--headline {
+				font-weight: bold;
+				&::before{
+				}
 			}
 		}
 
@@ -591,6 +596,11 @@ body {
 					width: 100%;
 					overflow: visible;
 					opacity: 1;
+				}
+
+				&--headline {
+					&::before{
+					}
 				}
 			}
 			&:nth-child(2n + 1) {

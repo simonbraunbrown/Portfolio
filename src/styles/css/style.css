@@ -423,13 +423,12 @@ body {
       position: absolute;
       display: block;
       z-index: 1;
-      width: 50%;
+      width: auto;
+      max-width: 70%;
       height: auto;
       top: 50%;
-      font-size: 1em;
       color: #2c2b30;
       font-weight: normal;
-      line-height: 1em;
       text-transform: uppercase;
       pointer-events: none;
       -webkit-transform: translate(0, -50%);
@@ -446,6 +445,8 @@ body {
         opacity: 0;
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear; }
+      .panelContainer .panelWrapper .info--headline {
+        font-weight: bold; }
     .panelContainer .panelWrapper .filenameWrapper {
       position: absolute;
       display: block;
