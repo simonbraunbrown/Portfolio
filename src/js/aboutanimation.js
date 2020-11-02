@@ -72,7 +72,7 @@
 			model = gltf.scene.children[0];
 			model.position.copy(position);
 
-			const envMap = loadTexture('../models/Warehouse-with-lights.jpg');
+			const envMap = loadTexture('../models/Photo-studio-with-umbrella.jpg');
 			envMap.mapping = THREE.EquirectangularReflectionMapping;
 			envMap.encoding = THREE.sRGBEncoding;
 
@@ -89,14 +89,15 @@
 
 			let mat = new THREE.MeshStandardMaterial();
 
-			const matMaterial = new THREE.MeshMatcapMaterial({
-				flatShading: true,
-				color: 0xffffff,
-				matcap: loadTexture('../images/nebula1.png'),
-			});
+			// const matMaterial = new THREE.MeshMatcapMaterial({
+			// 	flatShading: true,
+			// 	color: 0xffffff,
+			// 	matcap: loadTexture('../images/nebula1.png'),
+			// });
 
 			model.traverse((child) => {
 				if (child.material) mat.copy(child.material);
+				mat.flatShading = false;
 				mat.envMap = envMap;
 				mat.envMapIntensity = 2.0;
 				mat.metalness = 0.0;
