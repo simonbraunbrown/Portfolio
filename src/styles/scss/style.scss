@@ -35,7 +35,7 @@ body {
 	margin: 0;
 	padding: 0;
 	font-family: 'ME', sans-serif;
-	font-size: 1vw;
+	font-size: calc(max(1vw, 8px));
 	background-color: $main-color-background;
 	--base-panel-height: calc((100vh - 8em) / 2);
 
@@ -68,13 +68,21 @@ body {
 
 @media (min-width: 768px) {
 	body {
-		//font-size: 1.5vw;
+		font-size: calc(max(1vw, 10px));
 	}
 }
 
 @media (min-width: 1280px) {
 	body {
-		//font-size: 1vw;
+		font-size: calc(max(1vw, 13px));
+	}
+}
+
+@media (min-height: 500px) {
+	body {
+		& .overlayContent {
+			font-size: 2em;
+		}
 	}
 }
 
@@ -90,7 +98,7 @@ body {
 		display: block;
 		top: 50%;
 		left: 50%;
-		font-size: 10em;
+		font-size: 10vw;
 		text-align: center;
 		font-weight: normal;
 		text-transform: uppercase;
@@ -279,7 +287,6 @@ body {
 				position: relative;
 				width: 100%;
 				height: 100%;
-				font-size: 2em;
 				& .about,
 				.social {
 					opacity: 0;
@@ -304,7 +311,6 @@ body {
 						margin: 0.5em 0;
 						margin-right: 100%;
 						opacity: 0;
-						font-size: 1.5em;
 						color: $color-transparent;
 						-webkit-text-stroke: 1px $main-color-light;
 						text-decoration: none;
