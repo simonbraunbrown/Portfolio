@@ -7,21 +7,9 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/hdis.jpg',
-		name: 'hdis',
-		description: 'superdisplacement',
-	},
-	{
-		type: 'image',
 		src: './images/UI.jpg',
 		name: 'UI',
 		description: 'concept holo table',
-	},
-	{
-		type: 'image',
-		src: './images/YouTubeHistory_all.svg',
-		name: 'MYTH',
-		description: 'My YouTube History - displays data of all videos, which where watched between mid 2016 and end 2019',
 	},
 	{
 		type: 'image',
@@ -52,5 +40,59 @@ let projects = [
 		src: './images/crate.jpg',
 		name: 'crate',
 		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/musgrave1.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/musgrave2.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/musgrave3.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/hdis.jpg',
+		name: 'hdis',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/musgrave4.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/musgrave5.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/bw.jpg',
+		name: 'BW',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/YouTubeHistory_all.svg',
+		name: 'MYTH',
+		description: 'My YouTube History - displays data of all videos, which where watched between mid 2016 and end 2019',
+	},
+	{
+		type: 'image',
+		src: './images/quakes3.jpg',
+		name: 'quakes',
+		description: 'earthquake data transformed into circles',
 	},
 ];
