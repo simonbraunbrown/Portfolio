@@ -1,8 +1,6 @@
 let projects = [
 	{
 		type: 'text',
-		src: undefined,
-		name: undefined,
 		description: 'welcome...',
 	},
 	{

@@ -35,7 +35,7 @@ window.addEventListener('resize', function (event) {
 function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
 	frameCounter += 1;
-	if(frameCounter % 3 !== 0 && !hasScrolled()) return;
+	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
 	toggleOnScroll(elementBodyOffsets);
 	makeProgress();
 }
@@ -62,10 +62,13 @@ function createPanels() {
 	projects.forEach((project) => {
 		let panelContent;
 		if (project.type === 'text') {
+			project.isMedia = false;
 			panelContent = createTextPanel(project);
 		} else if (project.type === 'image') {
+			project.isMedia = true;
 			panelContent = createImagePanel(project);
 		} else if (project.type === 'video') {
+			project.isMedia = true;
 			panelContent = createVideoPanel(project);
 		}
 		panelContainerContent.push(panelContent);
@@ -74,6 +77,7 @@ function createPanels() {
 
 	function createTextPanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		panelWrapper.project = project;
 		const panel = createElementWithClassname('div', ['panel']);
 		const info = createElementWithClassname('span', ['info', 'info--headline']);
 		info.innerHTML = project.description;
@@ -85,6 +89,7 @@ function createPanels() {
 
 	function createImagePanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		panelWrapper.project = project;
 		const panel = createElementWithClassname('div', ['panel']);
 		const filenameWrapper = createElementWithClassname('div', [
 			'filenameWrapper',
@@ -124,6 +129,7 @@ function createPanels() {
 
 	function createVideoPanel(project) {
 		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		panelWrapper.project = project;
 		const panel = createElementWithClassname('div', ['panel']);
 		const filenameWrapper = createElementWithClassname('div', [
 			'filenameWrapper',
@@ -246,8 +252,7 @@ function hasScrolled() {
 function makeProgress() {
 	const bodyRect = document.body.getBoundingClientRect();
 	const progress =
-		((window.scrollY + window.innerHeight) / (bodyRect.height)) *
-		100;
+		((window.scrollY + window.innerHeight) / bodyRect.height) * 100;
 
 	progressBarWrappers.forEach((wrapper) => {
 		const progressBar = wrapper.querySelector('.progressBar');
@@ -293,63 +298,65 @@ function toggleOnScroll(elementBodyOffsets) {
 
 	//const ebos = elementBodyOffsets;
 	const wC = windowHeight * 0.5;
-	let y = Math.floor(window.scrollY);
-	const expanded = (index) =>
-		elementBodyOffsets[index].element.classList.contains(
-			'panelWrapper--expand'
-		);
-	const showInfo = (index) =>
-		elementBodyOffsets[index].element.classList.contains(
-			'panelWrapper--showInfo'
-		);
-	let imageWrapper = null;
-	let active = false;
-	for (let i = 0; i < elementBodyOffsets.length; i++) {
-		if (elementBodyOffsets[i].element.querySelector('.imageWrapper')) {
-			imageWrapper = elementBodyOffsets[i].element.querySelector(
-				'.imageWrapper'
-			);
-			active = elementBodyOffsets[i].active;
+	let y = window.scrollY;
+	elementBodyOffsets.forEach((props) => {
+		const el = props.element;
+		let imageWrapper;
+		let active = false;
+		let expanded;
+		if (el.project.isMedia) {
+			imageWrapper = el.querySelector('.imageWrapper');
+			active = props.active;
+			expanded = el.classList.contains('panelWrapper--expand');
 		}
-		const eH = elementBodyOffsets[i].elementHeight * 0.5;
-		const eCBO = Math.floor(elementBodyOffsets[i].elementCenterBodyOffset);
+		const eH = props.elementHeight * 0.5;
+		const eCBO = props.elementCenterBodyOffset;
 		const cCO = y + wC - eCBO; // center to center offset
-		if (cCO <= eH && cCO >= -eH && !expanded(i)) {
-			if (elementBodyOffsets[i].element.querySelector('.image')) {
-				elementBodyOffsets[i].element.querySelector('.image').style.transform =
-					'scale(1.0) translate(0,calc(' +
-					(-eH * 1.25 + eH) +
-					'px - ' +
-					cCO / 4 +
-					'px))'; // 1.25 from image scale in css
-			}
+		if (imageWrapper) {
+			const image = el.querySelector('.image');
+			if (cCO <= eH && cCO >= -eH && !expanded) {
+				image.style.transform = `scale(1.0) translate(0,${
+					-eH * 1.25 + eH - cCO / 4
+				}px)`; // 1.25 from image scale in css
 
-			if (!active && imageWrapper && !expanded(i)) {
-				fadeIn(imageWrapper);
-				elementBodyOffsets[i].active = true;
+				image.addEventListener('transitionend', function (event) {
+					event.stopPropagation();
+				});
+
+				if (!active && !expanded) {
+					fadeIn(imageWrapper);
+					props.active = true;
+				}
+				el.classList.add('panelWrapper--showInfo');
+			} else {
+				if (expanded) {
+					el.querySelector('.image').style.transform = 'none';
+				}
+				if (active && !expanded) {
+					fadeOut(imageWrapper);
+					props.active = false;
+				}
+				if (!active && !expanded) {
+					fadeOut(imageWrapper);
+				}
+				el.classList.remove('panelWrapper--showInfo');
 			}
-			elementBodyOffsets[i].element.classList.add('panelWrapper--showInfo');
 		} else {
-			if (expanded(i)) {
-				elementBodyOffsets[i].element.querySelector('.image').style.transform =
-					'none';
+			if (cCO <= eH && cCO >= -eH) {
+				el.classList.add('panelWrapper--showInfo');
+			} else {
+				el.classList.remove('panelWrapper--showInfo');
 			}
-			if (active && imageWrapper && !expanded(i)) {
-				fadeOut(imageWrapper);
-				elementBodyOffsets[i].active = false;
-			}
-			if (!active && imageWrapper && !expanded(i)) {
-				fadeOut(imageWrapper);
-			}
-			elementBodyOffsets[i].element.classList.remove('panelWrapper--showInfo');
 		}
-	}
+	});
 }
 
 function fadeIn(element) {
 	if (!element.classList.contains('--hidden')) return;
+	if (element.classList.contains('--fading')) return;
 	element.classList.remove('--hidden');
 	element.classList.add('--fading');
+	
 	setTimeout(function () {
 		element.classList.remove('--fading');
 	}, 30);
@@ -357,11 +364,17 @@ function fadeIn(element) {
 
 function fadeOut(element) {
 	if (element.classList.contains('--hidden')) return;
+	if (element.classList.contains('--fading')) return;
 	element.classList.add('--fading');
-	setTimeout(function () {
+	
+	element.addEventListener('transitionend', function() {
 		element.classList.remove('--fading');
 		element.classList.add('--hidden');
-	}, 100);
+	}, {
+		capture: false,
+		once: true,
+		passive: false,
+	});
 }
 
 function expand(wrapper) {
@@ -379,7 +392,9 @@ function squeezeAll() {
 	panelWrappers.forEach((w) => {
 		w.classList.remove('panelWrapper--expand');
 		const video = w.querySelector('.image--video');
-		if (video) {video.pause();}
+		if (video) {
+			video.pause();
+		}
 	});
 }
 
