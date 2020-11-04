@@ -43,12 +43,6 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/musgrave1.jpg',
-		name: 'untitled',
-		description: '',
-	},
-	{
-		type: 'image',
 		src: './images/musgrave2.jpg',
 		name: 'untitled',
 		description: '',
@@ -61,20 +55,14 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/hdis.jpg',
-		name: 'hdis',
-		description: '',
-	},
-	{
-		type: 'image',
-		src: './images/musgrave4.jpg',
-		name: 'untitled',
-		description: '',
-	},
-	{
-		type: 'image',
 		src: './images/musgrave5.jpg',
 		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/hdis.jpg',
+		name: 'hdis',
 		description: '',
 	},
 	{
