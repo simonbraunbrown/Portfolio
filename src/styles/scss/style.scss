@@ -26,6 +26,10 @@ $color-transparent: rgba(0, 0, 0, 0);
 	src: url('../../fonts/MonumentExtended_Ultrabold.otf') format('opentype');
 }
 
+:root {
+	--PI: 3.14159265358979rad;
+}
+
 html {
 	//scroll-behavior: smooth;
 }
@@ -267,19 +271,19 @@ body {
 					}
 					&:before {
 						transform-origin: center top;
-						transform: translate(0, 50%) rotate(0.75rad) translate(0, -50%);
+						transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%);
 					}
 					&:after {
 						transform-origin: center bottom;
-						transform: translate(0, -50%) rotate(-0.75rad) translate(0, 50%);
+						transform: translate(0, -50%) rotate(calc((var(--PI) / -4))) translate(0, 50%);
 					}
 				}
 				& .closeButton:hover {
 					&:before {
-						transform: translate(0, 30%) rotate(1.15rad) translate(0, -50%);
+						transform: translate(100%, 25%) rotate(calc((var(--PI) / 3))) translate(-100%, -45%);
 					}
 					&:after {
-						transform: translate(0, -30%) rotate(-1.15rad) translate(0, 50%);
+						transform: translate(100%, -25%) rotate(calc((var(--PI) / -3))) translate(-100%, 45%);
 					}
 				}
 			}

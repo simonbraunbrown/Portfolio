@@ -10,6 +10,9 @@
   font-weight: 900;
   src: url("../../fonts/MonumentExtended_Ultrabold.otf") format("opentype"); }
 
+:root {
+  --PI: 3.14159265358979rad; }
+
 body {
   width: 100%;
   margin: 0;
@@ -216,19 +219,19 @@ body {
           .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before {
             -webkit-transform-origin: center top;
                     transform-origin: center top;
-            -webkit-transform: translate(0, 50%) rotate(0.75rad) translate(0, -50%);
-                    transform: translate(0, 50%) rotate(0.75rad) translate(0, -50%); }
+            -webkit-transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%);
+                    transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%); }
           .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:after {
             -webkit-transform-origin: center bottom;
                     transform-origin: center bottom;
-            -webkit-transform: translate(0, -50%) rotate(-0.75rad) translate(0, 50%);
-                    transform: translate(0, -50%) rotate(-0.75rad) translate(0, 50%); }
+            -webkit-transform: translate(0, -50%) rotate(calc((var(--PI) / -4))) translate(0, 50%);
+                    transform: translate(0, -50%) rotate(calc((var(--PI) / -4))) translate(0, 50%); }
         .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:hover:before {
-          -webkit-transform: translate(0, 30%) rotate(1.15rad) translate(0, -50%);
-                  transform: translate(0, 30%) rotate(1.15rad) translate(0, -50%); }
+          -webkit-transform: translate(100%, 25%) rotate(calc((var(--PI) / 3))) translate(-100%, -45%);
+                  transform: translate(100%, 25%) rotate(calc((var(--PI) / 3))) translate(-100%, -45%); }
         .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:hover:after {
-          -webkit-transform: translate(0, -30%) rotate(-1.15rad) translate(0, 50%);
-                  transform: translate(0, -30%) rotate(-1.15rad) translate(0, 50%); }
+          -webkit-transform: translate(100%, -25%) rotate(calc((var(--PI) / -3))) translate(-100%, 45%);
+                  transform: translate(100%, -25%) rotate(calc((var(--PI) / -3))) translate(-100%, 45%); }
       .progressBarWrapper .overlayWrapper .overlay .overlayContent {
         position: relative;
         width: 100%;
