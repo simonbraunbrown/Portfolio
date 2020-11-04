@@ -246,7 +246,7 @@ function hasScrolled() {
 function makeProgress() {
 	const bodyRect = document.body.getBoundingClientRect();
 	const progress =
-		((window.scrollY + window.innerHeight) / (bodyRect.bottom - bodyRect.top)) *
+		((window.scrollY + window.innerHeight) / (bodyRect.height)) *
 		100;
 
 	progressBarWrappers.forEach((wrapper) => {
@@ -260,7 +260,7 @@ function makeProgress() {
 			progressBar.style.width = progress + '%';
 		}
 	});
-	progressCount.innerHTML = Math.floor(progress) + '%';
+	progressCount.innerHTML = Math.round(progress) + '%';
 	progressBarWrappers.forEach((progressBarWrapper) => {
 		progressBarWrapper.classList.toggle(
 			'progressBarWrapper--visible',
@@ -276,7 +276,7 @@ function getPanelCords() {
 		const bodyRect = document.body.getBoundingClientRect();
 		const wrapperRect = wrapper.getBoundingClientRect();
 		const elementTopBodyOffset = wrapperRect.top - bodyRect.top;
-		const wrapperHeight = wrapperRect.bottom - wrapperRect.top;
+		const wrapperHeight = wrapperRect.height;
 		const values = {
 			element: wrapper,
 			elementHeight: wrapperHeight,
@@ -392,7 +392,7 @@ function alignToScreenCenter(element) {
 	const bodyRect = document.body.getBoundingClientRect();
 	const elementRect = element.getBoundingClientRect();
 	const elementTopBodyOffset = elementRect.top - bodyRect.top;
-	const elementHeight = elementRect.bottom - elementRect.top;
+	const elementHeight = elementRect.height;
 	const scrollPos = elementTopBodyOffset - (windowHeight - elementHeight) * 0.5;
 	return scrollPos;
 }
