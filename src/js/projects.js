@@ -41,6 +41,18 @@ let projects = [
 	},
 	{
 		type: 'image',
+		src: './images/doorway.jpg',
+		name: 'doorway',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/dreams.jpg',
+		name: '|||',
+		description: '',
+	},
+	{
+		type: 'image',
 		src: './images/musgrave2.jpg',
 		name: 'untitled',
 		description: '',
