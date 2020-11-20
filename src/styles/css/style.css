@@ -238,12 +238,15 @@ body {
         height: 100%; }
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .about,
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .social {
+          margin: 0.5em 0;
+          margin-top: 0;
           opacity: 0;
           text-transform: uppercase;
           transition: opacity 0s linear;
           transition-delay: 0s; }
         .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayText {
           width: 50%;
+          margin: 0.5em 0;
           opacity: 0;
           transition: opacity 0s linear;
           transition-delay: 0s; }
