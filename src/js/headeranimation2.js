@@ -10,7 +10,11 @@
 	let object;
 	let renderer;
 
-	let image = loadTexture('../images/nebula1.png');
+	const images = projects.filter(project => project.type === 'image');
+	let image1 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
+	let image2 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
+	let dispImage = loadTexture('../images/nebula1.png');
+	
 	let imagesRatio = 1.0;
 	let intensity1 = 1.0;
 	let intensity2 = 1.0;
@@ -40,7 +44,9 @@ void main() {
 varying vec2 vUv;
 uniform float dispFactor;
 uniform float dpr;
-uniform sampler2D tex;
+uniform sampler2D tex1;
+uniform sampler2D tex2;
+uniform sampler2D tex3;
 uniform float angle1;
 uniform float angle2;
 uniform float intensity1;
@@ -55,16 +61,14 @@ mat2 getRotM(float angle) {
 }
 
 void main() {
-  vec4 disp = texture2D(tex, vUv);
+  vec4 disp = texture2D(tex3, vUv);
   vec2 dispVec = vec2(disp.r, disp.g);
   vec2 uv = 0.5 * gl_FragCoord.xy / (res.xy) ;
   vec2 myUV = (uv - vec2(0.5)) * res.zw + vec2(0.5);
   vec2 distortedPosition1 = myUV + getRotM(angle1) * dispVec * intensity1 * dispFactor;
   vec2 distortedPosition2 = myUV + getRotM(angle2) * dispVec * intensity2 * (1.0 - dispFactor);
-  vec4 _texture1 = texture2D(tex, distortedPosition1);
-  vec4 _texture2 = texture2D(tex, distortedPosition2);
-  _texture1.rgb = smoothstep(0.3,1.0, _texture1.rgb);
-  _texture2.rgb = smoothstep(0.2,1.0, _texture2.rgb);
+  vec4 _texture1 = texture2D(tex1, distortedPosition1);
+  vec4 _texture2 = texture2D(tex2, distortedPosition2);
   gl_FragColor = mix(_texture1, _texture2, dispFactor);
 }
 `;
@@ -94,11 +98,15 @@ void main() {
 	}
 
 	function createMesh() {
-		let texture = image;
+		let texture1 = image1;
+		let texture2 = image2;
+		let texture3 = dispImage;
 
-		texture.magFilter = texture.magFilter = THREE.LinearFilter;
+		//texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
+		//texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
+		texture3.minFilter = texture3.minFilter = THREE.LinearFilter;
 
-		var mat = new THREE.ShaderMaterial({
+		let mat = new THREE.ShaderMaterial({
 			uniforms: {
 				intensity1: {
 					type: 'f',
@@ -110,7 +118,7 @@ void main() {
 				},
 				dispFactor: {
 					type: 'f',
-					value: 1.0,
+					value: 0.0,
 				},
 				angle1: {
 					type: 'f',
@@ -120,9 +128,17 @@ void main() {
 					type: 'f',
 					value: angle2,
 				},
-				tex: {
+				tex1: {
 					type: 't',
-					value: texture,
+					value: texture1,
+				},
+				tex2: {
+					type: 't',
+					value: texture2,
+				},
+				tex3: {
+					type: 't',
+					value: texture3,
 				},
 				res: {
 					type: 'vec4',
