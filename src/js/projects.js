@@ -53,6 +53,18 @@ let projects = [
 	},
 	{
 		type: 'image',
+		src: './images/yeti.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/princessBubbleGum1.jpg',
+		name: 'untitled',
+		description: '',
+	},
+	{
+		type: 'image',
 		src: './images/musgrave2.jpg',
 		name: 'untitled',
 		description: '',
