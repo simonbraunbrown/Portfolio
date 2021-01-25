@@ -242,8 +242,8 @@ void main() {
 	}
 
 	function play() {
-			update();
-			render();
+		update();
+		render();
 	}
 
 	function stop() {
