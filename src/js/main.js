@@ -13,6 +13,7 @@ let windowHeight = window.innerHeight;
 let loaded = false;
 let redraw = hasScrolled();
 let frameCounter = 0;
+let headerAnimationPlaying = false;
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	console.log('DOM fully loaded');
@@ -34,10 +35,12 @@ window.addEventListener('resize', function (event) {
 
 function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
+	if (headerAnimationPlaying) {window.headerAnimationPlay();}
 	frameCounter += 1;
 	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
 	toggleOnScroll(elementBodyOffsets);
 	makeProgress();
+	
 }
 
 function createPanels() {
@@ -272,6 +275,13 @@ function makeProgress() {
 			window.scrollY > windowHeight
 		);
 	});
+
+	if (window.scrollY > windowHeight) {
+		headerAnimationPlaying = false;
+	}
+	else {
+		headerAnimationPlaying = true;
+	}
 }
 
 function getPanelCords() {

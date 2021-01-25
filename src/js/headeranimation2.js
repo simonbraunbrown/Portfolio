@@ -2,13 +2,24 @@
 	let container;
 	container = document.querySelector('.headerCanvasContainer');
 	window.addEventListener('resize', onWindowResize);
+	window.addEventListener( 'pointermove', onPointerMove, false );
 	let rad = 0.0;
 	const increment = 0.0005;
+	let mouseX = 0.0;
+	let mouseY = 0.0;
 
 	let scene;
 	let camera;
 	let object;
 	let renderer;
+	let composer;
+
+	const bloomParams = {
+		bloomExposure: 1,
+		bloomStrength: 0.2,
+		bloomThreshold: 0.3,
+		bloomRadius: 0
+	};
 
 	const images = projects.filter(project => project.type === 'image');
 	let image1 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
@@ -78,6 +89,7 @@ void main() {
 		createCamera();
 		createMesh();
 		createRenderer();
+		createCompositor();
 	}
 
 	function createScene() {
@@ -162,8 +174,8 @@ void main() {
 		});
 
 		const geometry = new THREE.PlaneBufferGeometry(
-			container.offsetWidth,
-			container.offsetHeight,
+			container.offsetWidth * 1.25,
+			container.offsetHeight * 1.25,
 			1
 		);
 		object = new THREE.Mesh(geometry, mat);
@@ -192,18 +204,33 @@ void main() {
 	function createRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-		renderer.setPixelRatio(2.0);
+		renderer.setPixelRatio(container.clientWidth / container.clientHeight);
 
 		renderer.setClearColor(0x000000, 0);
 
 		renderer.setSize(container.clientWidth, container.clientHeight);
 
-		renderer.setPixelRatio(window.devicePixelRatio);
-
 		container.appendChild(renderer.domElement);
 	}
 
+	function createCompositor() {
+		const renderScene = new THREE.RenderPass( scene, camera );
+
+		const bloomPass = new THREE.UnrealBloomPass( new THREE.Vector2( container.clientWidth, container.clientHeight ), 1.5, 0.4, 0.85 );
+		bloomPass.exposure = bloomParams.bloomExposure;
+		bloomPass.threshold = bloomParams.bloomThreshold;
+		bloomPass.strength = bloomParams.bloomStrength;
+		bloomPass.radius = bloomParams.bloomRadius;
+
+		composer = new THREE.EffectComposer( renderer );
+		composer.addPass( renderScene );
+		composer.addPass( bloomPass );
+	}
+
 	function update() {
+		camera.position.x += ( mouseX - camera.position.x ) * 0.036;
+		camera.position.y += ( - ( mouseY ) - camera.position.y ) * 0.036;
+
 		object.material.uniforms.dispFactor.value =
 			Math.sin(rad * Math.PI) * 0.25 + 0.5;
 		rad += increment;
@@ -211,13 +238,12 @@ void main() {
 
 	function render() {
 		renderer.render(scene, camera);
+		composer.render();
 	}
 
 	function play() {
-		renderer.setAnimationLoop(() => {
 			update();
 			render();
-		});
 	}
 
 	function stop() {
@@ -239,9 +265,18 @@ void main() {
 			a2
 		);
 		renderer.setSize(container.offsetWidth, container.offsetHeight);
+		composer.setSize(container.offsetWidth, container.offsetHeight);
 	}
 
+	function onPointerMove( event ) {
+
+		if ( event.isPrimary === false ) return;
+
+		mouseX = (event.clientX - window.innerWidth * 0.5) * 0.25;
+		mouseY = (event.clientY - window.innerHeight * 0.5) * 0.25;
+
+	}
 	init();
-	render();
-	play();
+	window.headerAnimationPlay = play;
+	window.headerAnimationStop = stop;
 })();
