@@ -106,23 +106,26 @@ body {
 		text-align: center;
 		font-weight: normal;
 		text-transform: uppercase;
-		mix-blend-mode: screen;
+		color: $main-color;
+		mix-blend-mode: luminosity;
 		-webkit-text-stroke: 0.01em $main-color;
 		background: transparent;
 		transform: translate(-50%, -50%);
+		pointer-events: none;
 	}
 
 	.arrowDown {
 		position: absolute;
 		display: inline-block;
 		border: solid $main-color;
-		border-width: 0 0.1em 0.1em 0;
+		border-width: 0 0.2em 0.2em 0;
 		padding: 2%;
 		bottom: 5%;
 		left: 50%;
 		transform: translate(-50%, -50%) rotate(45deg);
 		-webkit-transform: translate(-50%, -50%) rotate(45deg);
-		mix-blend-mode: screen;
+		mix-blend-mode: luminosity;
+		pointer-events: none;
 	}
 
 	.headerVideo {
