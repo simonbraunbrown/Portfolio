@@ -526,6 +526,7 @@ body {
 				white-space: pre-line;
 				font-size: 2em;
 				&::before{
+					transition: opacity 0.3s linear;
 				}
 			}
 		}
@@ -603,7 +604,7 @@ body {
 				}
 			}
 			& .info {
-				color: $color-transparent;
+				color: $main-color-light;
 				&::before {
 					width: 100%;
 					overflow: visible;

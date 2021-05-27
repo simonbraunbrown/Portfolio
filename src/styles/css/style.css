@@ -458,6 +458,8 @@ body {
         font-weight: bold;
         white-space: pre-line;
         font-size: 2em; }
+        .panelContainer .panelWrapper .info--headline::before {
+          transition: opacity 0.3s linear; }
     .panelContainer .panelWrapper .filenameWrapper {
       position: absolute;
       display: block;
@@ -512,7 +514,7 @@ body {
     .panelContainer .panelWrapper--showInfo .imageWrapper .image {
       display: block; }
     .panelContainer .panelWrapper--showInfo .info {
-      color: rgba(0, 0, 0, 0); }
+      color: #d6d6d6; }
       .panelContainer .panelWrapper--showInfo .info::before {
         width: 100%;
         overflow: visible;
