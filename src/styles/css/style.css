@@ -455,7 +455,8 @@ body {
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear; }
       .panelContainer .panelWrapper .info--headline {
-        font-weight: bold; }
+        font-weight: bold;
+        white-space: pre-line; }
     .panelContainer .panelWrapper .filenameWrapper {
       position: absolute;
       display: block;

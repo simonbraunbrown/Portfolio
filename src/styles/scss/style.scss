@@ -523,6 +523,7 @@ body {
 
 			&--headline {
 				font-weight: bold;
+				white-space: pre-line;
 				&::before{
 				}
 			}

@@ -1,31 +1,11 @@
 let projects = [
 	{
 		type: 'text',
-		description: 'welcome...',
+		description: 'welcome...\n\n here are a few projects',
 	},
 	{
-		type: 'image',
-		src: './images/UI.jpg',
-		name: 'UI',
-		description: 'concept holo table',
-	},
-	{
-		type: 'image',
-		src: './images/triste.jpg',
-		name: 'window',
-		description: 'congrete window in verdun',
-	},
-	{
-		type: 'image',
-		src: './images/root.jpg',
-		name: 'root',
-		description: '',
-	},
-	{
-		type: 'video',
-		src: './videos/glasParticlesColored_high422_21.mp4',
-		name: 'glasParticles',
-		description: 'glasParticles - video loop',
+		type: 'text',
+		description: 'hard-surface modeling',
 	},
 	{
 		type: 'image',
@@ -56,6 +36,42 @@ let projects = [
 		src: './images/dreams.jpg',
 		name: '|||',
 		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/UI.jpg',
+		name: 'UI',
+		description: 'concept holo table',
+	},
+	{
+		type: 'image',
+		src: './images/triste.jpg',
+		name: 'window',
+		description: 'congrete window in verdun',
+	},
+	{
+		type: 'text',
+		description: 'animation',
+	},
+	{
+		type: 'video',
+		src: './videos/glasParticlesColored_high422_21.mp4',
+		name: 'glasParticles',
+		description: 'glasParticles - video loop',
+	},
+	{
+		type: 'text',
+		description: 'photogrammetry',
+	},
+	{
+		type: 'image',
+		src: './images/root.jpg',
+		name: 'root',
+		description: '',
+	},
+	{
+		type: 'text',
+		description: 'abstract',
 	},
 	{
 		type: 'image',
@@ -104,6 +120,10 @@ let projects = [
 		src: './images/bw.jpg',
 		name: 'BW',
 		description: '',
+	},
+	{
+		type: 'text',
+		description: 'coding',
 	},
 	{
 		type: 'image',
