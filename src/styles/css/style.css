@@ -456,7 +456,8 @@ body {
         transition: width 0.3s linear, opacity 0.3s linear; }
       .panelContainer .panelWrapper .info--headline {
         font-weight: bold;
-        white-space: pre-line; }
+        white-space: pre-line;
+        font-size: 2em; }
     .panelContainer .panelWrapper .filenameWrapper {
       position: absolute;
       display: block;
