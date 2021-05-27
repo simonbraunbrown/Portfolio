@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	console.log('DOM fully loaded');
 	loaded = true;
 	checkBrowserSupport();
-	checkBrowserWidth();
+	//checkBrowserWidth();
 	createPanels();
 	getPanelCords();
 	drawAnimation();
