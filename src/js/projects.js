@@ -55,6 +55,18 @@ let projects = [
 	},
 	{
 		type: 'video',
+		src: './videos/ZP.mp4',
+		name: 'Zorgon Peterson',
+		description: '',
+	},
+	{
+		type: 'video',
+		src: './videos/SaudKruger.mp4',
+		name: 'Saud Kruger',
+		description: '',
+	},
+	{
+		type: 'video',
 		src: './videos/glasParticlesColored_high422_21.mp4',
 		name: 'glasParticles',
 		description: 'glasParticles - video loop',
@@ -72,6 +84,12 @@ let projects = [
 	{
 		type: 'text',
 		description: 'abstract',
+	},
+	{
+		type: 'image',
+		src: './images/HairFrame.jpg',
+		name: 'untitled',
+		description: '',
 	},
 	{
 		type: 'image',
