@@ -7,7 +7,6 @@ const progressCount = document.querySelector('.progress');
 const navigation = document.querySelector('.navigationWrapper');
 const overlayWrapper = document.querySelector('.overlayWrapper');
 const closeButtons = overlayWrapper.querySelectorAll('.closeButton');
-let elementBodyOffsets = [];
 let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	checkBrowserSupport();
 	//checkBrowserWidth();
 	createPanels();
-	getPanelCords();
 	drawAnimation();
 	toggleOnScroll();
 });
@@ -30,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function (event) {
 window.addEventListener('resize', function (event) {
 	checkBrowserWidth();
 	if (loaded) {
-		getPanelCords();
 		windowHeight = window.innerHeight;
 	}
 });
@@ -40,7 +37,6 @@ function drawAnimation() {
 	if (headerAnimationPlaying) {window.headerAnimationPlay();}
 	frameCounter += 1;
 	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
-	//toggleOnScroll(elementBodyOffsets);
 	makeProgress();
 	visibleElement && translate(visibleElement);
 	
@@ -124,10 +120,8 @@ function createPanels() {
 			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
 				squeezeAll(panelWrappers);
 				expand(panelWrapper);
-				getPanelCords();
 			} else {
 				squeezeIt(panelWrapper);
-				getPanelCords();
 			}
 		});
 		return panelWrapper;
@@ -175,11 +169,9 @@ function createPanels() {
 			if (!panelWrapper.classList.contains('panelWrapper--expand')) {
 				squeezeAll(panelWrappers);
 				expand(panelWrapper);
-				getPanelCords();
 				video.play();
 			} else {
 				squeezeIt(panelWrapper);
-				getPanelCords();
 				video.pause();
 			}
 		});
@@ -285,25 +277,6 @@ function makeProgress() {
 	else {
 		headerAnimationPlaying = true;
 	}
-}
-
-function getPanelCords() {
-	const panelWrappers = document.querySelectorAll('.panelWrapper');
-	elementBodyOffsets = [];
-	panelWrappers.forEach((wrapper) => {
-		const bodyRect = document.body.getBoundingClientRect();
-		const wrapperRect = wrapper.getBoundingClientRect();
-		const elementTopBodyOffset = wrapperRect.top - bodyRect.top;
-		const wrapperHeight = wrapperRect.height;
-		const values = {
-			element: wrapper,
-			elementHeight: wrapperHeight,
-			elementTopBodyOffset: elementTopBodyOffset,
-			elementCenterBodyOffset: elementTopBodyOffset + wrapperHeight * 0.5,
-			active: false,
-		};
-		elementBodyOffsets.push(values);
-	});
 }
 
 function toggleOnScroll() {
