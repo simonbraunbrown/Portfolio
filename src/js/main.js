@@ -14,6 +14,7 @@ let loaded = false;
 let redraw = hasScrolled();
 let frameCounter = 0;
 let headerAnimationPlaying = false;
+let visibleElement;
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	console.log('DOM fully loaded');
@@ -23,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	createPanels();
 	getPanelCords();
 	drawAnimation();
+	toggleOnScroll();
 });
 
 window.addEventListener('resize', function (event) {
@@ -38,8 +40,9 @@ function drawAnimation() {
 	if (headerAnimationPlaying) {window.headerAnimationPlay();}
 	frameCounter += 1;
 	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
-	toggleOnScroll(elementBodyOffsets);
+	//toggleOnScroll(elementBodyOffsets);
 	makeProgress();
+	visibleElement && translate(visibleElement);
 	
 }
 
@@ -303,61 +306,34 @@ function getPanelCords() {
 	});
 }
 
-function toggleOnScroll(elementBodyOffsets) {
-	if (!elementBodyOffsets) return;
+function toggleOnScroll() {
+	const panelWrappers = document.querySelectorAll('.panelWrapper');
+	const options = {
+		root: null,
+		threshold: 0,
+		rootMargin: '-50%'
+	};
+	const observer = new IntersectionObserver(function(entries, observer){
+		entries.forEach(entry => {
+			if (entry.isIntersecting === true) {
+				entry.target.classList.add('panelWrapper--showInfo');
+				if (entry.target.querySelector('.imageWrapper')) {
+					fadeIn(entry.target.querySelector('.imageWrapper'));
 
-	//const ebos = elementBodyOffsets;
-	const wC = windowHeight * 0.5;
-	let y = window.scrollY;
-	elementBodyOffsets.forEach((props) => {
-		const el = props.element;
-		let imageWrapper;
-		let active = false;
-		let expanded;
-		if (el.project.isMedia) {
-			imageWrapper = el.querySelector('.imageWrapper');
-			active = props.active;
-			expanded = el.classList.contains('panelWrapper--expand');
-		}
-		const eH = props.elementHeight * 0.5;
-		const eCBO = props.elementCenterBodyOffset;
-		const cCO = y + wC - eCBO; // center to center offset
-		if (imageWrapper) {
-			const image = el.querySelector('.image');
-			if (cCO <= eH && cCO >= -eH && !expanded) {
-				image.style.transform = `scale(1.0) translate(0,${
-					-eH * 1.25 + eH - cCO / 4
-				}px)`; // 1.25 from image scale in css
-
-				image.addEventListener('transitionend', function (event) {
-					event.stopPropagation();
-				});
-
-				if (!active && !expanded) {
-					fadeIn(imageWrapper);
-					props.active = true;
+					visibleElement = entry.target;
 				}
-				el.classList.add('panelWrapper--showInfo');
-			} else {
-				if (expanded) {
-					el.querySelector('.image').style.transform = 'none';
-				}
-				if (active && !expanded) {
-					fadeOut(imageWrapper);
-					props.active = false;
-				}
-				if (!active && !expanded) {
-					fadeOut(imageWrapper);
-				}
-				el.classList.remove('panelWrapper--showInfo');
 			}
-		} else {
-			if (cCO <= eH && cCO >= -eH) {
-				el.classList.add('panelWrapper--showInfo');
-			} else {
-				el.classList.remove('panelWrapper--showInfo');
+			if (entry.isIntersecting === false) {
+				entry.target.classList.remove('panelWrapper--showInfo');
+				if (entry.target.querySelector('.imageWrapper')) {
+					fadeOut(entry.target.querySelector('.imageWrapper'));
+				}
 			}
-		}
+		});
+	}, options);
+
+	panelWrappers.forEach(panelWrapper => {
+		observer.observe(panelWrapper);
 	});
 }
 
@@ -420,4 +396,19 @@ function alignToScreenCenter(element) {
 	const elementHeight = elementRect.height;
 	const scrollPos = elementTopBodyOffset - (windowHeight - elementHeight) * 0.5;
 	return scrollPos;
+}
+
+function translate (element) {
+	const bounds = element.getBoundingClientRect();
+	const bodyBounds = document.body.getBoundingClientRect();
+	const expanded = element.classList.contains('panelWrapper--expand');
+	const elementTopBodyOffset = bounds.top - bodyBounds.top;
+	const eCBO = elementTopBodyOffset + bounds.height * 0.5;
+	const cCO = window.scrollY + window.innerHeight - eCBO; // center to center offset
+	if (!expanded) {
+		element.querySelector('.image').style.transform = `translate(0, calc(-50% - ${ (-bounds.height + cCO)}px / 2)) scale(1.5)`;
+	}
+	else {
+		element.querySelector('.image').style.transform = 'translate(0, -50%)';
+	}
 }
