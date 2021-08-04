@@ -315,10 +315,14 @@ function fadeIn(element) {
 	if (element.classList.contains('--fading')) return;
 	element.classList.remove('--hidden');
 	element.classList.add('--fading');
-	
-	setTimeout(function () {
+
+	element.addEventListener('transitionend', function() {
 		element.classList.remove('--fading');
-	}, 30);
+	}, {
+		capture: false,
+		once: true,
+		passive: false,
+	});
 }
 
 function fadeOut(element) {
@@ -379,7 +383,7 @@ function translate (element) {
 	const eCBO = elementTopBodyOffset + bounds.height * 0.5;
 	const cCO = window.scrollY + window.innerHeight - eCBO; // center to center offset
 	if (!expanded) {
-		element.querySelector('.image').style.transform = `translate(0, calc(-50% - ${ (-bounds.height + cCO)}px / 2)) scale(1.25)`;
+		element.querySelector('.image').style.transform = `translate(0, calc(-50% - ${(-bounds.height + cCO)}px / 2)) scale(1.25)`;
 	}
 	else {
 		element.querySelector('.image').style.transform = 'translate(0, -50%)';
