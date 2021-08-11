@@ -162,9 +162,11 @@ body {
     left: 0; }
     .progressBarWrapper--top .progressBar {
       top: 0;
-      left: 0;
+      left: 50%;
       height: 0.1em;
-      max-width: 100vw; }
+      max-width: 100vw;
+      -webkit-transform: translate(-50%, 0);
+              transform: translate(-50%, 0); }
   .progressBarWrapper--bottom {
     width: 100vw;
     height: 4em;
@@ -172,9 +174,11 @@ body {
     left: 0; }
     .progressBarWrapper--bottom .progressBar {
       bottom: 0;
-      right: 0;
+      left: 50%;
       height: 0.1em;
-      max-width: 100vw; }
+      max-width: 100vw;
+      -webkit-transform: translate(-50%, 0);
+              transform: translate(-50%, 0); }
   .progressBarWrapper .overlayWrapper {
     position: relative;
     top: 0;
@@ -187,7 +191,9 @@ body {
       width: 0;
       height: 100vh;
       padding: 0;
-      background-color: #161616;
+      background-color: rgba(22, 22, 22, 0.75);
+      -webkit-backdrop-filter: blur(4px) grayscale(1);
+              backdrop-filter: blur(4px) grayscale(1);
       color: #d6d6d6;
       transition: width 0.3s linear; }
       .progressBarWrapper .overlayWrapper .overlay .buttonWrapper {
