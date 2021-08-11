@@ -311,18 +311,12 @@ function toggleOnScroll() {
 }
 
 function fadeIn(element) {
-	if (!element.classList.contains('--hidden')) return;
+	//if (!element.classList.contains('--hidden')) return;
 	if (element.classList.contains('--fading')) return;
 	element.classList.remove('--hidden');
-	element.classList.add('--fading');
 
-	element.addEventListener('transitionend', function() {
-		element.classList.remove('--fading');
-	}, {
-		capture: false,
-		once: true,
-		passive: false,
-	});
+	element.classList.add('--fading');
+	setTimeout(function(){element.classList.remove('--fading');},30);
 }
 
 function fadeOut(element) {
