@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 });
 
 window.addEventListener('resize', function (event) {
-	checkBrowserWidth();
+	//checkBrowserWidth();
 	if (loaded) {
 		windowHeight = window.innerHeight;
 	}
