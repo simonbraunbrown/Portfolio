@@ -145,11 +145,11 @@ function createPanels() {
 		]);
 		filename.innerHTML = project.name;
 		filenameWrapper.appendChild(filename);
-		video.setAttribute('preload', 'preload');
-		video.setAttribute('playsinline', 'playsinline');
-		video.setAttribute('autoplay', 'autoplay');
-		video.setAttribute('muted', 'muted');
-		video.setAttribute('loop', 'loop');
+		video.setAttribute('preload', 'auto');
+		video.setAttribute('playsinline', '');
+        //video.setAttribute('autoplay', '');
+		video.setAttribute('muted', '');
+		video.setAttribute('loop', '');
 		video.pause();
 		video.addEventListener('canplaythrough', function () {
 			projectLoaded += 1;
@@ -383,9 +383,9 @@ function translate (element) {
 	const eCBO = elementTopBodyOffset + bounds.height * 0.5;
 	const cCO = window.scrollY + window.innerHeight - eCBO; // center to center offset
 	if (!expanded) {
-		element.querySelector('.image').style.transform = `translate(0, calc(-50% - ${(-bounds.height + cCO)}px / 2)) scale(1.25)`;
+		element.querySelector('.image').style.transform = `translate(-50%, calc(-50% - ${(-bounds.height + cCO)}px / 2)) scale(1.25)`;
 	}
 	else {
-		element.querySelector('.image').style.transform = 'translate(0, -50%)';
+		element.querySelector('.image').style.transform = 'translate(-50%, -50%)';
 	}
 }
