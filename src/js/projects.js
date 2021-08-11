@@ -9,7 +9,7 @@ let projects = [
 	},
 	{
 		type: 'image',
-		src: './images/drone3.jpg',
+		src: './images/drone.jpg',
 		name: 'drone',
 		description: '',
 	},
@@ -17,6 +17,12 @@ let projects = [
 		type: 'image',
 		src: './images/edgework1.jpg',
 		name: 'edgework1',
+		description: '',
+	},
+	{
+		type: 'image',
+		src: './images/vaccinator.jpg',
+		name: 'vaccinator',
 		description: '',
 	},
 	{
