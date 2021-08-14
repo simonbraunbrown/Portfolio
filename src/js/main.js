@@ -147,7 +147,7 @@ function createPanels() {
 		filenameWrapper.appendChild(filename);
 		video.setAttribute('preload', 'auto');
 		video.setAttribute('playsinline', '');
-        video.setAttribute('autoplay', '');
+		video.setAttribute('autoplay', '');
 		video.setAttribute('muted', '');
 		video.setAttribute('loop', '');
 		video.pause();
@@ -276,6 +276,7 @@ function makeProgress() {
 	}
 	else {
 		headerAnimationPlaying = true;
+		translateHeadline();
 	}
 }
 
@@ -309,6 +310,30 @@ function toggleOnScroll() {
 		observer.observe(panelWrapper);
 	});
 }
+
+function translateHeadline () {
+	const slowScroll = Math.floor(window.scrollY / 4);
+
+	const s = document.body.querySelector('.s');
+	const i = document.body.querySelector('.i');
+	const m = document.body.querySelector('.m');
+	const b = document.body.querySelector('.b');
+	const r = document.body.querySelector('.r');
+	const d = document.body.querySelector('.d');
+	const x = document.body.querySelector('.x');
+	const y = document.body.querySelector('.y');
+	const z = document.body.querySelector('.z');
+
+	s.style.transform = `translate(-${slowScroll}%, ${slowScroll}%) scale(${1+slowScroll*0.01})`;
+	i.style.transform = `translate(0, -${slowScroll*0.1}%) scaleY(${1+slowScroll*0.05}) `;
+	m.style.transform = `scale(${1+slowScroll*0.005}) translate(${slowScroll}%, ${slowScroll}%)`;
+	b.style.transform = `translate(0, -${slowScroll*2}%)`;
+	r.style.transform = `scale(${1+slowScroll*0.01}) translate(${slowScroll}%, -${slowScroll}%)`;
+	d.style.transform = `scaleX(${1+slowScroll*0.1})`;
+	x.style.transform = `translate(${slowScroll*3}%, -${slowScroll*3}%)`;
+	y.style.transform = `translate(-${slowScroll}%, -${slowScroll*0.5}%) scale(${1+slowScroll*-0.001})`;
+	z.style.transform = `translate(${slowScroll}%, ${slowScroll}%) scale(${1+slowScroll*0.02})`;
+}	
 
 function fadeIn(element) {
 	//if (!element.classList.contains('--hidden')) return;
