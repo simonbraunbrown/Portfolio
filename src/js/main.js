@@ -34,9 +34,10 @@ window.addEventListener('resize', function (event) {
 
 function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
-	if (headerAnimationPlaying) {window.headerAnimationPlay();}
+	//if (headerAnimationPlaying) {window.headerAnimationPlay();}
 	frameCounter += 1;
-	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
+	//if (frameCounter % 3 !== 0 && !hasScrolled()) return;
+	if (!hasScrolled()) return;
 	makeProgress();
 	visibleElement && translate(visibleElement);
 	
