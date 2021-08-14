@@ -202,7 +202,7 @@ void main() {
 	}
 
 	function createRenderer() {
-		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+		renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
 
 		renderer.setPixelRatio(container.clientWidth / container.clientHeight);
 
