@@ -116,7 +116,7 @@ body {
 		color: $main-color;
 		-webkit-text-stroke: 0.01em $main-color;
 		background: $main-color-background;
-		mix-blend-mode: luminosity;
+		//mix-blend-mode: luminosity;
 	}
 
 	.headlineWrapper {
@@ -182,7 +182,7 @@ body {
 		width: 0;
 		color: $main-color-background;
 		background-color: $main-color-light;
-		transition: width 0.3s ease-in-out;
+		transition: width 0.3s ease-out;
 
 		span {
 			margin: 0 1em;

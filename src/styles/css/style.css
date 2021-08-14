@@ -73,8 +73,7 @@ body {
     pointer-events: none;
     color: #4f4f51;
     -webkit-text-stroke: 0.01em #4f4f51;
-    background: #161616;
-    mix-blend-mode: luminosity; }
+    background: #161616; }
   .header .headlineWrapper {
     position: absolute;
     width: 100%;
@@ -135,7 +134,7 @@ body {
     width: 0;
     color: #161616;
     background-color: #d6d6d6;
-    transition: width 0.3s ease-in-out; }
+    transition: width 0.3s ease-out; }
     .loadingOverlay .loadProgress span {
       margin: 0 1em; }
 
