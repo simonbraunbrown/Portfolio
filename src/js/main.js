@@ -402,7 +402,7 @@ function translate (element) {
 	const eCBO = elementTopBodyOffset + bounds.height * 0.5;
 	const cCO = window.scrollY + window.innerHeight - eCBO; // center to center offset
 	if (!expanded) {
-		element.querySelector('.image').style.transform = `translate(-50%, calc(-50% - ${(-bounds.height + cCO)}px / 2)) scale(1.25)`;
+		element.querySelector('.image').style.transform = `translate(-50%, calc(-50% - ${(-bounds.height + cCO)}% * 0.05)) scale(1.25)`;
 	}
 	else {
 		element.querySelector('.image').style.transform = 'translate(-50%, -50%)';
