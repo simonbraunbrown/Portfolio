@@ -145,7 +145,7 @@ function createPanels() {
 		]);
 		filename.innerHTML = project.name;
 		filenameWrapper.appendChild(filename);
-		video.setAttribute('preload', 'auto');
+		video.setAttribute('preload', 'metadata');
 		video.setAttribute('playsinline', '');
 		video.setAttribute('autoplay', '');
 		video.setAttribute('muted', '');
