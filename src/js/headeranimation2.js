@@ -24,7 +24,7 @@
 	const images = projects.filter(project => project.type === 'image');
 	let image1 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
 	let image2 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
-	let dispImage = loadTexture('../images/nebula1.png');
+	let dispImage = loadTexture('../images/musgrave3.jpg');
 	
 	let imagesRatio = 1.0;
 	let intensity1 = 1.0;
@@ -114,8 +114,8 @@ void main() {
 		let texture2 = image2;
 		let texture3 = dispImage;
 
-		//texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
-		//texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
+		texture1.magFilter = texture2.minFilter = THREE.LinearFilter;
+		texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
 		texture3.minFilter = texture3.minFilter = THREE.LinearFilter;
 
 		let mat = new THREE.ShaderMaterial({
@@ -202,7 +202,7 @@ void main() {
 	}
 
 	function createRenderer() {
-		renderer = new THREE.WebGLRenderer({ antialias: false, alpha: true });
+		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
 		renderer.setPixelRatio(container.clientWidth / container.clientHeight);
 
@@ -238,7 +238,7 @@ void main() {
 
 	function render() {
 		renderer.render(scene, camera);
-		composer.render();
+		//composer.render();
 	}
 
 	function play() {
