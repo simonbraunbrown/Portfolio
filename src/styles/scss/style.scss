@@ -191,7 +191,7 @@ body {
 	.loadProgress {
 		width: 0;
 		color: $main-color-background;
-		background-color: $main-color-light;
+		background-color: $main-color;
 		transition: width 0.3s ease-out;
 
 		span {
