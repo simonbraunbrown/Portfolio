@@ -15,7 +15,18 @@ let frameCounter = 0;
 let headerAnimationPlaying = false;
 let visibleElement;
 
+let s,i,m,b,r,d,x,y,z;
+
 document.addEventListener('DOMContentLoaded', function (event) {
+	s = document.body.querySelector('.s');
+	i = document.body.querySelector('.i');
+	m = document.body.querySelector('.m');
+	b = document.body.querySelector('.b');
+	r = document.body.querySelector('.r');
+	d = document.body.querySelector('.d');
+	x = document.body.querySelector('.x');
+	y = document.body.querySelector('.y');
+	z = document.body.querySelector('.z');
 	console.log('DOM fully loaded');
 	loaded = true;
 	checkBrowserSupport();
@@ -313,16 +324,7 @@ function toggleOnScroll() {
 
 function translateHeadline () {
 	const slowScroll = Math.floor(window.scrollY / 4);
-
-	const s = document.body.querySelector('.s');
-	const i = document.body.querySelector('.i');
-	const m = document.body.querySelector('.m');
-	const b = document.body.querySelector('.b');
-	const r = document.body.querySelector('.r');
-	const d = document.body.querySelector('.d');
-	const x = document.body.querySelector('.x');
-	const y = document.body.querySelector('.y');
-	const z = document.body.querySelector('.z');
+	const t = Math.pow(1 - window.scrollY / window.innerHeight, 2);
 
 	s.style.transform = `translate(-${slowScroll}%, ${slowScroll}%) scale(${1+slowScroll*0.01})`;
 	i.style.transform = `translate(0, -${slowScroll*0.1}%) scaleY(${1+slowScroll*0.05}) `;
@@ -333,6 +335,16 @@ function translateHeadline () {
 	x.style.transform = `translate(${slowScroll*3}%, -${slowScroll*3}%)`;
 	y.style.transform = `translate(-${slowScroll}%, -${slowScroll*0.5}%) scale(${1+slowScroll*-0.001})`;
 	z.style.transform = `translate(${slowScroll}%, ${slowScroll}%) scale(${1+slowScroll*0.02})`;
+
+	s.style.opacity =`${t}`;
+	i.style.opacity =`${t}`;
+	m.style.opacity =`${t}`;
+	b.style.opacity =`${t}`;
+	r.style.opacity =`${t}`;
+	d.style.opacity =`${t}`;
+	x.style.opacity =`${t}`;
+	y.style.opacity =`${t}`;
+	z.style.opacity =`${t}`;
 }	
 
 function fadeIn(element) {
