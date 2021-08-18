@@ -24,9 +24,9 @@
 	const images = projects.filter(project => project.type === 'image');
 	let image1 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
 	let image2 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
-	let dispImage = loadTexture('../images/musgrave3.jpg');
+	let dispImage = loadTexture('../images/nebula1.jpg');
 	
-	let imagesRatio = 1.0;
+	let imagesRatio = container.offsetHeight / container.offsetWidth;
 	let intensity1 = 1.0;
 	let intensity2 = 1.0;
 	let commonAngle = Math.PI / 4;
@@ -74,7 +74,7 @@ mat2 getRotM(float angle) {
 void main() {
   vec4 disp = texture2D(tex3, vUv);
   vec2 dispVec = vec2(disp.r, disp.g);
-  vec2 uv = 0.5 * gl_FragCoord.xy / (res.xy) ;
+  vec2 uv = gl_FragCoord.xy / (res.xy) ;
   vec2 myUV = (uv - vec2(0.5)) * res.zw + vec2(0.5);
   vec2 distortedPosition1 = myUV + getRotM(angle1) * dispVec * intensity1 * dispFactor;
   vec2 distortedPosition2 = myUV + getRotM(angle2) * dispVec * intensity2 * (1.0 - dispFactor);
@@ -114,9 +114,9 @@ void main() {
 		let texture2 = image2;
 		let texture3 = dispImage;
 
-		texture1.magFilter = texture2.minFilter = THREE.LinearFilter;
-		texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
-		texture3.minFilter = texture3.minFilter = THREE.LinearFilter;
+		//texture1.magFilter = texture2.magFilter = THREE.LinearFilter;
+		//texture1.minFilter = texture2.minFilter = THREE.LinearFilter;
+		texture3.magFilter = texture3.minFilter = THREE.LinearFilter;
 
 		let mat = new THREE.ShaderMaterial({
 			uniforms: {
@@ -204,7 +204,7 @@ void main() {
 	function createRenderer() {
 		renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 
-		renderer.setPixelRatio(container.clientWidth / container.clientHeight);
+		renderer.setPixelRatio(window.devicePixelRatio);
 
 		renderer.setClearColor(0x000000, 0);
 
