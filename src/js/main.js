@@ -41,6 +41,8 @@ window.addEventListener('resize', function (event) {
 	if (loaded) {
 		windowHeight = window.innerHeight;
 	}
+	toggleOnScroll();
+
 });
 
 function drawAnimation() {
@@ -295,30 +297,34 @@ function toggleOnScroll() {
 	const panelWrappers = document.querySelectorAll('.panelWrapper');
 	const options = {
 		root: null,
-		threshold: 0,
-		rootMargin: '-50%'
+		threshold: [0.0, 0.75, 0.85, 1.0],
+		rootMargin: '0%'
 	};
-	const observer = new IntersectionObserver(function(entries, observer){
-		entries.forEach(entry => {
-			if (entry.isIntersecting === true) {
-				entry.target.classList.add('panelWrapper--showInfo');
-				if (entry.target.querySelector('.imageWrapper')) {
-					fadeIn(entry.target.querySelector('.imageWrapper'));
-
-					visibleElement = entry.target;
-				}
-			}
-			if (entry.isIntersecting === false) {
-				entry.target.classList.remove('panelWrapper--showInfo');
-				if (entry.target.querySelector('.imageWrapper')) {
-					fadeOut(entry.target.querySelector('.imageWrapper'));
-				}
-			}
-		});
-	}, options);
+	const observer = new IntersectionObserver(handleIntersect, options);
 
 	panelWrappers.forEach(panelWrapper => {
 		observer.observe(panelWrapper);
+	});
+}
+
+function handleIntersect(entries, observer) {
+	entries.forEach(entry => {
+		const imageWrapper = entry.target.querySelector('.imageWrapper');
+		if (entry.intersectionRatio > 0.75) {
+			entry.target.classList.add('panelWrapper--showInfo');
+
+			if (imageWrapper) {
+				visibleElement = entry.target;
+				if (entry.intersectionRatio > 0.85 ) {
+					fadeIn(imageWrapper);
+				}
+			}
+		} else {
+			entry.target.classList.remove('panelWrapper--showInfo');
+			if (imageWrapper && entry.intersectionRatio < 0.85 ) {
+				fadeOut(imageWrapper);
+			}
+		}
 	});
 }
 
@@ -348,7 +354,7 @@ function translateHeadline () {
 }	
 
 function fadeIn(element) {
-	//if (!element.classList.contains('--hidden')) return;
+	if (!element.classList.contains('--hidden')) return;
 	if (element.classList.contains('--fading')) return;
 	element.classList.remove('--hidden');
 
@@ -414,7 +420,7 @@ function translate (element) {
 	const eCBO = elementTopBodyOffset + bounds.height * 0.5;
 	const cCO = window.scrollY + window.innerHeight - eCBO; // center to center offset
 	if (!expanded) {
-		element.querySelector('.image').style.transform = `translate(-50%, calc(-50% - ${(-bounds.height + cCO)}% * 0.05)) scale(1.25)`;
+		element.querySelector('.image').style.transform = `translate(-50%, calc(-50% - ${(-bounds.height + cCO)}% * 0.025)) scale(1.25)`;
 	}
 	else {
 		element.querySelector('.image').style.transform = 'translate(-50%, -50%)';
