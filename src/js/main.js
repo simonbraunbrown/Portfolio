@@ -91,7 +91,7 @@ function createPanels() {
 	appendElements(panelContainer, panelContainerContent);
 
 	function createTextPanel(project) {
-		const panelWrapper = createElementWithClassname('div', ['panelWrapper']);
+		const panelWrapper = createElementWithClassname('div', ['panelWrapper', 'panelWrapper--headline']);
 		panelWrapper.project = project;
 		const panel = createElementWithClassname('div', ['panel']);
 		const info = createElementWithClassname('span', ['info', 'info--headline']);
@@ -312,7 +312,6 @@ function handleIntersect(entries, observer) {
 		const imageWrapper = entry.target.querySelector('.imageWrapper');
 		if (entry.intersectionRatio > 0.75) {
 			entry.target.classList.add('panelWrapper--showInfo');
-
 			if (imageWrapper) {
 				visibleElement = entry.target;
 				if (entry.intersectionRatio > 0.85 ) {
@@ -355,21 +354,22 @@ function translateHeadline () {
 
 function fadeIn(element) {
 	if (!element.classList.contains('--hidden')) return;
-	if (element.classList.contains('--fading')) return;
+	if (element.classList.contains('--fadingOut')) return;
 	element.classList.remove('--hidden');
-
-	element.classList.add('--fading');
-	setTimeout(function(){element.classList.remove('--fading');},30);
+	element.classList.add('--fadingIn');
+	setTimeout(function(){element.classList.remove('--fadingIn');},300);
 }
 
 function fadeOut(element) {
 	if (element.classList.contains('--hidden')) return;
-	if (element.classList.contains('--fading')) return;
-	element.classList.add('--fading');
+	if (element.classList.contains('--fadingIn')) return;
+	element.classList.add('--fadingOut');
+	setTimeout(function(){
+		element.classList.remove('--fadingOut');
+		element.classList.add('--hidden');
+	},300);
 	
 	element.addEventListener('transitionend', function() {
-		element.classList.remove('--fading');
-		element.classList.add('--hidden');
 	}, {
 		capture: false,
 		once: true,

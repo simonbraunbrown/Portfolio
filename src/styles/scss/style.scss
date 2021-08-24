@@ -26,6 +26,11 @@ $color-transparent: rgba(0, 0, 0, 0);
 	src: url('../../fonts/MonumentExtended_Ultrabold.otf') format('opentype');
 }
 
+@keyframes fading {
+	from {opacity: 0;}
+	to {background-color: 1;}
+  }
+
 :root {
 	--PI: 3.14159265358979rad;
 }
@@ -57,8 +62,17 @@ body {
 			display: none !important;
 		}
 
-		.--fading {
-			opacity: 0 !important;
+		.--fadingOut {
+			animation-name: fading;
+			animation-duration: 0.3s;
+			animation-direction: reverse;
+			animation-timing-function: ease-in-out;
+		}
+
+		.--fadingIn {
+			animation-name: fading;
+			animation-duration: 0.3s;
+			animation-timing-function: ease-in-out;
 		}
 	}
 	& h2 {
@@ -91,6 +105,39 @@ body {
 	body {
 		& .overlayContent {
 			font-size: 2em;
+		}
+		& .panelContainer {
+			& .panelWrapper {
+				&:nth-child(2n + 1) {
+					& .info {
+						left: 8em;
+					}
+				}
+		
+				&:nth-child(2n + 0) {
+					& .info {
+						right: 8em;
+					}
+				}
+				&--headline {
+					& .info {
+						&--headline {
+							font-size: 4em;
+						}
+					}
+					&:nth-child(2n + 1) {
+						& .info {
+							left: 0;
+						}
+					}
+			
+					&:nth-child(2n + 0) {
+						& .info {
+							left: 0;
+						}
+					}
+				}
+			}
 		}
 	}
 }
@@ -504,8 +551,11 @@ body {
 		display: block;
 		width: 100%;
 		height: var(--base-panel-height);
-		margin: 12em 0;
+		margin: var(--base-panel-height) 0;
 		padding: 0 8em;
+		&:last-of-type {
+			margin-bottom: calc(var(--base-panel-height) / 2);
+		}
 		& .panel {
 			position: relative;
 			display: block;
@@ -518,8 +568,8 @@ body {
 			overflow: hidden;
 			width: 100%;
 			height: 100%;
-			opacity: 0;
 			transition: opacity 0.3s ease-in-out;
+
 			& .image {
 				position: relative;
 				display: block;
@@ -536,35 +586,28 @@ body {
 			display: block;
 			z-index: 1;
 			width: auto;
-			max-width: 70%;
+			max-width: 50%;
 			height: auto;
 			top: 50%;
 			color: $main-color-dark;
+			background-color: $main-color-background;
 			font-weight: normal;
 			text-transform: uppercase;
+			word-wrap: break-word;
 			pointer-events: none;
-			transform: translate(0, -50%);
 			transition: color 0.3s linear;
 			&::before {
 				position: absolute;
+				display: block;
+				z-index: 0;
 				width: 0;
 				top: 0;
 				overflow: hidden;
 				height: 100%;
-				background-color: $main-color-background;
 				color: $main-color-light;
 				opacity: 0;
 				content: attr(data-text);
 				transition: width 0.3s linear, opacity 0.3s linear;
-			}
-
-			&--headline {
-				font-weight: bold;
-				white-space: pre-line;
-				font-size: 2em;
-				&::before{
-					transition: opacity 0.3s linear;
-				}
 			}
 		}
 
@@ -591,8 +634,9 @@ body {
 
 		&:nth-child(2n + 1) {
 			& .info {
-				left: 4em;
+				left: 2em;
 				text-align: left;
+				transform: translate(0, -50%);
 				&::before {
 					left: 0;
 					text-align: left;
@@ -602,8 +646,9 @@ body {
 
 		&:nth-child(2n + 0) {
 			& .info {
-				right: 4em;
+				right: 2em;
 				text-align: right;
+				transform: translate(0, -50%);
 				&::before {
 					right: 0;
 					text-align: right;
@@ -634,24 +679,62 @@ body {
 				}
 			}
 		}
+		&--headline {
+			margin: calc(var(--base-panel-height) / 2) 0;
+			& .info {
+				&--headline {
+					max-width: 100%;
+					font-weight: bold;
+					white-space: pre-line;
+					font-size: 2em;
+					&::before {
+					display: none;
+					}
+					&::after {
+						position: absolute;
+						content: '';
+						top: 100%;
+						left: 0;
+						width: 0;
+						height: 0.1em;
+						background: $main-color-light;
+						transition: width 0.3s linear;
+					}
+				}
+			}
+			&:nth-child(2n + 1) {
+				& .info {
+					left: 0;
+				}
+			}
+	
+			&:nth-child(2n + 0) {
+				& .info {
+					left: 0;
+					text-align: left;
+				}
+			}
+		}
 		&--showInfo {
 			& .imageWrapper {
-				opacity: 1.0;
 				& .image {
 					display: block;
 					transform: translate(-50%, -50%);
 				}
 			}
 			& .info {
-				color: $main-color-light;
+				//color: transparent;
 				&::before {
 					width: 100%;
-					overflow: visible;
 					opacity: 1;
 				}
 
 				&--headline {
-					&::before{
+					color: $main-color-light;
+					&::before {
+					}
+					&::after {
+						width: 100%;
 					}
 				}
 			}
