@@ -1,7 +1,3 @@
-const panelContainer = document.querySelector('.panelContainer');
-const images = panelContainer.querySelectorAll('.image');
-const panelWrappers = panelContainer.querySelectorAll('.panelWrapper');
-const Infos = panelContainer.querySelectorAll('.info');
 const progressBarWrappers = document.querySelectorAll('.progressBarWrapper');
 const progressCount = document.querySelector('.progress');
 const navigation = document.querySelector('.navigationWrapper');
@@ -10,12 +6,11 @@ const closeButtons = overlayWrapper.querySelectorAll('.closeButton');
 let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
-let redraw = hasScrolled();
 let frameCounter = 0;
 let headerAnimationPlaying = false;
 let visibleElement;
 
-let s,i,m,b,r,d,x,y,z;
+let s, i, m, b, r, d, x, y, z;
 
 document.addEventListener('DOMContentLoaded', function (event) {
 	s = document.body.querySelector('.s');
@@ -47,12 +42,11 @@ window.addEventListener('resize', function (event) {
 
 function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
-	if (headerAnimationPlaying) {window.headerAnimationPlay();}
+	if (headerAnimationPlaying) { window.headerAnimationPlay(); }
 	frameCounter += 1;
 	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
 	makeProgress();
-	visibleElement && translate(visibleElement);
-	
+	if (visibleElement) translate(visibleElement);
 }
 
 function createPanels() {
@@ -65,8 +59,6 @@ function createPanels() {
 	function loadProgress() {
 		const progressBar = document.querySelector('.loadProgress');
 		const progress = projectLoaded / projectCount;
-		const elementWidth =
-			(progressBar.clientWidth * 100) / document.body.clientWidth;
 		progressBar.style.width = progress * 100 + '%';
 		if (progress === 1) {
 			const loadingOverlay = document.querySelector('.loadingOverlay');
@@ -314,62 +306,62 @@ function handleIntersect(entries, observer) {
 			entry.target.classList.add('panelWrapper--showInfo');
 			if (imageWrapper) {
 				visibleElement = entry.target;
-				if (entry.intersectionRatio > 0.85 ) {
+				if (entry.intersectionRatio > 0.85) {
 					fadeIn(imageWrapper);
 				}
 			}
 		} else {
 			entry.target.classList.remove('panelWrapper--showInfo');
-			if (imageWrapper && entry.intersectionRatio < 0.85 ) {
+			if (imageWrapper && entry.intersectionRatio < 0.85) {
 				fadeOut(imageWrapper);
 			}
 		}
 	});
 }
 
-function translateHeadline () {
+function translateHeadline() {
 	const slowScroll = Math.floor(window.scrollY / 4);
 	const t = Math.pow(1 - window.scrollY / window.innerHeight, 2);
 
-	s.style.transform = `translate(-${slowScroll}%, ${slowScroll}%) scale(${1+slowScroll*0.01})`;
-	i.style.transform = `translate(0, -${slowScroll*0.1}%) scaleY(${1+slowScroll*0.05}) `;
-	m.style.transform = `scale(${1+slowScroll*0.005}) translate(${slowScroll}%, ${slowScroll}%)`;
-	b.style.transform = `translate(0, -${slowScroll*2}%)`;
-	r.style.transform = `scale(${1+slowScroll*0.01}) translate(${slowScroll}%, -${slowScroll}%)`;
-	d.style.transform = `scaleX(${1+slowScroll*0.1})`;
-	x.style.transform = `translate(${slowScroll*3}%, -${slowScroll*3}%)`;
-	y.style.transform = `translate(-${slowScroll}%, -${slowScroll*0.5}%) scale(${1+slowScroll*-0.001})`;
-	z.style.transform = `translate(${slowScroll}%, ${slowScroll}%) scale(${1+slowScroll*0.02})`;
+	s.style.transform = `translate(-${slowScroll}%, ${slowScroll}%) scale(${1 + slowScroll * 0.01})`;
+	i.style.transform = `translate(0, -${slowScroll * 0.1}%) scaleY(${1 + slowScroll * 0.05}) `;
+	m.style.transform = `scale(${1 + slowScroll * 0.005}) translate(${slowScroll}%, ${slowScroll}%)`;
+	b.style.transform = `translate(0, -${slowScroll * 2}%)`;
+	r.style.transform = `scale(${1 + slowScroll * 0.01}) translate(${slowScroll}%, -${slowScroll}%)`;
+	d.style.transform = `scaleX(${1 + slowScroll * 0.1})`;
+	x.style.transform = `translate(${slowScroll * 3}%, -${slowScroll * 3}%)`;
+	y.style.transform = `translate(-${slowScroll}%, -${slowScroll * 0.5}%) scale(${1 + slowScroll * -0.001})`;
+	z.style.transform = `translate(${slowScroll}%, ${slowScroll}%) scale(${1 + slowScroll * 0.02})`;
 
-	s.style.opacity =`${t}`;
-	i.style.opacity =`${t}`;
-	m.style.opacity =`${t}`;
-	b.style.opacity =`${t}`;
-	r.style.opacity =`${t}`;
-	d.style.opacity =`${t}`;
-	x.style.opacity =`${t}`;
-	y.style.opacity =`${t}`;
-	z.style.opacity =`${t}`;
-}	
+	s.style.opacity = `${t}`;
+	i.style.opacity = `${t}`;
+	m.style.opacity = `${t}`;
+	b.style.opacity = `${t}`;
+	r.style.opacity = `${t}`;
+	d.style.opacity = `${t}`;
+	x.style.opacity = `${t}`;
+	y.style.opacity = `${t}`;
+	z.style.opacity = `${t}`;
+}
 
 function fadeIn(element) {
 	if (!element.classList.contains('--hidden')) return;
 	if (element.classList.contains('--fadingOut')) return;
 	element.classList.remove('--hidden');
 	element.classList.add('--fadingIn');
-	setTimeout(function(){element.classList.remove('--fadingIn');},300);
+	setTimeout(function () { element.classList.remove('--fadingIn'); }, 300);
 }
 
 function fadeOut(element) {
 	if (element.classList.contains('--hidden')) return;
 	if (element.classList.contains('--fadingIn')) return;
 	element.classList.add('--fadingOut');
-	setTimeout(function(){
+	setTimeout(function () {
 		element.classList.remove('--fadingOut');
 		element.classList.add('--hidden');
-	},300);
-	
-	element.addEventListener('transitionend', function() {
+	}, 300);
+
+	element.addEventListener('transitionend', function () {
 	}, {
 		capture: false,
 		once: true,
@@ -412,7 +404,7 @@ function alignToScreenCenter(element) {
 	return scrollPos;
 }
 
-function translate (element) {
+function translate(element) {
 	const bounds = element.getBoundingClientRect();
 	const bodyBounds = document.body.getBoundingClientRect();
 	const expanded = element.classList.contains('panelWrapper--expand');
