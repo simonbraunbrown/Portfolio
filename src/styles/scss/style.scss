@@ -33,6 +33,7 @@ $color-transparent: rgba(0, 0, 0, 0);
 
 :root {
 	--PI: 3.14159265358979rad;
+	--base-panel-height: calc((100vh - 8em) / 2);
 }
 
 html {
@@ -46,7 +47,6 @@ body {
 	font-family: 'ME', sans-serif;
 	font-size: calc(max(1vw, 8px));
 	background-color: $main-color-background;
-	--base-panel-height: calc((100vh - 8em) / 2);
 
 	&::-webkit-scrollbar {
 		display: none; /* Chrome, Safari and Opera */
