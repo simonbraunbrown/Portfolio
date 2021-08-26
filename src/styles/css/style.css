@@ -80,14 +80,18 @@ body {
     font-size: 2em; }
   body .panelContainer .panelWrapper:nth-child(2n + 1) .info {
     left: 8em; }
+    body .panelContainer .panelWrapper:nth-child(2n + 1) .info--headline {
+      left: 0;
+      right: unset;
+      text-align: left; }
   body .panelContainer .panelWrapper:nth-child(2n + 0) .info {
     right: 8em; }
+    body .panelContainer .panelWrapper:nth-child(2n + 0) .info--headline {
+      left: 0;
+      right: unset;
+      text-align: left; }
   body .panelContainer .panelWrapper--headline .info--headline {
-    font-size: 4em; }
-  body .panelContainer .panelWrapper--headline:nth-child(2n + 1) .info {
-    left: 0; }
-  body .panelContainer .panelWrapper--headline:nth-child(2n + 0) .info {
-    left: 0; } }
+    font-size: 4em; } }
 
 .header {
   position: relative;
@@ -523,6 +527,22 @@ body {
         opacity: 0;
         content: attr(data-text);
         transition: width 0.3s linear, opacity 0.3s linear; }
+      .panelContainer .panelWrapper .info--headline {
+        max-width: 100%;
+        font-weight: bold;
+        white-space: pre-line;
+        font-size: 2em; }
+        .panelContainer .panelWrapper .info--headline::before {
+          display: none; }
+        .panelContainer .panelWrapper .info--headline::after {
+          position: absolute;
+          content: '';
+          top: 100%;
+          left: 0;
+          width: 0;
+          height: 0.1em;
+          background: #d6d6d6;
+          transition: width 0.3s linear; }
     .panelContainer .panelWrapper .filenameWrapper {
       position: absolute;
       display: block;
@@ -553,6 +573,10 @@ body {
       .panelContainer .panelWrapper:nth-child(2n + 1) .info::before {
         left: 0;
         text-align: left; }
+      .panelContainer .panelWrapper:nth-child(2n + 1) .info--headline {
+        left: 0;
+        right: unset;
+        text-align: left; }
     .panelContainer .panelWrapper:nth-child(2n + 0) .info {
       right: 2em;
       text-align: right;
@@ -561,6 +585,10 @@ body {
       .panelContainer .panelWrapper:nth-child(2n + 0) .info::before {
         right: 0;
         text-align: right; }
+      .panelContainer .panelWrapper:nth-child(2n + 0) .info--headline {
+        left: 0;
+        right: unset;
+        text-align: left; }
     .panelContainer .panelWrapper--expand {
       height: 100vh;
       padding: 4em 0; }
@@ -580,27 +608,6 @@ body {
         border-top: 0.1em solid #d6d6d6; }
     .panelContainer .panelWrapper--headline {
       margin: calc(var(--base-panel-height) / 2) 0; }
-      .panelContainer .panelWrapper--headline .info--headline {
-        max-width: 100%;
-        font-weight: bold;
-        white-space: pre-line;
-        font-size: 2em; }
-        .panelContainer .panelWrapper--headline .info--headline::before {
-          display: none; }
-        .panelContainer .panelWrapper--headline .info--headline::after {
-          position: absolute;
-          content: '';
-          top: 100%;
-          left: 0;
-          width: 0;
-          height: 0.1em;
-          background: #d6d6d6;
-          transition: width 0.3s linear; }
-      .panelContainer .panelWrapper--headline:nth-child(2n + 1) .info {
-        left: 0; }
-      .panelContainer .panelWrapper--headline:nth-child(2n + 0) .info {
-        left: 0;
-        text-align: left; }
     .panelContainer .panelWrapper--showInfo .imageWrapper .image {
       display: block;
       -webkit-transform: translate(-50%, -50%);
