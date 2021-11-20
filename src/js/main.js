@@ -372,7 +372,7 @@ function fadeOut(element) {
 function expand(wrapper) {
 	if (wrapper.querySelector('.image')) {
 		wrapper.classList.add('panelWrapper--expand');
-		window.scrollTo(0, alignToScreenCenter(wrapper));
+		//window.scrollTo(0, alignToScreenCenter(wrapper));
 		if (wrapper.querySelector('.imageWrapper').classList.contains('--hidden')) {
 			fadeIn(wrapper.querySelector('.imageWrapper'));
 		}
@@ -392,7 +392,7 @@ function squeezeAll() {
 
 function squeezeIt(wrapper) {
 	wrapper.classList.remove('panelWrapper--expand');
-	window.scrollTo(0, alignToScreenCenter(wrapper));
+	//window.scrollTo(0, alignToScreenCenter(wrapper));
 }
 
 function alignToScreenCenter(element) {
