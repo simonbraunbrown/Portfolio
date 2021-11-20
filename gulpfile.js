@@ -62,7 +62,7 @@ gulp.task('ref', function () {
 gulp.task('handleSass', function () {
 	return gulp
 		.src('src/styles/scss/*.scss')
-		.pipe(sass()) // Using gulp-sass
+		.pipe(sass().on('error', sass.logError)) // Using gulp-sass
 		.pipe(autoPrefixer())
 		.pipe(gulp.dest('src/styles/css'))
 		.pipe(
