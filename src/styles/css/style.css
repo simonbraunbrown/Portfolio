@@ -474,9 +474,9 @@ body {
     box-sizing: border-box;
     display: block;
     width: 100%;
-    height: var(--base-panel-height);
+    height: 100vh;
     margin: var(--base-panel-height) 0;
-    padding: 0 8em; }
+    padding: 8em; }
     .panelContainer .panelWrapper:last-of-type {
       margin-bottom: calc(var(--base-panel-height) / 2); }
     .panelContainer .panelWrapper .panel {
@@ -490,7 +490,12 @@ body {
       overflow: hidden;
       width: 100%;
       height: 100%;
-      transition: opacity 0.3s ease-in-out; }
+      top: 50%;
+      left: 50%;
+      max-height: var(--base-panel-height);
+      -webkit-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+      transition: max-height 0.3s ease-in-out; }
       .panelContainer .panelWrapper .imageWrapper .image {
         position: relative;
         display: block;
@@ -593,7 +598,7 @@ body {
       height: 100vh;
       padding: 4em 0; }
       .panelContainer .panelWrapper--expand .imageWrapper {
-        opacity: 1; }
+        max-height: 100%; }
         .panelContainer .panelWrapper--expand .imageWrapper .image {
           display: block;
           height: 100%;
