@@ -1,6 +1,7 @@
 const gulp = require('gulp');
 const { series, parallel, watch, task } = require('gulp');
 const sass = require('gulp-sass');
+sass.compiler = require('sass');
 const cleanCSS = require('gulp-clean-css');
 const autoPrefixer = require('gulp-autoprefixer');
 const imageMin = require('gulp-imagemin');

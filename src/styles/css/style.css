@@ -1,164 +1,194 @@
 @font-face {
-  font-family: 'ME';
+  font-family: "ME";
   font-style: normal;
   font-weight: 400;
-  src: url("../../fonts/MonumentExtended_Regular.otf") format("opentype"); }
-
+  src: url("../../fonts/MonumentExtended_Regular.otf") format("opentype");
+}
 @font-face {
-  font-family: 'MEB';
+  font-family: "MEB";
   font-style: normal;
   font-weight: 900;
-  src: url("../../fonts/MonumentExtended_Ultrabold.otf") format("opentype"); }
-
+  src: url("../../fonts/MonumentExtended_Ultrabold.otf") format("opentype");
+}
 @-webkit-keyframes fading {
   from {
-    opacity: 0; }
+    opacity: 0;
+  }
   to {
-    background-color: 1; } }
-
+    background-color: 1;
+  }
+}
 @keyframes fading {
   from {
-    opacity: 0; }
+    opacity: 0;
+  }
   to {
-    background-color: 1; } }
-
+    background-color: 1;
+  }
+}
 :root {
   --PI: 3.14159265358979rad;
-  --base-panel-height: calc((100vh - 8em) / 2); }
+  --base-panel-height: calc((100vh - 8em) / 2);
+}
 
 body {
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'ME', sans-serif;
-  font-size: calc(max(1vw, 8px));
-  background-color: #161616; }
-  body::-webkit-scrollbar {
-    display: none;
-    /* Chrome, Safari and Opera */ }
-  body {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */ }
-  body .--hidden {
-    display: none !important; }
-  body .--fadingOut {
-    -webkit-animation-name: fading;
-            animation-name: fading;
-    -webkit-animation-duration: 0.3s;
-            animation-duration: 0.3s;
-    animation-direction: reverse;
-    -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out; }
-  body .--fadingIn {
-    -webkit-animation-name: fading;
-            animation-name: fading;
-    -webkit-animation-duration: 0.3s;
-            animation-duration: 0.3s;
-    -webkit-animation-timing-function: ease-in-out;
-            animation-timing-function: ease-in-out; }
-  body h2 {
-    font-size: 2em; }
-  body canvas {
-    outline: none; }
+  font-family: "ME", sans-serif;
+  font-size: max(1vw, 8px);
+  background-color: #161616;
+}
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari and Opera */
+}
+body {
+  -ms-overflow-style: none;
+  /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+}
+body .--hidden {
+  display: none !important;
+}
+body .--fadingOut {
+  -webkit-animation-name: fading;
+          animation-name: fading;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  animation-direction: reverse;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+body .--fadingIn {
+  -webkit-animation-name: fading;
+          animation-name: fading;
+  -webkit-animation-duration: 0.3s;
+          animation-duration: 0.3s;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+body h2 {
+  font-size: 2em;
+}
+body canvas {
+  outline: none;
+}
 
 @media (min-width: 380px) {
   body {
-    font-size: calc(max(0.2vw, 8px)); } }
-
+    font-size: max(0.2vw, 8px);
+  }
+}
 @media (min-width: 768px) {
   body {
-    font-size: calc(max(0.5vw, 10px)); } }
-
+    font-size: max(0.5vw, 10px);
+  }
+}
 @media (min-width: 1280px) {
   body {
-    font-size: calc(max(0.7vw, 13px)); } }
-
+    font-size: max(0.7vw, 13px);
+  }
+}
 @media (min-height: 800px) {
   body .overlayContent {
-    font-size: 2em; }
-  body .panelContainer .panelWrapper:nth-child(2n + 1) .info {
-    left: 8em; }
-    body .panelContainer .panelWrapper:nth-child(2n + 1) .info--headline {
-      left: 0;
-      right: unset;
-      text-align: left; }
-  body .panelContainer .panelWrapper:nth-child(2n + 0) .info {
-    right: 8em; }
-    body .panelContainer .panelWrapper:nth-child(2n + 0) .info--headline {
-      left: 0;
-      right: unset;
-      text-align: left; }
+    font-size: 2em;
+  }
+  body .panelContainer .panelWrapper:nth-child(2n+1) .info {
+    left: 8em;
+  }
+  body .panelContainer .panelWrapper:nth-child(2n+1) .info--headline {
+    left: 0;
+    right: unset;
+    text-align: left;
+  }
+  body .panelContainer .panelWrapper:nth-child(2n+0) .info {
+    right: 8em;
+  }
+  body .panelContainer .panelWrapper:nth-child(2n+0) .info--headline {
+    left: 0;
+    right: unset;
+    text-align: left;
+  }
   body .panelContainer .panelWrapper--headline .info--headline {
-    font-size: 4em; } }
-
+    font-size: 4em;
+  }
+}
 .header {
   position: relative;
   width: 100%;
   height: 100vh;
-  max-height: 100vh; }
-  .header .headlineContainer {
-    width: 100%;
-    height: 100%;
-    background: #161616;
-    mix-blend-mode: darken; }
-  .header .headline {
-    position: absolute;
-    margin: 0;
-    display: block;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    font-size: 10vw;
-    text-align: center;
-    font-weight: normal;
-    text-transform: uppercase;
-    pointer-events: none;
-    color: #4f4f51;
-    -webkit-text-stroke: 0.01em #4f4f51; }
-  .header .headlineWrapper {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); }
-  .header .s, .header .i, .header .m, .header .b, .header .r, .header .d, .header .x, .header .y, .header .z {
-    position: relative;
-    display: inline-block; }
-  .header .arrowDown {
-    position: absolute;
-    display: inline-block;
-    border: solid #4f4f51;
-    border-width: 0 0.2em 0.2em 0;
-    padding: 2%;
-    bottom: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    -webkit-transform: translate(-50%, -50%) rotate(45deg);
-    mix-blend-mode: luminosity;
-    pointer-events: none; }
-  .header .headerVideo {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%); }
-  .header .headerCanvasContainer {
-    position: absolute;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-            transform: translate(-50%, -50%);
-    opacity: 0.5; }
+  max-height: 100vh;
+}
+.header .headlineContainer {
+  width: 100%;
+  height: 100%;
+  background: #161616;
+  mix-blend-mode: darken;
+}
+.header .headline {
+  position: absolute;
+  margin: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-size: 10vw;
+  text-align: center;
+  font-weight: normal;
+  text-transform: uppercase;
+  pointer-events: none;
+  color: #4f4f51;
+  -webkit-text-stroke: 0.01em #4f4f51;
+}
+.header .headlineWrapper {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.header .s, .header .i, .header .m, .header .b, .header .r, .header .d, .header .x, .header .y, .header .z {
+  position: relative;
+  display: inline-block;
+}
+.header .arrowDown {
+  position: absolute;
+  display: inline-block;
+  border: solid #4f4f51;
+  border-width: 0 0.2em 0.2em 0;
+  padding: 2%;
+  bottom: 5%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  -webkit-transform: translate(-50%, -50%) rotate(45deg);
+  mix-blend-mode: luminosity;
+  pointer-events: none;
+}
+.header .headerVideo {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.header .headerCanvasContainer {
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  opacity: 0.5;
+}
 
 .loadingOverlay {
   position: fixed;
@@ -178,284 +208,328 @@ body {
   left: 0;
   background-color: #161616;
   opacity: 1;
-  transition: opacity 0.5s linear; }
-  .loadingOverlay .loadProgress {
-    width: 0;
-    color: #161616;
-    background-color: #4f4f51;
-    transition: width 0.3s ease-out; }
-    .loadingOverlay .loadProgress span {
-      margin: 0 1em; }
+  transition: opacity 0.5s linear;
+}
+.loadingOverlay .loadProgress {
+  width: 0;
+  color: #161616;
+  background-color: #4f4f51;
+  transition: width 0.3s ease-out;
+}
+.loadingOverlay .loadProgress span {
+  margin: 0 1em;
+}
 
 .progressBarWrapper {
   position: fixed;
   z-index: 2;
   opacity: 0;
-  transition: opacity 0.5s linear; }
-  .progressBarWrapper .progressBar {
-    position: absolute;
-    display: block;
-    background-color: #d6d6d6;
-    overflow: hidden; }
-  .progressBarWrapper--left {
-    width: 4em;
-    height: 100vh;
-    top: 0;
-    left: 0; }
-    .progressBarWrapper--left .progressBar {
-      top: 50%;
-      right: 0;
-      width: 0.1em;
-      max-height: 100vh;
-      -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%); }
-  .progressBarWrapper--right {
-    width: 4em;
-    height: 100vh;
-    top: 0;
-    right: 0; }
-    .progressBarWrapper--right .progressBar {
-      bottom: 50%;
-      left: 0;
-      width: 0.1em;
-      max-height: 100vh;
-      -webkit-transform: translate(0, 50%);
-              transform: translate(0, 50%); }
-  .progressBarWrapper--top {
-    width: 100vw;
-    height: 4em;
-    bottom: 0;
-    left: 0; }
-    .progressBarWrapper--top .progressBar {
-      top: 0;
-      left: 50%;
-      height: 0.1em;
-      max-width: 100vw;
-      -webkit-transform: translate(-50%, 0);
-              transform: translate(-50%, 0); }
-  .progressBarWrapper--bottom {
-    width: 100vw;
-    height: 4em;
-    top: 0;
-    left: 0; }
-    .progressBarWrapper--bottom .progressBar {
-      bottom: 0;
-      left: 50%;
-      height: 0.1em;
-      max-width: 100vw;
-      -webkit-transform: translate(-50%, 0);
-              transform: translate(-50%, 0); }
-  .progressBarWrapper .overlayWrapper {
-    position: relative;
-    top: 0;
-    left: 0; }
-    .progressBarWrapper .overlayWrapper .overlay {
-      position: absolute;
-      display: block;
-      box-sizing: border-box;
-      overflow: hidden;
-      width: 0;
-      height: 100vh;
-      padding: 0;
-      background-color: rgba(22, 22, 22, 0.75);
-      -webkit-backdrop-filter: blur(4px) grayscale(1);
-              backdrop-filter: blur(4px) grayscale(1);
-      color: #d6d6d6;
-      transition: width 0.3s linear; }
-      .progressBarWrapper .overlayWrapper .overlay .buttonWrapper {
-        position: absolute;
-        width: 4em;
-        height: 4em;
-        opacity: 0;
-        top: 8em;
-        right: 8em;
-        transition: opacity 0s linear;
-        transition-delay: 0s; }
-        .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton {
-          position: relative;
-          display: block;
-          width: 100%;
-          height: 100%;
-          color: #d6d6d6;
-          font-size: 1em;
-          cursor: pointer; }
-          .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before, .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:after {
-            position: absolute;
-            height: 100%;
-            width: 0.1em;
-            top: 0;
-            left: 50%;
-            content: ' ';
-            background-color: #d6d6d6;
-            transition: -webkit-transform 0.1s linear;
-            transition: transform 0.1s linear;
-            transition: transform 0.1s linear, -webkit-transform 0.1s linear; }
-          .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before {
-            -webkit-transform-origin: center top;
-                    transform-origin: center top;
-            -webkit-transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%);
-                    transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%); }
-          .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:after {
-            -webkit-transform-origin: center bottom;
-                    transform-origin: center bottom;
-            -webkit-transform: translate(0, -50%) rotate(calc((var(--PI) / -4))) translate(0, 50%);
-                    transform: translate(0, -50%) rotate(calc((var(--PI) / -4))) translate(0, 50%); }
-        .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:hover:before {
-          -webkit-transform: translate(100%, 25%) rotate(calc((var(--PI) / 3))) translate(-100%, -45%);
-                  transform: translate(100%, 25%) rotate(calc((var(--PI) / 3))) translate(-100%, -45%); }
-        .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:hover:after {
-          -webkit-transform: translate(100%, -25%) rotate(calc((var(--PI) / -3))) translate(-100%, 45%);
-                  transform: translate(100%, -25%) rotate(calc((var(--PI) / -3))) translate(-100%, 45%); }
-      .progressBarWrapper .overlayWrapper .overlay .overlayContent {
-        position: relative;
-        width: 100%;
-        height: 100%; }
-        .progressBarWrapper .overlayWrapper .overlay .overlayContent .about,
-        .progressBarWrapper .overlayWrapper .overlay .overlayContent .social {
-          margin: 0.5em 0;
-          margin-top: 0;
-          opacity: 0;
-          text-transform: uppercase;
-          transition: opacity 0s linear;
-          transition-delay: 0s; }
-        .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayText {
-          width: 50%;
-          margin: 0.5em 0;
-          opacity: 0;
-          transition: opacity 0s linear;
-          transition-delay: 0s; }
-        .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper {
-          position: absolute;
-          display: block;
-          left: 0;
-          bottom: 0; }
-          .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink {
-            display: inline-block;
-            position: relative;
-            margin: 0.5em 0;
-            margin-right: 100%;
-            opacity: 0;
-            color: rgba(0, 0, 0, 0);
-            -webkit-text-stroke: 1px #d6d6d6;
-            text-decoration: none;
-            text-transform: uppercase;
-            transition: opacity 0s linear;
-            transition-delay: 0s; }
-            .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink::after {
-              position: absolute;
-              content: '';
-              top: 100%;
-              left: 0;
-              width: 0;
-              height: 0.1em;
-              background-color: #d6d6d6;
-              transition: width 0.3s linear; }
-            .progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink:hover {
-              color: #d6d6d6;
-              -webkit-text-stroke: none; }
-        .progressBarWrapper .overlayWrapper .overlay .overlayContent .aboutCanvasContainer {
-          position: absolute;
-          display: block;
-          width: 16em;
-          height: 16em;
-          right: 0;
-          bottom: 0;
-          opacity: 0;
-          border: 0.1em solid #d6d6d6;
-          border-radius: 100%;
-          transition: opacity 0s linear;
-          transition-delay: 0s; }
-      .progressBarWrapper .overlayWrapper .overlay--visible {
-        width: 100vw;
-        padding: 8em; }
-        .progressBarWrapper .overlayWrapper .overlay--visible .buttonWrapper {
-          opacity: 1;
-          transition: opacity 0.3s linear;
-          transition-delay: 0.9s; }
-        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .about,
-        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .social {
-          opacity: 1;
-          transition: opacity 0.3s linear;
-          transition-delay: 0.3s; }
-        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .overlayText {
-          opacity: 1;
-          transition: opacity 0.3s linear;
-          transition-delay: 0.6s; }
-        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .overlayLinkWrapper .overlayLink {
-          opacity: 1;
-          transition: opacity 0.3s linear;
-          transition-delay: 0.9s; }
-          .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .overlayLinkWrapper .overlayLink::after {
-            width: 100%;
-            transition: width 0.3s linear;
-            transition-delay: 1.2s; }
-        .progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .aboutCanvasContainer {
-          opacity: 1;
-          transition: opacity 0.3s linear;
-          transition-delay: 0.9s; }
-  .progressBarWrapper .navigationWrapper {
-    position: absolute;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: column;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-    width: 100%;
-    height: calc(100% - 8em);
-    top: 50%;
-    -webkit-transform: translate(0, -50%);
-            transform: translate(0, -50%); }
-    .progressBarWrapper .navigationWrapper .navigationItem,
-    .progressBarWrapper .navigationWrapper .progressDisplay {
-      display: block;
-      width: 100%;
-      margin: 1em 0;
-      text-align: center; }
-      .progressBarWrapper .navigationWrapper .navigationItem .about,
-      .progressBarWrapper .navigationWrapper .navigationItem .social,
-      .progressBarWrapper .navigationWrapper .navigationItem .contact,
-      .progressBarWrapper .navigationWrapper .navigationItem .progress,
-      .progressBarWrapper .navigationWrapper .progressDisplay .about,
-      .progressBarWrapper .navigationWrapper .progressDisplay .social,
-      .progressBarWrapper .navigationWrapper .progressDisplay .contact,
-      .progressBarWrapper .navigationWrapper .progressDisplay .progress {
-        display: inline-block;
-        padding: 1em 0;
-        color: #d6d6d6;
-        text-transform: uppercase;
-        font-weight: normal;
-        -webkit-writing-mode: vertical-rl;
-            -ms-writing-mode: tb-rl;
-                writing-mode: vertical-rl;
-        -webkit-text-orientation: upright;
-                text-orientation: upright; }
-      .progressBarWrapper .navigationWrapper .navigationItem .about,
-      .progressBarWrapper .navigationWrapper .navigationItem .social,
-      .progressBarWrapper .navigationWrapper .navigationItem .contact,
-      .progressBarWrapper .navigationWrapper .progressDisplay .about,
-      .progressBarWrapper .navigationWrapper .progressDisplay .social,
-      .progressBarWrapper .navigationWrapper .progressDisplay .contact {
-        cursor: pointer;
-        border-bottom: 0.1em solid rgba(0, 0, 0, 0);
-        border-top: 0.1em solid rgba(0, 0, 0, 0); }
-        .progressBarWrapper .navigationWrapper .navigationItem .about:hover,
-        .progressBarWrapper .navigationWrapper .navigationItem .social:hover,
-        .progressBarWrapper .navigationWrapper .navigationItem .contact:hover,
-        .progressBarWrapper .navigationWrapper .progressDisplay .about:hover,
-        .progressBarWrapper .navigationWrapper .progressDisplay .social:hover,
-        .progressBarWrapper .navigationWrapper .progressDisplay .contact:hover {
-          border-bottom: 0.1em solid #d6d6d6;
-          border-top: 0.1em solid #d6d6d6; }
-      .progressBarWrapper .navigationWrapper .navigationItem .progress,
-      .progressBarWrapper .navigationWrapper .progressDisplay .progress {
-        padding: 1.1em 0;
-        cursor: default; }
-  .progressBarWrapper--visible {
-    opacity: 1; }
+  transition: opacity 0.5s linear;
+}
+.progressBarWrapper .progressBar {
+  position: absolute;
+  display: block;
+  background-color: #d6d6d6;
+  overflow: hidden;
+}
+.progressBarWrapper--left {
+  width: 4em;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+.progressBarWrapper--left .progressBar {
+  top: 50%;
+  right: 0;
+  width: 0.1em;
+  max-height: 100vh;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.progressBarWrapper--right {
+  width: 4em;
+  height: 100vh;
+  top: 0;
+  right: 0;
+}
+.progressBarWrapper--right .progressBar {
+  bottom: 50%;
+  left: 0;
+  width: 0.1em;
+  max-height: 100vh;
+  -webkit-transform: translate(0, 50%);
+          transform: translate(0, 50%);
+}
+.progressBarWrapper--top {
+  width: 100vw;
+  height: 4em;
+  bottom: 0;
+  left: 0;
+}
+.progressBarWrapper--top .progressBar {
+  top: 0;
+  left: 50%;
+  height: 0.1em;
+  max-width: 100vw;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+.progressBarWrapper--bottom {
+  width: 100vw;
+  height: 4em;
+  top: 0;
+  left: 0;
+}
+.progressBarWrapper--bottom .progressBar {
+  bottom: 0;
+  left: 50%;
+  height: 0.1em;
+  max-width: 100vw;
+  -webkit-transform: translate(-50%, 0);
+          transform: translate(-50%, 0);
+}
+.progressBarWrapper .overlayWrapper {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+.progressBarWrapper .overlayWrapper .overlay {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  overflow: hidden;
+  width: 0;
+  height: 100vh;
+  padding: 0;
+  background-color: rgba(22, 22, 22, 0.75);
+  -webkit-backdrop-filter: blur(4px) grayscale(1);
+          backdrop-filter: blur(4px) grayscale(1);
+  color: #d6d6d6;
+  transition: width 0.3s linear;
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper {
+  position: absolute;
+  width: 4em;
+  height: 4em;
+  opacity: 0;
+  top: 8em;
+  right: 8em;
+  transition: opacity 0s linear;
+  transition-delay: 0s;
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #d6d6d6;
+  font-size: 1em;
+  cursor: pointer;
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before, .progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:after {
+  position: absolute;
+  height: 100%;
+  width: 0.1em;
+  top: 0;
+  left: 50%;
+  content: " ";
+  background-color: #d6d6d6;
+  transition: -webkit-transform 0.1s linear;
+  transition: transform 0.1s linear;
+  transition: transform 0.1s linear, -webkit-transform 0.1s linear;
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:before {
+  -webkit-transform-origin: center top;
+          transform-origin: center top;
+  -webkit-transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%);
+          transform: translate(0, 50%) rotate(calc(var(--PI) / 4)) translate(0, -50%);
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:after {
+  -webkit-transform-origin: center bottom;
+          transform-origin: center bottom;
+  -webkit-transform: translate(0, -50%) rotate(calc(var(--PI) / -4)) translate(0, 50%);
+          transform: translate(0, -50%) rotate(calc(var(--PI) / -4)) translate(0, 50%);
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:hover:before {
+  -webkit-transform: translate(100%, 25%) rotate(calc(var(--PI) / 3)) translate(-100%, -45%);
+          transform: translate(100%, 25%) rotate(calc(var(--PI) / 3)) translate(-100%, -45%);
+}
+.progressBarWrapper .overlayWrapper .overlay .buttonWrapper .closeButton:hover:after {
+  -webkit-transform: translate(100%, -25%) rotate(calc(var(--PI) / -3)) translate(-100%, 45%);
+          transform: translate(100%, -25%) rotate(calc(var(--PI) / -3)) translate(-100%, 45%);
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .about,
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .social {
+  margin: 0.5em 0;
+  margin-top: 0;
+  opacity: 0;
+  text-transform: uppercase;
+  transition: opacity 0s linear;
+  transition-delay: 0s;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayText {
+  width: 50%;
+  margin: 0.5em 0;
+  opacity: 0;
+  transition: opacity 0s linear;
+  transition-delay: 0s;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper {
+  position: absolute;
+  display: block;
+  left: 0;
+  bottom: 0;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink {
+  display: inline-block;
+  position: relative;
+  margin: 0.5em 0;
+  margin-right: 100%;
+  opacity: 0;
+  color: rgba(0, 0, 0, 0);
+  -webkit-text-stroke: 1px #d6d6d6;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity 0s linear;
+  transition-delay: 0s;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0.1em;
+  background-color: #d6d6d6;
+  transition: width 0.3s linear;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .overlayLinkWrapper .overlayLink:hover {
+  color: #d6d6d6;
+  -webkit-text-stroke: none;
+}
+.progressBarWrapper .overlayWrapper .overlay .overlayContent .aboutCanvasContainer {
+  position: absolute;
+  display: block;
+  width: 16em;
+  height: 16em;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  border: 0.1em solid #d6d6d6;
+  border-radius: 100%;
+  transition: opacity 0s linear;
+  transition-delay: 0s;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible {
+  width: 100vw;
+  padding: 8em;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible .buttonWrapper {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  transition-delay: 0.9s;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .about,
+.progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .social {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  transition-delay: 0.3s;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .overlayText {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  transition-delay: 0.6s;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .overlayLinkWrapper .overlayLink {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  transition-delay: 0.9s;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .overlayLinkWrapper .overlayLink::after {
+  width: 100%;
+  transition: width 0.3s linear;
+  transition-delay: 1.2s;
+}
+.progressBarWrapper .overlayWrapper .overlay--visible .overlayContent .aboutCanvasContainer {
+  opacity: 1;
+  transition: opacity 0.3s linear;
+  transition-delay: 0.9s;
+}
+.progressBarWrapper .navigationWrapper {
+  position: absolute;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  width: 100%;
+  height: calc(100% - 8em);
+  top: 50%;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.progressBarWrapper .navigationWrapper .navigationItem,
+.progressBarWrapper .navigationWrapper .progressDisplay {
+  display: block;
+  width: 100%;
+  margin: 1em 0;
+  text-align: center;
+}
+.progressBarWrapper .navigationWrapper .navigationItem .about,
+.progressBarWrapper .navigationWrapper .navigationItem .social,
+.progressBarWrapper .navigationWrapper .navigationItem .contact,
+.progressBarWrapper .navigationWrapper .navigationItem .progress,
+.progressBarWrapper .navigationWrapper .progressDisplay .about,
+.progressBarWrapper .navigationWrapper .progressDisplay .social,
+.progressBarWrapper .navigationWrapper .progressDisplay .contact,
+.progressBarWrapper .navigationWrapper .progressDisplay .progress {
+  display: inline-block;
+  padding: 1em 0;
+  color: #d6d6d6;
+  text-transform: uppercase;
+  font-weight: normal;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+  -webkit-text-orientation: upright;
+          text-orientation: upright;
+}
+.progressBarWrapper .navigationWrapper .navigationItem .about,
+.progressBarWrapper .navigationWrapper .navigationItem .social,
+.progressBarWrapper .navigationWrapper .navigationItem .contact,
+.progressBarWrapper .navigationWrapper .progressDisplay .about,
+.progressBarWrapper .navigationWrapper .progressDisplay .social,
+.progressBarWrapper .navigationWrapper .progressDisplay .contact {
+  cursor: pointer;
+  border-bottom: 0.1em solid rgba(0, 0, 0, 0);
+  border-top: 0.1em solid rgba(0, 0, 0, 0);
+}
+.progressBarWrapper .navigationWrapper .navigationItem .about:hover,
+.progressBarWrapper .navigationWrapper .navigationItem .social:hover,
+.progressBarWrapper .navigationWrapper .navigationItem .contact:hover,
+.progressBarWrapper .navigationWrapper .progressDisplay .about:hover,
+.progressBarWrapper .navigationWrapper .progressDisplay .social:hover,
+.progressBarWrapper .navigationWrapper .progressDisplay .contact:hover {
+  border-bottom: 0.1em solid #d6d6d6;
+  border-top: 0.1em solid #d6d6d6;
+}
+.progressBarWrapper .navigationWrapper .navigationItem .progress,
+.progressBarWrapper .navigationWrapper .progressDisplay .progress {
+  padding: 1.1em 0;
+  cursor: default;
+}
+.progressBarWrapper--visible {
+  opacity: 1;
+}
 
 .globalWrapper {
   position: relative;
@@ -463,172 +537,204 @@ body {
   box-sizing: border-box;
   width: 100%;
   padding: 0 4em;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .panelContainer {
   position: relative;
   width: 100%;
-  background: #161616; }
-  .panelContainer .panelWrapper {
-    position: relative;
-    box-sizing: border-box;
-    display: block;
-    width: 100%;
-    height: 100vh;
-    margin: var(--base-panel-height) 0;
-    padding: 8em; }
-    .panelContainer .panelWrapper:last-of-type {
-      margin-bottom: calc(var(--base-panel-height) / 2); }
-    .panelContainer .panelWrapper .panel {
-      position: relative;
-      display: block;
-      width: 100%;
-      height: 100%; }
-    .panelContainer .panelWrapper .imageWrapper {
-      position: relative;
-      display: block;
-      overflow: hidden;
-      width: 100%;
-      height: 100%;
-      top: 50%;
-      left: 50%;
-      max-height: var(--base-panel-height);
-      -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%);
-      transition: max-height 0.3s ease-in-out; }
-      .panelContainer .panelWrapper .imageWrapper .image {
-        position: relative;
-        display: block;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        object-fit: cover;
-        -webkit-transform: translate(-50%, -50%);
-                transform: translate(-50%, -50%); }
-    .panelContainer .panelWrapper .info {
-      position: absolute;
-      display: block;
-      z-index: 1;
-      width: auto;
-      max-width: 50%;
-      height: auto;
-      top: 50%;
-      color: #2c2b30;
-      background-color: #161616;
-      font-weight: normal;
-      text-transform: uppercase;
-      word-wrap: break-word;
-      pointer-events: none;
-      transition: color 0.3s linear; }
-      .panelContainer .panelWrapper .info::before {
-        position: absolute;
-        display: block;
-        z-index: 0;
-        width: 0;
-        top: 0;
-        overflow: hidden;
-        height: 100%;
-        color: #d6d6d6;
-        opacity: 0;
-        content: attr(data-text);
-        transition: width 0.3s linear, opacity 0.3s linear; }
-      .panelContainer .panelWrapper .info--headline {
-        max-width: 100%;
-        font-weight: bold;
-        white-space: pre-line;
-        font-size: 2em; }
-        .panelContainer .panelWrapper .info--headline::before {
-          display: none; }
-        .panelContainer .panelWrapper .info--headline::after {
-          position: absolute;
-          content: '';
-          top: 100%;
-          left: 0;
-          width: 0;
-          height: 0.1em;
-          background: #d6d6d6;
-          transition: width 0.3s linear; }
-    .panelContainer .panelWrapper .filenameWrapper {
-      position: absolute;
-      display: block;
-      width: 4em;
-      top: 50%;
-      left: 100%;
-      text-align: center;
-      -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%); }
-      .panelContainer .panelWrapper .filenameWrapper .filename {
-        display: inline-block;
-        color: #d6d6d6;
-        padding: 1em 0;
-        text-transform: uppercase;
-        -webkit-writing-mode: vertical-rl;
-            -ms-writing-mode: tb-rl;
-                writing-mode: vertical-rl;
-        -webkit-text-orientation: upright;
-                text-orientation: upright;
-        border-bottom: 0.1em solid rgba(0, 0, 0, 0);
-        border-top: 0.1em solid rgba(0, 0, 0, 0);
-        transition: border 0.1s linear; }
-    .panelContainer .panelWrapper:nth-child(2n + 1) .info {
-      left: 2em;
-      text-align: left;
-      -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%); }
-      .panelContainer .panelWrapper:nth-child(2n + 1) .info::before {
-        left: 0;
-        text-align: left; }
-      .panelContainer .panelWrapper:nth-child(2n + 1) .info--headline {
-        left: 0;
-        right: unset;
-        text-align: left; }
-    .panelContainer .panelWrapper:nth-child(2n + 0) .info {
-      right: 2em;
-      text-align: right;
-      -webkit-transform: translate(0, -50%);
-              transform: translate(0, -50%); }
-      .panelContainer .panelWrapper:nth-child(2n + 0) .info::before {
-        right: 0;
-        text-align: right; }
-      .panelContainer .panelWrapper:nth-child(2n + 0) .info--headline {
-        left: 0;
-        right: unset;
-        text-align: left; }
-    .panelContainer .panelWrapper--expand {
-      height: 100vh;
-      padding: 4em 0; }
-      .panelContainer .panelWrapper--expand .imageWrapper {
-        max-height: 100%; }
-        .panelContainer .panelWrapper--expand .imageWrapper .image {
-          display: block;
-          height: 100%;
-          max-height: 100vh;
-          object-fit: contain;
-          -webkit-transform: none;
-                  transform: none; }
-      .panelContainer .panelWrapper--expand .info {
-        display: none; }
-      .panelContainer .panelWrapper--expand .filenameWrapper .filename {
-        border-bottom: 0.1em solid #d6d6d6;
-        border-top: 0.1em solid #d6d6d6; }
-    .panelContainer .panelWrapper--headline {
-      margin: calc(var(--base-panel-height) / 2) 0; }
-    .panelContainer .panelWrapper--showInfo .imageWrapper .image {
-      display: block;
-      -webkit-transform: translate(-50%, -50%);
-              transform: translate(-50%, -50%); }
-    .panelContainer .panelWrapper--showInfo .info::before {
-      width: 100%;
-      opacity: 1; }
-    .panelContainer .panelWrapper--showInfo .info--headline {
-      color: #d6d6d6; }
-      .panelContainer .panelWrapper--showInfo .info--headline::after {
-        width: 100%; }
-    .panelContainer .panelWrapper--showInfo .filenameWrapper .filename {
-      border-bottom: 0.1em solid #d6d6d6;
-      border-top: 0.1em solid #d6d6d6; }
-    .panelContainer .panelWrapper--showInfo.panelWrapper--expand .info {
-      display: none; }
+  background: #161616;
+}
+.panelContainer .panelWrapper {
+  position: relative;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  margin: var(--base-panel-height) 0;
+  padding: 8em;
+}
+.panelContainer .panelWrapper:last-of-type {
+  margin-bottom: calc(var(--base-panel-height) / 2);
+}
+.panelContainer .panelWrapper .panel {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.panelContainer .panelWrapper .imageWrapper {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  max-height: var(--base-panel-height);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  transition: max-height 0.3s ease-in-out;
+}
+.panelContainer .panelWrapper .imageWrapper .image {
+  position: relative;
+  display: block;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  object-fit: cover;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.panelContainer .panelWrapper .info {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  width: auto;
+  max-width: 50%;
+  height: auto;
+  top: 50%;
+  color: #2c2b30;
+  background-color: #161616;
+  font-weight: normal;
+  text-transform: uppercase;
+  word-wrap: break-word;
+  pointer-events: none;
+  transition: color 0.3s linear;
+}
+.panelContainer .panelWrapper .info::before {
+  position: absolute;
+  display: block;
+  z-index: 0;
+  width: 0;
+  top: 0;
+  overflow: hidden;
+  height: 100%;
+  color: #d6d6d6;
+  opacity: 0;
+  content: attr(data-text);
+  transition: width 0.3s linear, opacity 0.3s linear;
+}
+.panelContainer .panelWrapper .info--headline {
+  max-width: 100%;
+  font-weight: bold;
+  white-space: pre-line;
+  font-size: 2em;
+}
+.panelContainer .panelWrapper .info--headline::before {
+  display: none;
+}
+.panelContainer .panelWrapper .info--headline::after {
+  position: absolute;
+  content: "";
+  top: 100%;
+  left: 0;
+  width: 0;
+  height: 0.1em;
+  background: #d6d6d6;
+  transition: width 0.3s linear;
+}
+.panelContainer .panelWrapper .filenameWrapper {
+  position: absolute;
+  display: block;
+  width: 4em;
+  top: 50%;
+  left: 100%;
+  text-align: center;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.panelContainer .panelWrapper .filenameWrapper .filename {
+  display: inline-block;
+  color: #d6d6d6;
+  padding: 1em 0;
+  text-transform: uppercase;
+  -webkit-writing-mode: vertical-rl;
+      -ms-writing-mode: tb-rl;
+          writing-mode: vertical-rl;
+  -webkit-text-orientation: upright;
+          text-orientation: upright;
+  border-bottom: 0.1em solid rgba(0, 0, 0, 0);
+  border-top: 0.1em solid rgba(0, 0, 0, 0);
+  transition: border 0.1s linear;
+}
+.panelContainer .panelWrapper:nth-child(2n+1) .info {
+  left: 2em;
+  text-align: left;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.panelContainer .panelWrapper:nth-child(2n+1) .info::before {
+  left: 0;
+  text-align: left;
+}
+.panelContainer .panelWrapper:nth-child(2n+1) .info--headline {
+  left: 0;
+  right: unset;
+  text-align: left;
+}
+.panelContainer .panelWrapper:nth-child(2n+0) .info {
+  right: 2em;
+  text-align: right;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+}
+.panelContainer .panelWrapper:nth-child(2n+0) .info::before {
+  right: 0;
+  text-align: right;
+}
+.panelContainer .panelWrapper:nth-child(2n+0) .info--headline {
+  left: 0;
+  right: unset;
+  text-align: left;
+}
+.panelContainer .panelWrapper--expand {
+  height: 100vh;
+  padding: 4em 0;
+}
+.panelContainer .panelWrapper--expand .imageWrapper {
+  max-height: 100%;
+}
+.panelContainer .panelWrapper--expand .imageWrapper .image {
+  display: block;
+  height: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  -webkit-transform: none;
+          transform: none;
+}
+.panelContainer .panelWrapper--expand .info {
+  display: none;
+}
+.panelContainer .panelWrapper--expand .filenameWrapper .filename {
+  border-bottom: 0.1em solid #d6d6d6;
+  border-top: 0.1em solid #d6d6d6;
+}
+.panelContainer .panelWrapper--headline {
+  margin: calc(var(--base-panel-height) / 2) 0;
+}
+.panelContainer .panelWrapper--showInfo .imageWrapper .image {
+  display: block;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+.panelContainer .panelWrapper--showInfo .info::before {
+  width: 100%;
+  opacity: 1;
+}
+.panelContainer .panelWrapper--showInfo .info--headline {
+  color: #d6d6d6;
+}
+.panelContainer .panelWrapper--showInfo .info--headline::after {
+  width: 100%;
+}
+.panelContainer .panelWrapper--showInfo .filenameWrapper .filename {
+  border-bottom: 0.1em solid #d6d6d6;
+  border-top: 0.1em solid #d6d6d6;
+}
+.panelContainer .panelWrapper--showInfo.panelWrapper--expand .info {
+  display: none;
+}
 
 .footer {
   position: relative;
@@ -642,31 +748,34 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
-  height: 4em; }
-  .footer .footerContent {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-direction: row;
-        -ms-flex-direction: row;
-            flex-direction: row;
-    -webkit-flex-wrap: nowrap;
-        -ms-flex-wrap: nowrap;
-            flex-wrap: nowrap;
-    -webkit-align-items: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-    background-color: #161616; }
-    .footer .footerContent span {
-      width: 25%;
-      color: #2c2b30;
-      font-size: 1em;
-      text-align: center;
-      font-weight: bold; }
+  height: 4em;
+}
+.footer .footerContent {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+  background-color: #161616;
+}
+.footer .footerContent span {
+  width: 25%;
+  color: #2c2b30;
+  font-size: 1em;
+  text-align: center;
+  font-weight: bold;
+}
