@@ -1,4 +1,13 @@
-(function headerAnimation() {
+import * as THREE from 'three';
+
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+// import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+// import { LuminosityHighPassShader } from 'three/examples/jsm/shaders/LuminosityHighPassShader';
+// import CopyShader from 'three/examples/jsm/shaders/CopyShader';
+
+function createHeaderAnimation(projects) {
 	let container;
 	container = document.querySelector('.headerCanvasContainer');
 	window.addEventListener('resize', onWindowResize);
@@ -24,7 +33,7 @@
 	const images = projects.filter(project => project.type === 'image');
 	let image1 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
 	let image2 = loadTexture(images[Math.floor(Math.random() * images.length)].src);
-	let dispImage = loadTexture('../images/nebula1.jpg');
+	let dispImage = loadTexture(new URL('../images/nebula1.jpg', import.meta.url).href);
 	
 	let imagesRatio = container.offsetHeight / container.offsetWidth;
 	let intensity1 = 1.0;
@@ -187,7 +196,7 @@ void main() {
 		const url = _url;
 		let texture;
 
-		const addTexture = (res) => {};
+		const addTexture = () => {};
 
 		const onError = (e) => {
 			console.log(e);
@@ -214,15 +223,15 @@ void main() {
 	}
 
 	function createCompositor() {
-		const renderScene = new THREE.RenderPass( scene, camera );
+		const renderScene = new RenderPass( scene, camera );
 
-		const bloomPass = new THREE.UnrealBloomPass( new THREE.Vector2( container.clientWidth, container.clientHeight ), 1.5, 0.4, 0.85 );
+		const bloomPass = new UnrealBloomPass( new THREE.Vector2( container.clientWidth, container.clientHeight ), 1.5, 0.4, 0.85 );
 		bloomPass.exposure = bloomParams.bloomExposure;
 		bloomPass.threshold = bloomParams.bloomThreshold;
 		bloomPass.strength = bloomParams.bloomStrength;
 		bloomPass.radius = bloomParams.bloomRadius;
 
-		composer = new THREE.EffectComposer( renderer );
+		composer = new EffectComposer( renderer );
 		composer.addPass( renderScene );
 		composer.addPass( bloomPass );
 	}
@@ -277,6 +286,7 @@ void main() {
 
 	}
 	init();
-	window.headerAnimationPlay = play;
-	window.headerAnimationStop = stop;
-})();
+	return {play, stop}
+}
+
+export { createHeaderAnimation }

@@ -1,8 +1,15 @@
+import { projects } from './projects';
+import { checkBrowserSupport} from './checkbrowsersupport';
+import { createHeaderAnimation } from './headeranimation2';
+import { createAboutAnimation } from './aboutanimation';
+
 const progressBarWrappers = document.querySelectorAll('.progressBarWrapper');
 const progressCount = document.querySelector('.progress');
 const navigation = document.querySelector('.navigationWrapper');
 const overlayWrapper = document.querySelector('.overlayWrapper');
 const closeButtons = overlayWrapper.querySelectorAll('.closeButton');
+const headerAnimation = createHeaderAnimation(projects);
+const aboutAnimation = createAboutAnimation();
 let previousScrollY = 0;
 let windowHeight = window.innerHeight;
 let loaded = false;
@@ -12,7 +19,7 @@ let visibleElement;
 
 let s, i, m, b, r, d, x, y, z;
 
-document.addEventListener('DOMContentLoaded', function (event) {
+document.addEventListener('DOMContentLoaded', function () {
 	s = document.body.querySelector('.s');
 	i = document.body.querySelector('.i');
 	m = document.body.querySelector('.m');
@@ -31,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 	toggleOnScroll();
 });
 
-window.addEventListener('resize', function (event) {
+window.addEventListener('resize', function () {
 	//checkBrowserWidth();
 	if (loaded) {
 		windowHeight = window.innerHeight;
@@ -42,7 +49,7 @@ window.addEventListener('resize', function (event) {
 
 function drawAnimation() {
 	requestAnimationFrame(drawAnimation);
-	if (headerAnimationPlaying) { window.headerAnimationPlay(); }
+	if (headerAnimationPlaying) { headerAnimation.play(); }
 	frameCounter += 1;
 	if (frameCounter % 3 !== 0 && !hasScrolled()) return;
 	makeProgress();
@@ -200,7 +207,7 @@ function createPanels() {
 }
 
 navigation.querySelectorAll('.navigationItem').forEach((item) => {
-	item.addEventListener('click', function (event) {
+	item.addEventListener('click', function () {
 		const overlay = overlayWrapper.querySelector(
 			'.overlay--' + item.dataset.className
 		);
@@ -208,21 +215,18 @@ navigation.querySelectorAll('.navigationItem').forEach((item) => {
 
 		if (isVisible) {
 			overlay.classList.remove('overlay--visible');
-			window.aboutAnimationStop();
+			aboutAnimation.stop();
 		} else {
 			overlayWrapper.querySelectorAll('.overlay--visible').forEach((item) => {
 				item.classList.remove('overlay--visible');
 			});
 			overlay.classList.add('overlay--visible');
-			// setTimeout(() => {
-			// 	window.aboutAnimationResize();
-			// 	window.aboutAnimationPlay();
-			// },300);
+
 			overlay.addEventListener(
 				'transitionend',
 				function () {
-					window.aboutAnimationResize();
-					window.aboutAnimationPlay();
+					aboutAnimation.onWindowResize();
+					aboutAnimation.play();
 				},
 				{
 					capture: false,
@@ -239,10 +243,10 @@ navigation.querySelectorAll('.navigationItem').forEach((item) => {
 });
 
 closeButtons.forEach((button) => {
-	button.addEventListener('click', function (event) {
+	button.addEventListener('click', function () {
 		const overlay = overlayWrapper.querySelector('.overlay--visible');
 		overlay.classList.remove('overlay--visible');
-		window.aboutAnimationStop();
+		aboutAnimation.stop();
 	});
 });
 
@@ -299,7 +303,7 @@ function toggleOnScroll() {
 	});
 }
 
-function handleIntersect(entries, observer) {
+function handleIntersect(entries) {
 	entries.forEach(entry => {
 		const imageWrapper = entry.target.querySelector('.imageWrapper');
 		if (entry.intersectionRatio > 0.75) {

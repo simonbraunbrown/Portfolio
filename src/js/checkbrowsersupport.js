@@ -26,3 +26,5 @@ function checkBrowserWidth() {
 		}
 	}
 }
+
+export { checkBrowserSupport, checkBrowserWidth }

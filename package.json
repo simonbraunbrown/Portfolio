@@ -2,34 +2,25 @@
   "name": "portfolio_website",
   "version": "1.0.0",
   "description": "portfolio of my digital design and development work ",
-  "main": "./src/index.js",
+  "main": "./src/js/main.js",
+  "type": "module",
   "private": true,
   "scripts": {
-    "dev": "gulp serve"
+    "dev": "vite dev --open",
+    "build": "vite build",
+    "preview": "vite preview --open"
   },
   "author": "Simon Braun",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "browser-sync": "^2.27.9",
-    "css-loader": "^3.6.0",
-    "del": "^5.1.0",
-    "eslint": "^7.32.0",
-    "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-babel": "^8.0.0",
-    "gulp-cache": "^1.1.3",
-    "gulp-clean-css": "^4.3.0",
-    "gulp-imagemin": "^6.2.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-sass": "^4.1.1",
-    "gulp-terser": "^1.4.1",
-    "gulp-useref": "^4.0.1",
-    "gulp-watch": "^5.0.1",
-    "lazypipe": "^1.0.2",
-    "run-sequence": "^2.2.1",
-    "sass": "^1.51.0"
+    "autoprefixer": "^10.4.7",
+    "eslint": "^8.16.0",
+    "eslint-plugin-import": "^2.26.0",
+    "postcss": "^8.4.14",
+    "postcss-scss": "^4.0.4",
+    "sass": "^1.52.1",
+    "vite": "^2.9.9",
+    "vite-plugin-eslint": "^1.6.1"
   },
   "browserslist": [
     "ie >= 10",
@@ -41,5 +32,8 @@
     "ios >= 7",
     "android >= 4.4",
     "bb >= 10"
-  ]
+  ],
+  "dependencies": {
+    "three": "^0.140.2"
+  }
 }

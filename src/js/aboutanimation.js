@@ -1,11 +1,15 @@
-(function aboutAnimation() {
+import * as THREE from 'three';
+
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+function createAboutAnimation() {
 	let container;
 	let time = 0;
 
 	let scene;
 	let camera;
 	let light;
-	let mesh;
 	let model;
 	let renderer;
 	let controls;
@@ -49,7 +53,7 @@
 		const url = _url;
 		let texture;
 
-		const addTexture = (res) => {};
+		const addTexture = () => {};
 
 		const onError = (e) => {
 			console.log(e);
@@ -64,28 +68,17 @@
 	}
 
 	function loadModel() {
-		const loader = new THREE.GLTFLoader();
-		const url = '../models/export_me_lowPoly_glossy.glb';
+		const loader = new GLTFLoader();
+		const url = new URL('../models/export_me_lowPoly_glossy.glb', import.meta.url).href;
 		const modelPosition = new THREE.Vector3(0, -0.1, 0);
 
 		const addModel = (gltf, position) => {
 			model = gltf.scene.children[0];
 			model.position.copy(position);
 
-			const envMap = loadTexture('../models/Photo-studio-with-umbrella.jpg');
+			const envMap = loadTexture(new URL('../models/Photo-studio-with-umbrella.jpg', import.meta.url).href);
 			envMap.mapping = THREE.EquirectangularReflectionMapping;
 			envMap.encoding = THREE.sRGBEncoding;
-
-			const material = new THREE.MeshStandardMaterial({
-				color: 0x161616,
-				flatShading: true,
-				roughness: 0.05,
-				metalness: 1.0,
-				envMap: envMap,
-				envMapIntensity: 1.5,
-				morphNormals: true,
-				opacity: 1.0,
-			});
 
 			let mat = new THREE.MeshStandardMaterial();
 
@@ -110,7 +103,7 @@
 			scene.add(model);
 		};
 
-		const onProgress = (progress) => {
+		const onProgress = () => {
 			//console.log(progress);
 		};
 
@@ -139,7 +132,7 @@
 	}
 
 	function createControls() {
-		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		controls = new OrbitControls(camera, renderer.domElement);
 		controls.enableDamping = true;
 		controls.enablePan = false;
 		controls.enableZoom = false;
@@ -181,9 +174,8 @@
 		renderer.setSize(container.clientWidth, container.clientHeight);
 	}
 
-	window.aboutAnimationPlay = play;
-	window.aboutAnimationStop = stop;
-	window.aboutAnimationResize = onWindowResize;
-
 	init();
-})();
+	return {play, stop, onWindowResize}
+}
+
+export { createAboutAnimation }
