@@ -391,13 +391,19 @@ body {
 				& .overlayLinkWrapper {
 					position: absolute;
 					display: block;
+					width: 100%;
 					left: 0;
 					bottom: 0;
+					& .overlayList {
+						margin: 0;
+						padding-inline: 0;
+						list-style: none;
+					}
 					& .overlayLink {
 						display: inline-block;
 						position: relative;
+						width: auto;
 						margin: 0.5em 0;
-						margin-right: 100%;
 						opacity: 0;
 						color: $color-transparent;
 						-webkit-text-stroke: 1px $main-color-light;
@@ -412,12 +418,20 @@ body {
 							left: 0;
 							width: 0;
 							height: 0.1em;
-							background-color: $main-color-light;
-							transition: width 0.3s linear;
+							background-color: transparent;
+							background-image: linear-gradient(180deg, transparent 0, $main-color-light 0);
+							background-size: 0px 93%;
+							background-repeat: no-repeat;
+							border: 1px solid $main-color-light;
+							transition: width 0.3s ease, background 0.4s ease;
 						}
 						&:hover {
 							color: $main-color-light;
 							-webkit-text-stroke: none;
+
+							&:after {
+								background-size: 100% 93%;
+							}
 						}
 					}
 				}
@@ -462,8 +476,7 @@ body {
 							transition-delay: 0.9s;
 							&::after {
 								width: 100%;
-								transition: width 0.3s linear;
-								transition-delay: 1.2s;
+								transition: width 0.3s ease 1.2s, background 0.4s ease;
 							}
 						}
 					}
@@ -471,6 +484,8 @@ body {
 						opacity: 1;
 						transition: opacity 0.3s linear;
 						transition-delay: 0.9s;
+
+						
 					}
 				}
 			}
@@ -547,7 +562,7 @@ body {
 		display: block;
 		width: 100%;
 		height: 100vh;
-		margin: var(--base-panel-height) 0;
+		margin: calc(var(--base-panel-height) / 4) 0;
 		padding: 8em;
 		&:last-of-type {
 			margin-bottom: calc(var(--base-panel-height) / 2);
