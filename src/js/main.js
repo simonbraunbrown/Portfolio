@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	createPanels();
 	drawAnimation();
 	toggleOnScroll();
+	updateCopyright();
 });
 
 window.addEventListener('resize', function () {
@@ -421,4 +422,9 @@ function translate(element) {
 	else {
 		element.querySelector('.image').style.transform = 'translate(-50%, -50%)';
 	}
+}
+
+function updateCopyright() {
+	const currentYear = new Date().getFullYear();
+	document.querySelector('.copyright').innerHTML = `© ${currentYear}`;
 }
